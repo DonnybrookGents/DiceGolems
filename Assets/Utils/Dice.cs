@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Dice {
+public class Die {
     private int[] _Faces;
 
-    public Dice(int[] faces) {
+    public Die(int[] faces) {
         SetFaces(faces);
     }
 
-    public Dice() : this(new int[] { 1, 2, 3, 4, 5, 6 }) { }
+    public Die() : this(new int[] { 1, 2, 3, 4, 5, 6 }) { }
 
     public int Roll() {
         int index = _Faces.Length;
