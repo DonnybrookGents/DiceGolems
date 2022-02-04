@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Die {
     public int[] Faces;
+    public int Value;
 
     public Die(int[] faces) {
         Faces = faces;
@@ -11,6 +12,9 @@ public class Die {
 
     public int Roll() {
         int index = Faces.Length;
-        return Faces[Random.Range(0, index)];
+        int value = Faces[Random.Range(0, index)];
+
+        Value = value;
+        return value;
     }
 }
