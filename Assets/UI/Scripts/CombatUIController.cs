@@ -4,16 +4,26 @@ using UnityEngine.UI;
 
 public class CombatUIController : MonoBehaviour {
     public CombatController Combat;
+    public Text EnergyLevel;
     public Text VatInfo;
     public Transform DicePool;
 
     private List<Text> Dice = new List<Text>();
 
     public void Start() {
-        // Dice = new List<Text>();
-
+        GetEnergy();
         GetVatDice();
         GetDicePlaceholders();
+    }
+
+    public void GetEnergy() {
+        EnergyLevel.text = Combat.Energy.ToString();
+
+        if (Combat.Energy == 0) {
+            EnergyLevel.color = Color.red;
+        } else {
+            EnergyLevel.color = Color.white;
+        }
     }
 
     public void GetVatDice() {
@@ -31,12 +41,14 @@ public class CombatUIController : MonoBehaviour {
     }
 
     public void RollDice() {
-        if (Combat.Pool.Count < Dice.Count) {
+        if (Combat.Energy > 0 && Combat.Pool.Count < Dice.Count) {
             Combat.GenerateDice();
 
             int index = Combat.Pool.Count - 1;
             Dice[index].text = Combat.Pool[index].Value.ToString();
         }
+
+        GetEnergy();
     }
 
     private void GetDicePlaceholders() {
