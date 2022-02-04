@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DiceHandler : MonoBehaviour {
+public class CombatUIController : MonoBehaviour {
     public CombatController Combat;
 
     public void RollDice(Text value) {
