@@ -1,15 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatController {
-    public List<Die> Generator;
+public class CombatController : MonoBehaviour {
+    public List<Die> Vat;
     public List<Die> Pool;
 
-    public void GenerateDice() {
-        int index = Random.Range(0, Generator.Count);
-        Die die = Generator[index];
+    public void Start() {
+        Vat = new List<Die> {
+            new Die(),
+            new Die()
+        };
 
-        die.Roll();
+        Pool = new List<Die>();
+    }
+
+    public void GenerateDice() {
+        int index = Random.Range(0, Vat.Count);
+        Die die = Vat[index];
+
+        Debug.Log(die.Roll());
         Pool.Add(die);
     }
 }
