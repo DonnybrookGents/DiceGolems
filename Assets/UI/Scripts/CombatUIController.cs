@@ -7,6 +7,7 @@ public class CombatUIController : MonoBehaviour {
     public Text EnergyLevel;
     public Text VatInfo;
     public Transform DicePool;
+    public Die SelectedDie;
 
     private List<Text> Dice = new List<Text>();
 
@@ -51,9 +52,20 @@ public class CombatUIController : MonoBehaviour {
         GetEnergy();
     }
 
+    public void SelectDice(Text die) {
+        int id = die.GetInstanceID();
+        int index = Dice.FindIndex(x => x.GetInstanceID() == id);
+
+        if (index != -1 && index <= Combat.Pool.Count - 1) {
+            SelectedDie = Combat.Pool[index];
+        }
+
+        Debug.Log(SelectedDie.Value);
+    }
+
     private void GetDicePlaceholders() {
         foreach (Transform transform in DicePool) {
-            Dice.Add(transform.Find("Value").GetComponent<Text>());
+            Dice.Add(transform.Find("Text").GetComponent<Text>());
         }
     }
 }

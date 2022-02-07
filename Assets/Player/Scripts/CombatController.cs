@@ -18,7 +18,8 @@ public class CombatController : MonoBehaviour {
     public void GenerateDice() {
         if (Energy > 0) {
             int index = Random.Range(0, Vat.Count);
-            Die die = Vat[index];
+
+            Die die = new Die(Vat[index].Faces);
 
             die.Roll();
             Pool.Add(die);
