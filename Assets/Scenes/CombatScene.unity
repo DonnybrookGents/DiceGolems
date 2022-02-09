@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 14835631}
   - component: {fileID: 14835630}
   - component: {fileID: 14835629}
+  - component: {fileID: 14835632}
   m_Layer: 5
   m_Name: Dice1
   m_TagString: Untagged
@@ -208,11 +209,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 239112765}
         m_TargetAssemblyTypeName: CombatUIController, Assembly-CSharp
-        m_MethodName: SetSocket
+        m_MethodName: MoveDice
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 932476886}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+          m_ObjectArgument: {fileID: 14835632}
+          m_ObjectArgumentAssemblyTypeName: UIDiceSlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -256,6 +257,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 14835627}
   m_CullTransparentMesh: 1
+--- !u!114 &14835632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14835627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UUID: 
+  DisplayText: {fileID: 0}
 --- !u!1 &109814017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,7 +1236,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 239112765}
         m_TargetAssemblyTypeName: CombatUIController, Assembly-CSharp
-        m_MethodName: SelectDice
+        m_MethodName: MoveDice
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 749220751}
@@ -1282,7 +1297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UUID: 
-  Image: {fileID: 0}
+  DisplayText: {fileID: 0}
 --- !u!1 &770150945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,6 +1310,7 @@ GameObject:
   - component: {fileID: 770150949}
   - component: {fileID: 770150948}
   - component: {fileID: 770150947}
+  - component: {fileID: 770150950}
   m_Layer: 5
   m_Name: Dice2
   m_TagString: Untagged
@@ -1368,11 +1384,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 239112765}
         m_TargetAssemblyTypeName: CombatUIController, Assembly-CSharp
-        m_MethodName: SetSocket
+        m_MethodName: MoveDice
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1068398408}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+          m_ObjectArgument: {fileID: 770150950}
+          m_ObjectArgumentAssemblyTypeName: UIDiceSlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1416,6 +1432,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770150945}
   m_CullTransparentMesh: 1
+--- !u!114 &770150950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770150945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UUID: 
+  DisplayText: {fileID: 0}
 --- !u!1 &781286833
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,6 +1458,7 @@ GameObject:
   - component: {fileID: 781286837}
   - component: {fileID: 781286836}
   - component: {fileID: 781286835}
+  - component: {fileID: 781286838}
   m_Layer: 5
   m_Name: Dice2
   m_TagString: Untagged
@@ -1501,11 +1532,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 239112765}
         m_TargetAssemblyTypeName: CombatUIController, Assembly-CSharp
-        m_MethodName: SetSocket
+        m_MethodName: MoveDice
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1311933287}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+          m_ObjectArgument: {fileID: 781286838}
+          m_ObjectArgumentAssemblyTypeName: UIDiceSlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1549,6 +1580,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 781286833}
   m_CullTransparentMesh: 1
+--- !u!114 &781286838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781286833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UUID: 
+  DisplayText: {fileID: 0}
 --- !u!1 &814451549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1913,7 +1958,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 239112765}
         m_TargetAssemblyTypeName: CombatUIController, Assembly-CSharp
-        m_MethodName: SelectDice
+        m_MethodName: MoveDice
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 866198743}
@@ -1974,7 +2019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UUID: 
-  Image: {fileID: 0}
+  DisplayText: {fileID: 0}
 --- !u!1 &932476884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,7 +2264,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 239112765}
         m_TargetAssemblyTypeName: CombatUIController, Assembly-CSharp
-        m_MethodName: SelectDice
+        m_MethodName: MoveDice
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1021683597}
@@ -2280,7 +2325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UUID: 
-  Image: {fileID: 0}
+  DisplayText: {fileID: 0}
 --- !u!1 &1068398406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2372,6 +2417,7 @@ GameObject:
   - component: {fileID: 1086953160}
   - component: {fileID: 1086953159}
   - component: {fileID: 1086953158}
+  - component: {fileID: 1086953161}
   m_Layer: 5
   m_Name: Dice1
   m_TagString: Untagged
@@ -2445,11 +2491,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 239112765}
         m_TargetAssemblyTypeName: CombatUIController, Assembly-CSharp
-        m_MethodName: SetSocket
+        m_MethodName: MoveDice
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 992126577}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+          m_ObjectArgument: {fileID: 1086953161}
+          m_ObjectArgumentAssemblyTypeName: UIDiceSlot, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2493,6 +2539,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1086953156}
   m_CullTransparentMesh: 1
+--- !u!114 &1086953161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086953156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UUID: 
+  DisplayText: {fileID: 0}
 --- !u!1 &1128632631
 GameObject:
   m_ObjectHideFlags: 0
@@ -2693,7 +2753,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 239112765}
         m_TargetAssemblyTypeName: CombatUIController, Assembly-CSharp
-        m_MethodName: SelectDice
+        m_MethodName: MoveDice
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1180193188}
@@ -2754,7 +2814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UUID: 
-  Image: {fileID: 0}
+  DisplayText: {fileID: 0}
 --- !u!1 &1267187615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2841,7 +2901,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 239112765}
         m_TargetAssemblyTypeName: CombatUIController, Assembly-CSharp
-        m_MethodName: SelectDice
+        m_MethodName: MoveDice
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1267187620}
@@ -2902,7 +2962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UUID: 
-  Image: {fileID: 0}
+  DisplayText: {fileID: 0}
 --- !u!1 &1288289069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3384,7 +3444,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 239112765}
         m_TargetAssemblyTypeName: CombatUIController, Assembly-CSharp
-        m_MethodName: SelectDice
+        m_MethodName: MoveDice
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1515511677}
@@ -3445,7 +3505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UUID: 
-  Image: {fileID: 0}
+  DisplayText: {fileID: 0}
 --- !u!1 &1553796036
 GameObject:
   m_ObjectHideFlags: 0
@@ -4001,7 +4061,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 239112765}
         m_TargetAssemblyTypeName: CombatUIController, Assembly-CSharp
-        m_MethodName: SelectDice
+        m_MethodName: MoveDice
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1960323683}
@@ -4062,7 +4122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UUID: 
-  Image: {fileID: 0}
+  DisplayText: {fileID: 0}
 --- !u!1 &2080346206
 GameObject:
   m_ObjectHideFlags: 0
