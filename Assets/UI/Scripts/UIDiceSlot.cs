@@ -1,15 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum DiceZone {
+    Pool,
+    AttackTile,
+    DefenseTile,
+    None
+}
 public class UIDiceSlot : MonoBehaviour {
     [HideInInspector] public string UUID;
     [HideInInspector] public Text DisplayText;
+    public DiceZone Zone;
+
 
     private void Start() {
         DisplayText = GetComponentInChildren<Text>();
     }
 
-    public void Add(Die die) {
+    public void Set(Die die) {
         if (die == null) {
             return;
         }

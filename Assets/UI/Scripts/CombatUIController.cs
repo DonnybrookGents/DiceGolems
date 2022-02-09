@@ -17,7 +17,14 @@ public class CombatUIController : MonoBehaviour {
 
     private UIState _State = UIState.Deselected;
 
+    private Dictionary<DiceZone, Dictionary<string, Die>> ZoneMap;
+
     public void Start() {
+        ZoneMap = new Dictionary<DiceZone, Dictionary<string, Die>>{
+            {DiceZone.Pool, Combat.Pool},
+            {DiceZone.AttackTile, Combat.AttackTile},
+            {DiceZone.DefenseTile, Combat.DefenseTile}
+        };
         GetEnergy();
         GetBankInfo();
     }
@@ -54,7 +61,7 @@ public class CombatUIController : MonoBehaviour {
                 return;
             }
 
-            poolSlot.Add(Combat.GenerateDice());
+            poolSlot.Set(Combat.GenerateDice());
         }
 
         GetEnergy();
@@ -75,8 +82,15 @@ public class CombatUIController : MonoBehaviour {
         if (_State == UIState.Selected || diceSlot.UUID == "") {
             return;
         }
+        /*
 
-        SelectedDie = Combat.Pool[diceSlot.UUID];
+        SelectedDie = Combat.Hand[diceSlot.UUID];
+        if(SelectedDie == null){
+            SelectedDie = Combat.AttackTile[diceSlot.UUID];
+        }
+        
+        */
+        SelectedDie = Combat.Table[diceSlot.UUID];
         diceSlot.Highlight(new Color(0, .5f, 1));
 
         _State = UIState.Selected;
@@ -84,19 +98,25 @@ public class CombatUIController : MonoBehaviour {
 
     private void SetSlot(UIDiceSlot toSlot) {
         if (_State != UIState.Selected) {
-            return; // Handle switching slots.
+            return;
         }
 
-        Die tempSlot = null;
-        if (toSlot.UUID != "") {
-            tempSlot = Combat.Pool[toSlot.UUID];
-        }
+        Die tempSlot = (toSlot.UUID != "") ? Combat.Table[toSlot.UUID] : null;
 
         UIDiceSlot fromSlot = GetAllDiceSlot(SelectedDie.UUID);
+        ZoneMap[fromSlot.Zone].Remove(SelectedDie.UUID);
         fromSlot.Clear();
 
-        toSlot.Add(SelectedDie);
-        fromSlot.Add(tempSlot);
+        toSlot.Set(SelectedDie);
+        ZoneMap[toSlot.Zone].Add(SelectedDie.UUID, SelectedDie);
+
+        if (tempSlot != null) {
+            fromSlot.Set(tempSlot);
+
+            if (!ZoneMap[fromSlot.Zone].ContainsKey(fromSlot.UUID)) {
+                ZoneMap[fromSlot.Zone].Add(fromSlot.UUID, Combat.Table[fromSlot.UUID]);
+            }
+        }
 
         SelectedDie = null;
         _State = UIState.Deselected;
