@@ -115,11 +115,20 @@ public class CombatUIController : MonoBehaviour {
 
             if (!ZoneMap[fromSlot.Zone].ContainsKey(fromSlot.UUID)) {
                 ZoneMap[fromSlot.Zone].Add(fromSlot.UUID, Combat.Table[fromSlot.UUID]);
+                ZoneMap[toSlot.Zone].Remove(fromSlot.UUID);
             }
         }
 
         SelectedDie = null;
         _State = UIState.Deselected;
+
+        foreach (DiceZone key in ZoneMap.Keys) {
+            Debug.Log("Key: " + key);
+            foreach (string id in ZoneMap[key].Keys) {
+                Debug.Log("UUID: " + id);
+            }
+            Debug.Log('\n');
+        }
     }
 
     private UIDiceSlot GetPoolDiceSlot(string uuid) {
