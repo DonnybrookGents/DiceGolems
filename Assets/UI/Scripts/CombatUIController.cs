@@ -2,6 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+enum UIState {
+    Selected,
+    Deselected,
+    None
+}
+
 public class CombatUIController : MonoBehaviour {
     public CombatController Combat;
     public Text EnergyLevel;
@@ -9,12 +15,11 @@ public class CombatUIController : MonoBehaviour {
     public Transform DicePool;
     public Die SelectedDie;
 
-    private List<Text> Dice = new List<Text>();
+    private UIState _State = UIState.Deselected;
 
     public void Start() {
         GetEnergy();
-        GetVatDice();
-        GetDicePlaceholders();
+        GetBankInfo();
     }
 
     public void GetEnergy() {
@@ -27,10 +32,10 @@ public class CombatUIController : MonoBehaviour {
         }
     }
 
-    public void GetVatDice() {
+    public void GetBankInfo() {
         string vatInfo = "";
 
-        foreach (Die die in Combat.Vat) {
+        foreach (Die die in Combat.Bank) {
             foreach (int face in die.Faces) {
                 vatInfo += face.ToString() + " ";
             }
@@ -42,30 +47,78 @@ public class CombatUIController : MonoBehaviour {
     }
 
     public void RollDice() {
-        if (Combat.Energy > 0 && Combat.Pool.Count < Dice.Count) {
-            Combat.GenerateDice();
+        if (Combat.Energy > 0) {
+            UIDiceSlot poolSlot = GetPoolDiceSlot("");
 
-            int index = Combat.Pool.Count - 1;
-            Dice[index].text = Combat.Pool[index].Value.ToString();
+            if (poolSlot == null) {
+                return;
+            }
+
+            poolSlot.Add(Combat.GenerateDice());
         }
 
         GetEnergy();
     }
 
-    public void SelectDice(Text die) {
-        int id = die.GetInstanceID();
-        int index = Dice.FindIndex(x => x.GetInstanceID() == id);
-
-        if (index != -1 && index <= Combat.Pool.Count - 1) {
-            SelectedDie = Combat.Pool[index];
+    public void MoveDice(UIDiceSlot slot) {
+        switch (_State) {
+            case UIState.Selected:
+                SetSlot(slot);
+                break;
+            case UIState.Deselected:
+                SelectDice(slot);
+                break;
         }
-
-        Debug.Log(SelectedDie.Value);
     }
 
-    private void GetDicePlaceholders() {
-        foreach (Transform transform in DicePool) {
-            Dice.Add(transform.Find("Text").GetComponent<Text>());
+    private void SelectDice(UIDiceSlot diceSlot) {
+        if (_State == UIState.Selected || diceSlot.UUID == "") {
+            return;
         }
+
+        SelectedDie = Combat.Pool[diceSlot.UUID];
+        diceSlot.Highlight(new Color(0, .5f, 1));
+
+        _State = UIState.Selected;
+    }
+
+    private void SetSlot(UIDiceSlot toSlot) {
+        if (_State != UIState.Selected) {
+            return; // Handle switching slots.
+        }
+
+        Die tempSlot = null;
+        if (toSlot.UUID != "") {
+            tempSlot = Combat.Pool[toSlot.UUID];
+        }
+
+        UIDiceSlot fromSlot = GetAllDiceSlot(SelectedDie.UUID);
+        fromSlot.Clear();
+
+        toSlot.Add(SelectedDie);
+        fromSlot.Add(tempSlot);
+
+        SelectedDie = null;
+        _State = UIState.Deselected;
+    }
+
+    private UIDiceSlot GetPoolDiceSlot(string uuid) {
+        foreach (UIDiceSlot diceSlot in DicePool.GetComponentsInChildren<UIDiceSlot>()) {
+            if (uuid == diceSlot.UUID) {
+                return diceSlot;
+            }
+        }
+
+        return null;
+    }
+
+    private UIDiceSlot GetAllDiceSlot(string uuid) {
+        foreach (UIDiceSlot diceSlot in GetComponentsInChildren<UIDiceSlot>()) {
+            if (uuid == diceSlot.UUID) {
+                return diceSlot;
+            }
+        }
+
+        return null;
     }
 }
