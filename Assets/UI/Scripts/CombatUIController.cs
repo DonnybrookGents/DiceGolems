@@ -82,14 +82,7 @@ public class CombatUIController : MonoBehaviour {
         if (_State == UIState.Selected || diceSlot.UUID == "") {
             return;
         }
-        /*
 
-        SelectedDie = Combat.Hand[diceSlot.UUID];
-        if(SelectedDie == null){
-            SelectedDie = Combat.AttackTile[diceSlot.UUID];
-        }
-        
-        */
         SelectedDie = Combat.Table[diceSlot.UUID];
         diceSlot.Highlight(new Color(0, .5f, 1));
 
@@ -121,14 +114,6 @@ public class CombatUIController : MonoBehaviour {
 
         SelectedDie = null;
         _State = UIState.Deselected;
-
-        foreach (DiceZone key in ZoneMap.Keys) {
-            Debug.Log("Key: " + key);
-            foreach (string id in ZoneMap[key].Keys) {
-                Debug.Log("UUID: " + id);
-            }
-            Debug.Log('\n');
-        }
     }
 
     private UIDiceSlot GetPoolDiceSlot(string uuid) {
