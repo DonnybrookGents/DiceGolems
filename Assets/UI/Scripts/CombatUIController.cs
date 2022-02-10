@@ -29,6 +29,13 @@ public class CombatUIController : MonoBehaviour {
         GetBankInfo();
     }
 
+    public void ActivateTile(GameObject slotParent) {
+        foreach (UIDiceSlot slot in slotParent.GetComponentsInChildren<UIDiceSlot>()) {
+            slot.Clear();
+            ZoneMap[slot.Zone].Remove(slot.UUID);
+        }
+    }
+
     public void GetEnergy() {
         EnergyLevel.text = Combat.Energy.ToString();
 
