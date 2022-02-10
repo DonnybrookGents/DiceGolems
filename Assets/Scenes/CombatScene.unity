@@ -269,9 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UUID: 
+  dieUUID: 
   DisplayText: {fileID: 0}
-  Zone: 1
 --- !u!1 &80778059
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,8 +515,9 @@ GameObject:
   m_Component:
   - component: {fileID: 185330446}
   - component: {fileID: 185330445}
+  - component: {fileID: 185330447}
   m_Layer: 0
-  m_Name: Combat
+  m_Name: Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -550,6 +550,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &185330447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185330444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce7de3fe9ef7c82408cc9f74362c4002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &239112760
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,6 +681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Combat: {fileID: 185330445}
+  Zones: {fileID: 185330447}
   EnergyLevel: {fileID: 1457929693}
   VatInfo: {fileID: 577213612}
   DicePool: {fileID: 2080346207}
@@ -724,9 +737,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UUID: 
+  dieUUID: 
   DisplayText: {fileID: 0}
-  Zone: 2
 --- !u!114 &245953351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1389,6 +1401,7 @@ GameObject:
   - component: {fileID: 543840566}
   - component: {fileID: 543840568}
   - component: {fileID: 543840567}
+  - component: {fileID: 543840569}
   m_Layer: 5
   m_Name: Attack
   m_TagString: Untagged
@@ -1456,6 +1469,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 543840565}
   m_CullTransparentMesh: 1
+--- !u!114 &543840569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543840565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c2ddd4b5110194d99c3dc50512291a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Zone: 1
 --- !u!1 &551821590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1917,9 +1943,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UUID: 
+  dieUUID: 
   DisplayText: {fileID: 0}
-  Zone: 1
 --- !u!1 &814451549
 GameObject:
   m_ObjectHideFlags: 0
@@ -2265,9 +2290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UUID: 
+  dieUUID: 
   DisplayText: {fileID: 0}
-  Zone: 0
 --- !u!1 &881859661
 GameObject:
   m_ObjectHideFlags: 0
@@ -2358,6 +2382,7 @@ GameObject:
   - component: {fileID: 914705113}
   - component: {fileID: 914705115}
   - component: {fileID: 914705114}
+  - component: {fileID: 914705116}
   m_Layer: 5
   m_Name: Defense
   m_TagString: Untagged
@@ -2425,6 +2450,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914705112}
   m_CullTransparentMesh: 1
+--- !u!114 &914705116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914705112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c2ddd4b5110194d99c3dc50512291a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Zone: 2
 --- !u!1 &932476884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2765,9 +2803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UUID: 
+  dieUUID: 
   DisplayText: {fileID: 0}
-  Zone: 0
 --- !u!1 &1068398406
 GameObject:
   m_ObjectHideFlags: 0
@@ -3319,9 +3356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UUID: 
+  dieUUID: 
   DisplayText: {fileID: 0}
-  Zone: 0
 --- !u!1 &1236710429
 GameObject:
   m_ObjectHideFlags: 0
@@ -3374,9 +3410,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UUID: 
+  dieUUID: 
   DisplayText: {fileID: 0}
-  Zone: 2
 --- !u!114 &1236710432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3750,9 +3785,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UUID: 
+  dieUUID: 
   DisplayText: {fileID: 0}
-  Zone: 0
 --- !u!1 &1288289069
 GameObject:
   m_ObjectHideFlags: 0
@@ -4296,9 +4330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UUID: 
+  dieUUID: 
   DisplayText: {fileID: 0}
-  Zone: 0
 --- !u!1 &1690301359
 GameObject:
   m_ObjectHideFlags: 0
@@ -5036,9 +5069,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759605b2ed186c4d9e95f4f26f4e3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UUID: 
+  dieUUID: 
   DisplayText: {fileID: 0}
-  Zone: 0
 --- !u!1 &2070495270
 GameObject:
   m_ObjectHideFlags: 0
@@ -5087,6 +5119,7 @@ GameObject:
   - component: {fileID: 2080346207}
   - component: {fileID: 2080346209}
   - component: {fileID: 2080346208}
+  - component: {fileID: 2080346210}
   m_Layer: 5
   m_Name: DicePool
   m_TagString: Untagged
@@ -5152,3 +5185,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080346206}
   m_CullTransparentMesh: 1
+--- !u!114 &2080346210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080346206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c2ddd4b5110194d99c3dc50512291a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Zone: 0

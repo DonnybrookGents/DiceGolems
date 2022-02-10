@@ -10,6 +10,7 @@ enum UIState {
 
 public class CombatUIController : MonoBehaviour {
     public CombatController Combat;
+    public ZoneController Zones;
     public Text EnergyLevel;
     public Text VatInfo;
     public Transform DicePool;
@@ -17,22 +18,17 @@ public class CombatUIController : MonoBehaviour {
 
     private UIState _State = UIState.Deselected;
 
-    private Dictionary<DiceZone, Dictionary<string, Die>> ZoneMap;
-
     public void Start() {
-        ZoneMap = new Dictionary<DiceZone, Dictionary<string, Die>>{
-            {DiceZone.Pool, Combat.Pool},
-            {DiceZone.AttackTile, Combat.AttackTile},
-            {DiceZone.DefenseTile, Combat.DefenseTile}
-        };
         GetEnergy();
         GetBankInfo();
     }
 
     public void ActivateTile(GameObject slotParent) {
+        DiceZone tileZone = slotParent.GetComponentInParent<UITile>().Zone;
+
         foreach (UIDiceSlot slot in slotParent.GetComponentsInChildren<UIDiceSlot>()) {
             slot.Clear();
-            ZoneMap[slot.Zone].Remove(slot.UUID);
+            //ZoneMap[tileZone].Remove(slot.UUID);
         }
     }
 
@@ -67,8 +63,10 @@ public class CombatUIController : MonoBehaviour {
             if (poolSlot == null) {
                 return;
             }
+            Die rolledDie = Combat.GenerateDice();
 
-            poolSlot.Set(Combat.GenerateDice());
+            poolSlot.Set(rolledDie);
+            Zones.AddDie(DiceZone.Pool, rolledDie);
         }
 
         GetEnergy();
@@ -86,11 +84,11 @@ public class CombatUIController : MonoBehaviour {
     }
 
     private void SelectDice(UIDiceSlot diceSlot) {
-        if (_State == UIState.Selected || diceSlot.UUID == "") {
+        if (_State == UIState.Selected || diceSlot.dieUUID == "") {
             return;
         }
 
-        SelectedDie = Combat.Table[diceSlot.UUID];
+        SelectedDie = Zones.GetDie(diceSlot.dieUUID);
         diceSlot.Highlight(new Color(0, .5f, 1));
 
         _State = UIState.Selected;
@@ -101,22 +99,25 @@ public class CombatUIController : MonoBehaviour {
             return;
         }
 
-        Die tempSlot = (toSlot.UUID != "") ? Combat.Table[toSlot.UUID] : null;
+        DiceZone toZone = toSlot.GetComponentInParent<UITile>().Zone;
+
+        Die tempSlot = Zones.GetDie(toSlot.dieUUID);
 
         UIDiceSlot fromSlot = GetAllDiceSlot(SelectedDie.UUID);
-        ZoneMap[fromSlot.Zone].Remove(SelectedDie.UUID);
+
+        if (tempSlot == null) {
+            Zones.MoveDie(toZone, SelectedDie.UUID);
+        } else {
+            Zones.SwapDice(tempSlot.UUID, SelectedDie.UUID);
+        }
+
+        DiceZone fromZone = fromSlot.GetComponentInParent<UITile>().Zone;
         fromSlot.Clear();
 
         toSlot.Set(SelectedDie);
-        ZoneMap[toSlot.Zone].Add(SelectedDie.UUID, SelectedDie);
 
         if (tempSlot != null) {
             fromSlot.Set(tempSlot);
-
-            if (!ZoneMap[fromSlot.Zone].ContainsKey(fromSlot.UUID)) {
-                ZoneMap[fromSlot.Zone].Add(fromSlot.UUID, Combat.Table[fromSlot.UUID]);
-                ZoneMap[toSlot.Zone].Remove(fromSlot.UUID);
-            }
         }
 
         SelectedDie = null;
@@ -125,7 +126,7 @@ public class CombatUIController : MonoBehaviour {
 
     private UIDiceSlot GetPoolDiceSlot(string uuid) {
         foreach (UIDiceSlot diceSlot in DicePool.GetComponentsInChildren<UIDiceSlot>()) {
-            if (uuid == diceSlot.UUID) {
+            if (uuid == diceSlot.dieUUID) {
                 return diceSlot;
             }
         }
@@ -135,11 +136,10 @@ public class CombatUIController : MonoBehaviour {
 
     private UIDiceSlot GetAllDiceSlot(string uuid) {
         foreach (UIDiceSlot diceSlot in GetComponentsInChildren<UIDiceSlot>()) {
-            if (uuid == diceSlot.UUID) {
+            if (uuid == diceSlot.dieUUID) {
                 return diceSlot;
             }
         }
-
         return null;
     }
 }

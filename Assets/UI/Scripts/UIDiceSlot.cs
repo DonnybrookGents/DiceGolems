@@ -1,16 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum DiceZone {
-    Pool,
-    AttackTile,
-    DefenseTile,
-    None
-}
 public class UIDiceSlot : MonoBehaviour {
-    [HideInInspector] public string UUID;
+    [HideInInspector] public string dieUUID;
     [HideInInspector] public Text DisplayText;
-    public DiceZone Zone;
 
 
     private void Start() {
@@ -22,12 +15,12 @@ public class UIDiceSlot : MonoBehaviour {
             return;
         }
 
-        UUID = die.UUID;
+        dieUUID = die.UUID;
         DisplayText.text = die.Value.ToString();
     }
 
     public void Clear() {
-        UUID = "";
+        dieUUID = "";
         DisplayText.text = "";
         Highlight(Color.white);
     }
