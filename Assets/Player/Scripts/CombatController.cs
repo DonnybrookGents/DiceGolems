@@ -12,7 +12,7 @@ public class CombatController : MonoBehaviour {
     public void Awake() {
         Bank = new List<Die> {
             new Die(),
-            new Die()
+            new Die(new int[] { 1, 1, 1, 6, 6, 6 })
         };
 
         Table = new Dictionary<string, Die>();
