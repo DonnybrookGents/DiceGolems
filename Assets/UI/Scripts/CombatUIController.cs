@@ -11,6 +11,7 @@ enum UIState {
 public class CombatUIController : MonoBehaviour {
     public CombatController Combat;
     public ZoneController Zones;
+    public StateController State;
     public Text EnergyLevel;
     public Text VatInfo;
     public Transform DicePool;
@@ -70,8 +71,6 @@ public class CombatUIController : MonoBehaviour {
         }
 
         GetEnergy();
-
-        Zones.PrintDiceInZones();
     }
 
     public void MoveDice(UIDiceSlot slot) {
@@ -91,6 +90,7 @@ public class CombatUIController : MonoBehaviour {
         }
 
         Zones.Clear();
+        State.IsPlayerTurnEnded = true;
     }
 
     private void SelectDice(UIDiceSlot diceSlot) {
