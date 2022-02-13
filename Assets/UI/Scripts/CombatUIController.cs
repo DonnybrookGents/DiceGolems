@@ -27,8 +27,8 @@ public class CombatUIController : MonoBehaviour {
         DiceZone tileZone = slotParent.GetComponentInParent<UITile>().Zone;
 
         foreach (UIDiceSlot slot in slotParent.GetComponentsInChildren<UIDiceSlot>()) {
+            Zones.RemoveDie(slot.dieUUID);
             slot.Clear();
-            //ZoneMap[tileZone].Remove(slot.UUID);
         }
     }
 
@@ -70,6 +70,8 @@ public class CombatUIController : MonoBehaviour {
         }
 
         GetEnergy();
+
+        Zones.PrintDiceInZones();
     }
 
     public void MoveDice(UIDiceSlot slot) {
@@ -81,6 +83,14 @@ public class CombatUIController : MonoBehaviour {
                 SelectDice(slot);
                 break;
         }
+    }
+
+    public void EndTurn() {
+        foreach (UIDiceSlot diceSlot in GetComponentsInChildren<UIDiceSlot>()) {
+            diceSlot.Clear();
+        }
+
+        Zones.Clear();
     }
 
     private void SelectDice(UIDiceSlot diceSlot) {
