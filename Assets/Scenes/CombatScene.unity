@@ -597,6 +597,8 @@ MonoBehaviour:
   HUD: {fileID: 239112763}
   PlayerHealth: {fileID: 437941851}
   EnemyHealth: {fileID: 1136064782}
+  EnemyAction: {fileID: 2021310109}
+  WinLose: {fileID: 969697551}
   EnergyLevel: {fileID: 1457929693}
   VatInfo: {fileID: 577213612}
   DicePool: {fileID: 2080346207}
@@ -2662,8 +2664,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000022203, y: 59}
-  m_SizeDelta: {x: 104.15, y: 87}
+  m_AnchoredPosition: {x: 0.000015259, y: 43.5}
+  m_SizeDelta: {x: 478.4889, y: 87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &969697551
 MonoBehaviour:
