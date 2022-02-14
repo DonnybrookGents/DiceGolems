@@ -596,14 +596,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HUD: {fileID: 239112763}
-  PlayerHealth: {fileID: 0}
-  EnemyHealth: {fileID: 0}
+  PlayerHealth: {fileID: 437941851}
+  EnemyHealth: {fileID: 1136064782}
   EnergyLevel: {fileID: 1457929693}
   VatInfo: {fileID: 577213612}
   DicePool: {fileID: 2080346207}
-  _CombatController: {fileID: 0}
-  _ZonesController: {fileID: 0}
-  _StateController: {fileID: 0}
 --- !u!114 &185330450
 MonoBehaviour:
   m_ObjectHideFlags: 0
