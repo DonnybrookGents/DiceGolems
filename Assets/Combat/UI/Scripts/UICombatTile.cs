@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UITile : MonoBehaviour {
+public class UICombatTile : MonoBehaviour {
 
     public DiceZone Zone;
 

@@ -1,10 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIDiceSlot : MonoBehaviour {
+public class UICombatDiceSlot : MonoBehaviour {
     [HideInInspector] public string dieUUID;
     [HideInInspector] public Text DisplayText;
-
 
     private void Start() {
         DisplayText = GetComponentInChildren<Text>();

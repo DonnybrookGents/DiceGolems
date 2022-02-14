@@ -15,12 +15,14 @@ public enum CombatState {
     None
 };
 
-public class StateController : MonoBehaviour {
+public class StateCombatController : MonoBehaviour {
     public CombatState State;
     public bool IsDead;
     public bool IsVictorious;
     public bool IsPlayerTurnEnded;
 
+    private CombatController _Combat;
+    private ZoneCombatController _Zones;
     private bool _IsStateReady;
     private Dictionary<CombatState, CombatState> _StateMap = new Dictionary<CombatState, CombatState> {
         { CombatState.Start, CombatState.PlayerPreTurn },
@@ -36,6 +38,8 @@ public class StateController : MonoBehaviour {
 
     private void Start() {
         State = CombatState.Start;
+        _Zones = GetComponent<ZoneCombatController>();
+        _Combat = GetComponent<CombatController>();
 
         _IsStateReady = true;
     }
@@ -57,9 +61,11 @@ public class StateController : MonoBehaviour {
     private void HandleStartState() {
         _IsStateReady = false;
 
-        // set player starting energy
-        // copy player bank
-        // load first enemy action
+        // [ ] set player starting energy
+        // [ ] copy player bank
+        // [ ] load first enemy action
+
+        _Combat.SetEnergy(5);
 
         _IsStateReady = true;
     }
@@ -67,10 +73,12 @@ public class StateController : MonoBehaviour {
     private void HandlePlayerPreTurnState() {
         _IsStateReady = false;
 
-        // add per-turn energy
-        // refresh tile charges
-        // trigger damage over time
-        // trigger enabled debuffs
+        // [ ] add per-turn energy
+        // [ ] refresh tile charges
+        // [ ] trigger damage over time
+        // [ ] trigger enabled debuffs
+
+        _Combat.UpdateEnergy();
 
         _IsStateReady = true;
     }
@@ -78,18 +86,23 @@ public class StateController : MonoBehaviour {
     private IEnumerator HandlePlayerMidTurnState() {
         _IsStateReady = false;
 
-        // driven by UI
-        yield return new WaitUntil(() => IsPlayerTurnEnded);
+        // [X] driven by UI
+        // [ ] lock input controlls
 
+        yield return new WaitUntil(() => IsPlayerTurnEnded);
         IsPlayerTurnEnded = false;
+
         _IsStateReady = true;
     }
 
     private void HandlePlayerPostTurnState() {
         _IsStateReady = false;
 
-        // clear backend dice zones
-        // countdown/clear status effects
+        // [X] clear backend dice zones
+        // [ ] countdown/clear status effects
+
+        _Zones.Clear();
+        _Zones.PrintDiceInZones();
 
         _IsStateReady = true;
     }
@@ -97,8 +110,8 @@ public class StateController : MonoBehaviour {
     private void HandleEnemyPreTurnState() {
         _IsStateReady = false;
 
-        // trigger damage over time
-        // trigger enabled debuffs
+        // [ ] trigger damage over time
+        // [ ] trigger enabled debuffs
 
         _IsStateReady = true;
     }
@@ -106,7 +119,7 @@ public class StateController : MonoBehaviour {
     private void HandleEnemyMidTurnState() {
         _IsStateReady = false;
 
-        // execute selected action
+        // [ ] execute selected action
 
         _IsStateReady = true;
     }
@@ -114,8 +127,8 @@ public class StateController : MonoBehaviour {
     private void HandleEnemyPostTurnState() {
         _IsStateReady = false;
 
-        // countdown/clear status effects
-        // select enemy action (attack/defend)
+        // [ ] countdown/clear status effects
+        // [ ] select enemy action (attack/defend)
 
         _IsStateReady = true;
     }
@@ -123,11 +136,11 @@ public class StateController : MonoBehaviour {
     private void HandleWinState() {
         _IsStateReady = false;
 
-        // end combat
-        // clear temporary negative effects
-        // give reward
-        // level up
-        // exit scene
+        // [ ] end combat
+        // [ ] clear temporary negative effects
+        // [ ] give reward
+        // [ ] level up
+        // [ ] exit scene
 
         _IsStateReady = true;
     }
@@ -135,9 +148,9 @@ public class StateController : MonoBehaviour {
     private void HandleLoseState() {
         _IsStateReady = false;
 
-        // end combat
-        // clear temporary negative effects
-        // decrease lives
+        // [ ] end combat
+        // [ ] clear temporary negative effects
+        // [ ] decrease lives
 
         _IsStateReady = true;
     }

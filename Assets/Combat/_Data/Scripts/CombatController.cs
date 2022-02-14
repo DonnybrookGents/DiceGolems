@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour {
     public List<Die> Bank;
-    public int Energy = 7;
+    public int Energy;
+    public int TurnEnergy;
 
     public void Awake() {
         Bank = new List<Die> {
@@ -27,7 +28,11 @@ public class CombatController : MonoBehaviour {
         return die;
     }
 
-    //public moveDice
+    public void SetEnergy(int energy) {
+        Energy = energy;
+    }
 
-    //private findzonefromid
+    public void UpdateEnergy() {
+        Energy += TurnEnergy;
+    }
 }

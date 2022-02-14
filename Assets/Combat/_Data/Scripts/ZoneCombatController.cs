@@ -9,7 +9,7 @@ public enum DiceZone {
     None
 }
 
-public class ZoneController : MonoBehaviour {
+public class ZoneCombatController : MonoBehaviour {
     private Dictionary<DiceZone, Dictionary<string, Die>> Zones;
 
     void Awake() {
