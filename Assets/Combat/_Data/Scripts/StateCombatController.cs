@@ -27,6 +27,7 @@ public class StateCombatController : MonoBehaviour {
     private ZoneCombatController _ZonesController;
     private UICombatController _UIController;
     private bool _IsStateReady;
+    private bool _EnemyAttacking;
     private Dictionary<CombatState, CombatState> _StateMap = new Dictionary<CombatState, CombatState> {
         { CombatState.Start, CombatState.PlayerPreTurn },
         { CombatState.PlayerPreTurn, CombatState.PlayerMidTurn },
@@ -51,8 +52,6 @@ public class StateCombatController : MonoBehaviour {
     }
 
     private CombatState NextCombatState() {
-        Debug.Log(State);
-
         if (IsVictorious) {
             return CombatState.Win;
         }
@@ -69,7 +68,7 @@ public class StateCombatController : MonoBehaviour {
 
         // [X] set player starting energy
         // [X] copy player bank
-        // [ ] load first enemy action
+        // [X] load first enemy action
 
         // Copy the bank.
         _CombatController.CopyBank(_PlayerController.Bank);
@@ -82,6 +81,14 @@ public class StateCombatController : MonoBehaviour {
         // Set play and energy level.
         _UIController.UpdatePlayerHealth();
         _UIController.UpdateEnemyHealth();
+
+        // Select enemy first action.
+        _EnemyAttacking = Random.Range(0, 2) == 0;
+        if (_EnemyAttacking) {
+            Debug.Log("Enemy is going to attack!");
+        } else {
+            Debug.Log("Enemy is going to heal!");
+        }
 
         _IsStateReady = true;
     }
@@ -138,7 +145,22 @@ public class StateCombatController : MonoBehaviour {
     private void HandleEnemyMidTurnState() {
         _IsStateReady = false;
 
-        // [ ] execute selected action
+        // [X] execute selected action
+
+
+        // Execute enemy selected action.
+        int hp;
+        if (_EnemyAttacking) {
+            hp = _EnemyController.Attack();
+            _PlayerController.TakeDamage(hp);
+            Debug.Log("Enemy attacked for " + hp + " hp.");
+        } else {
+            hp = _EnemyController.Heal();
+            Debug.Log("Enemy healed for " + hp + " hp.");
+        }
+
+        _UIController.UpdateEnemyHealth();
+        _UIController.UpdatePlayerHealth();
 
         _IsStateReady = true;
     }
@@ -147,7 +169,15 @@ public class StateCombatController : MonoBehaviour {
         _IsStateReady = false;
 
         // [ ] countdown/clear status effects
-        // [ ] select enemy action (attack/defend)
+        // [X] select enemy action (attack/defend)
+
+        // Setect enemy action.
+        _EnemyAttacking = Random.Range(0, 2) == 0;
+        if (_EnemyAttacking) {
+            Debug.Log("Enemy is going to attack!");
+        } else {
+            Debug.Log("Enemy is going to heal!");
+        }
 
         _IsStateReady = true;
     }

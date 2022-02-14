@@ -10,7 +10,14 @@ public class EnemyController : MonoBehaviour {
         Health -= hp;
     }
 
-    public void Heal(int hp) {
+    public int Attack() {
+        return Random.Range(1, 7);
+    }
+
+    public int Heal() {
+        int hp = Random.Range(1, 7);
         Health += hp;
+
+        return hp;
     }
 }

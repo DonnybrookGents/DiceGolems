@@ -138,8 +138,6 @@ public class UICombatController : MonoBehaviour {
         int dieSum = 0;
 
         foreach (UICombatDiceSlot slot in slotParent.GetComponentsInChildren<UICombatDiceSlot>()) {
-            _ZonesController.PrintDiceInZones();
-
             Die die = _ZonesController.GetDie(slot.dieUUID);
             dieSum += die != null ? die.Value : 0;
 
