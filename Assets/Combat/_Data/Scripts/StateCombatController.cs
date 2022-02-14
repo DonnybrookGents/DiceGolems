@@ -118,6 +118,10 @@ public class StateCombatController : MonoBehaviour {
         yield return new WaitUntil(() => IsPlayerTurnEnded);
         IsPlayerTurnEnded = false;
 
+        if (_EnemyController.Health < 0) {
+            IsVictorious = true;
+        }
+
         _IsStateReady = true;
     }
 
@@ -159,6 +163,10 @@ public class StateCombatController : MonoBehaviour {
             Debug.Log("Enemy healed for " + hp + " hp.");
         }
 
+        if (_PlayerController.Health < 0) {
+            IsDead = true;
+        }
+
         _UIController.UpdateEnemyHealth();
         _UIController.UpdatePlayerHealth();
 
@@ -191,6 +199,8 @@ public class StateCombatController : MonoBehaviour {
         // [ ] level up
         // [ ] exit scene
 
+        Debug.Log("You won!");
+
         _IsStateReady = true;
     }
 
@@ -200,6 +210,8 @@ public class StateCombatController : MonoBehaviour {
         // [ ] end combat
         // [ ] clear temporary negative effects
         // [ ] decrease lives
+
+        Debug.Log("You suck!");
 
         _IsStateReady = true;
     }
