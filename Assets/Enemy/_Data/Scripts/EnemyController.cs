@@ -6,6 +6,10 @@ public class EnemyController : MonoBehaviour {
     public int Health;
     public int MaxHealth;
 
+    public bool GetAction() {
+        return Random.Range(0, 2) == 0;
+    }
+
     public void TakeDamage(int hp) {
         Health -= hp;
     }

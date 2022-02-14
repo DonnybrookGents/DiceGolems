@@ -12,6 +12,8 @@ public class UICombatController : MonoBehaviour {
     public Canvas HUD;
     public Text PlayerHealth;
     public Text EnemyHealth;
+    public Text EnemyAction;
+    public Text WinLose;
     public Text EnergyLevel;
     public Text VatInfo;
     public Transform DicePool;
@@ -23,7 +25,6 @@ public class UICombatController : MonoBehaviour {
     private ZoneCombatController _ZonesController;
     private StateCombatController _StateController;
     private UIState _SelectedState = UIState.Deselected;
-
 
     public void Start() {
         _PlayerController = GetComponent<PlayerController>();
@@ -39,6 +40,16 @@ public class UICombatController : MonoBehaviour {
 
     public void UpdateEnemyHealth() {
         EnemyHealth.text = _EnemyController.Health + "/" + _EnemyController.MaxHealth;
+    }
+
+    public void UpdateEnemyAction(string text, Color color) {
+        EnemyAction.text = text;
+        EnemyAction.color = color;
+    }
+
+    public void UpdateWinLose(string text, Color color) {
+        WinLose.text = text;
+        WinLose.color = color;
     }
 
     public void GetEnergy() {

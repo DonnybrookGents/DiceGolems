@@ -83,11 +83,11 @@ public class StateCombatController : MonoBehaviour {
         _UIController.UpdateEnemyHealth();
 
         // Select enemy first action.
-        _EnemyAttacking = Random.Range(0, 2) == 0;
+        _EnemyAttacking = _EnemyController.GetAction();
         if (_EnemyAttacking) {
-            Debug.Log("Enemy is going to attack!");
+            _UIController.UpdateEnemyAction("Enemy is going to attack!", Color.red);
         } else {
-            Debug.Log("Enemy is going to heal!");
+            _UIController.UpdateEnemyAction("Enemy is going to heal!", Color.green);
         }
 
         _IsStateReady = true;
@@ -151,16 +151,13 @@ public class StateCombatController : MonoBehaviour {
 
         // [X] execute selected action
 
-
         // Execute enemy selected action.
         int hp;
         if (_EnemyAttacking) {
             hp = _EnemyController.Attack();
             _PlayerController.TakeDamage(hp);
-            Debug.Log("Enemy attacked for " + hp + " hp.");
         } else {
             hp = _EnemyController.Heal();
-            Debug.Log("Enemy healed for " + hp + " hp.");
         }
 
         if (_PlayerController.Health < 0) {
@@ -180,11 +177,11 @@ public class StateCombatController : MonoBehaviour {
         // [X] select enemy action (attack/defend)
 
         // Setect enemy action.
-        _EnemyAttacking = Random.Range(0, 2) == 0;
+        _EnemyAttacking = _EnemyController.GetAction();
         if (_EnemyAttacking) {
-            Debug.Log("Enemy is going to attack!");
+            _UIController.UpdateEnemyAction("Enemy is going to attack!", Color.red);
         } else {
-            Debug.Log("Enemy is going to heal!");
+            _UIController.UpdateEnemyAction("Enemy is going to heal!", Color.green);
         }
 
         _IsStateReady = true;
@@ -199,7 +196,7 @@ public class StateCombatController : MonoBehaviour {
         // [ ] level up
         // [ ] exit scene
 
-        Debug.Log("You won!");
+        _UIController.UpdateWinLose("Victory", Color.green);
 
         _IsStateReady = true;
     }
@@ -211,7 +208,7 @@ public class StateCombatController : MonoBehaviour {
         // [ ] clear temporary negative effects
         // [ ] decrease lives
 
-        Debug.Log("You suck!");
+        _UIController.UpdateWinLose("Defeat", Color.red);
 
         _IsStateReady = true;
     }
