@@ -518,6 +518,8 @@ GameObject:
   - component: {fileID: 185330447}
   - component: {fileID: 185330448}
   - component: {fileID: 185330449}
+  - component: {fileID: 185330451}
+  - component: {fileID: 185330450}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -594,12 +596,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HUD: {fileID: 239112763}
+  PlayerHealth: {fileID: 0}
+  EnemyHealth: {fileID: 0}
   EnergyLevel: {fileID: 1457929693}
   VatInfo: {fileID: 577213612}
   DicePool: {fileID: 2080346207}
   _CombatController: {fileID: 0}
   _ZonesController: {fileID: 0}
   _StateController: {fileID: 0}
+--- !u!114 &185330450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185330444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f0b8f888df4f742afcddc1a0f50f41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  MaxHealth: 100
+--- !u!114 &185330451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185330444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24c7ad4c541eec4b8a523ef5f262e05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  MaxHealth: 100
 --- !u!1 &239112760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,7 +1350,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100/100
+  m_Text: 0/0
 --- !u!222 &437941852
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3011,7 +3043,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100/100
+  m_Text: 0/0
 --- !u!222 &1136064783
 CanvasRenderer:
   m_ObjectHideFlags: 0

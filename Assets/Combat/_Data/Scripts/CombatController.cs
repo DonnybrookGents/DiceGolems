@@ -2,15 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatController : MonoBehaviour {
+
     public List<Die> Bank;
     public int Energy;
     public int TurnEnergy;
 
-    public void Awake() {
-        Bank = new List<Die> {
-            new Die(),
-            new Die(new int[] { 1, 1, 1, 6, 6, 6 })
-        };
+    public void CopyBank(List<Die> bank) {
+        Bank = new List<Die>(bank);
     }
 
     public Die GenerateDice() {

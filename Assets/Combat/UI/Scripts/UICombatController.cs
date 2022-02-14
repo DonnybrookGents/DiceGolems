@@ -10,31 +10,35 @@ enum UIState {
 
 public class UICombatController : MonoBehaviour {
     public Canvas HUD;
+    public Text PlayerHealth;
+    public Text EnemyHealth;
     public Text EnergyLevel;
     public Text VatInfo;
     public Transform DicePool;
     public Die SelectedDie;
 
-    public CombatController _CombatController;
-    public ZoneCombatController _ZonesController;
-    public StateCombatController _StateController;
+    private PlayerController _PlayerController;
+    private EnemyController _EnemyController;
+    private CombatController _CombatController;
+    private ZoneCombatController _ZonesController;
+    private StateCombatController _StateController;
     private UIState _SelectedState = UIState.Deselected;
 
+
     public void Start() {
+        _PlayerController = GetComponent<PlayerController>();
+        _EnemyController = GetComponent<EnemyController>();
         _CombatController = GetComponent<CombatController>();
         _ZonesController = GetComponent<ZoneCombatController>();
         _StateController = GetComponent<StateCombatController>();
-
-        GetBankInfo();
     }
 
-    public void ActivateTile(GameObject slotParent) {
-        DiceZone tileZone = slotParent.GetComponentInParent<UICombatTile>().Zone;
+    public void UpdatePlayerHealth() {
+        PlayerHealth.text = _PlayerController.Health + "/" + _PlayerController.MaxHealth;
+    }
 
-        foreach (UICombatDiceSlot slot in slotParent.GetComponentsInChildren<UICombatDiceSlot>()) {
-            _ZonesController.RemoveDie(slot.dieUUID);
-            slot.Clear();
-        }
+    public void UpdateEnemyHealth() {
+        EnemyHealth.text = _EnemyController.Health + "/" + _EnemyController.MaxHealth;
     }
 
     public void GetEnergy() {
@@ -88,14 +92,6 @@ public class UICombatController : MonoBehaviour {
         }
     }
 
-    public void EndTurn() {
-        foreach (UICombatDiceSlot diceSlot in HUD.GetComponentsInChildren<UICombatDiceSlot>()) {
-            diceSlot.Clear();
-        }
-
-        _StateController.IsPlayerTurnEnded = true;
-    }
-
     private void SelectDice(UICombatDiceSlot diceSlot) {
         if (_SelectedState == UIState.Selected || diceSlot.dieUUID == "") {
             return;
@@ -135,6 +131,37 @@ public class UICombatController : MonoBehaviour {
 
         SelectedDie = null;
         _SelectedState = UIState.Deselected;
+    }
+
+    public void ActivateTile(GameObject slotParent) {
+        DiceZone tileZone = slotParent.GetComponentInParent<UICombatTile>().Zone;
+        int dieSum = 0;
+
+        foreach (UICombatDiceSlot slot in slotParent.GetComponentsInChildren<UICombatDiceSlot>()) {
+            _ZonesController.PrintDiceInZones();
+
+            Die die = _ZonesController.GetDie(slot.dieUUID);
+            dieSum += die != null ? die.Value : 0;
+
+            _ZonesController.RemoveDie(slot.dieUUID);
+            slot.Clear();
+        }
+
+        if (tileZone == DiceZone.AttackTile) {
+            _EnemyController.TakeDamage(dieSum);
+            UpdateEnemyHealth();
+        } else if (tileZone == DiceZone.DefenseTile) {
+            _PlayerController.Heal(dieSum);
+            UpdatePlayerHealth();
+        }
+    }
+
+    public void EndTurn() {
+        foreach (UICombatDiceSlot diceSlot in HUD.GetComponentsInChildren<UICombatDiceSlot>()) {
+            diceSlot.Clear();
+        }
+
+        _StateController.IsPlayerTurnEnded = true;
     }
 
     private UICombatDiceSlot GetPoolDiceSlot(string uuid) {

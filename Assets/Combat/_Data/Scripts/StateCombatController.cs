@@ -21,6 +21,8 @@ public class StateCombatController : MonoBehaviour {
     public bool IsVictorious;
     public bool IsPlayerTurnEnded;
 
+    private PlayerController _PlayerController;
+    private EnemyController _EnemyController;
     private CombatController _CombatController;
     private ZoneCombatController _ZonesController;
     private UICombatController _UIController;
@@ -39,6 +41,8 @@ public class StateCombatController : MonoBehaviour {
 
     private void Start() {
         State = CombatState.Start;
+        _PlayerController = GetComponent<PlayerController>();
+        _EnemyController = GetComponent<EnemyController>();
         _CombatController = GetComponent<CombatController>();
         _ZonesController = GetComponent<ZoneCombatController>();
         _UIController = GetComponent<UICombatController>();
@@ -64,10 +68,20 @@ public class StateCombatController : MonoBehaviour {
         _IsStateReady = false;
 
         // [X] set player starting energy
-        // [ ] copy player bank
+        // [X] copy player bank
         // [ ] load first enemy action
 
+        // Copy the bank.
+        _CombatController.CopyBank(_PlayerController.Bank);
+        _UIController.GetBankInfo();
+
+        // Set the energy level.
         _CombatController.SetEnergy(4);
+        _UIController.GetEnergy();
+
+        // Set play and energy level.
+        _UIController.UpdatePlayerHealth();
+        _UIController.UpdateEnemyHealth();
 
         _IsStateReady = true;
     }
@@ -80,6 +94,7 @@ public class StateCombatController : MonoBehaviour {
         // [ ] trigger damage over time
         // [ ] trigger enabled debuffs
 
+        // Update the energy.
         _CombatController.UpdateEnergy();
         _UIController.GetEnergy();
 
@@ -92,6 +107,7 @@ public class StateCombatController : MonoBehaviour {
         // [X] driven by UI
         // [ ] lock input controlls
 
+        // Wait for UI input.
         yield return new WaitUntil(() => IsPlayerTurnEnded);
         IsPlayerTurnEnded = false;
 
@@ -104,6 +120,7 @@ public class StateCombatController : MonoBehaviour {
         // [X] clear backend dice zones
         // [ ] countdown/clear status effects
 
+        // Clear the dice zones.
         _ZonesController.Clear();
 
         _IsStateReady = true;
