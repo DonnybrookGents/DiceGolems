@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Energy: 4
-  TurnEnergy: 0
+  TurnEnergy: 2
 --- !u!4 &185330446
 Transform:
   m_ObjectHideFlags: 0
@@ -593,13 +593,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5efc351bf49ee4fade2c9d87274f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Combat: {fileID: 185330445}
-  Zones: {fileID: 185330447}
-  State: {fileID: 185330448}
   HUD: {fileID: 239112763}
   EnergyLevel: {fileID: 1457929693}
   VatInfo: {fileID: 577213612}
   DicePool: {fileID: 2080346207}
+  _CombatController: {fileID: 0}
+  _ZonesController: {fileID: 0}
+  _StateController: {fileID: 0}
 --- !u!1 &239112760
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,7 +25,6 @@ public class UICombatController : MonoBehaviour {
         _ZonesController = GetComponent<ZoneCombatController>();
         _StateController = GetComponent<StateCombatController>();
 
-        GetEnergy();
         GetBankInfo();
     }
 
@@ -76,8 +75,6 @@ public class UICombatController : MonoBehaviour {
         }
 
         GetEnergy();
-
-        _ZonesController.PrintDiceInZones();
     }
 
     public void MoveDice(UICombatDiceSlot slot) {

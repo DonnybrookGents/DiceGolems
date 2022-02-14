@@ -21,8 +21,9 @@ public class StateCombatController : MonoBehaviour {
     public bool IsVictorious;
     public bool IsPlayerTurnEnded;
 
-    private CombatController _Combat;
-    private ZoneCombatController _Zones;
+    private CombatController _CombatController;
+    private ZoneCombatController _ZonesController;
+    private UICombatController _UIController;
     private bool _IsStateReady;
     private Dictionary<CombatState, CombatState> _StateMap = new Dictionary<CombatState, CombatState> {
         { CombatState.Start, CombatState.PlayerPreTurn },
@@ -38,8 +39,9 @@ public class StateCombatController : MonoBehaviour {
 
     private void Start() {
         State = CombatState.Start;
-        _Zones = GetComponent<ZoneCombatController>();
-        _Combat = GetComponent<CombatController>();
+        _CombatController = GetComponent<CombatController>();
+        _ZonesController = GetComponent<ZoneCombatController>();
+        _UIController = GetComponent<UICombatController>();
 
         _IsStateReady = true;
     }
@@ -61,11 +63,11 @@ public class StateCombatController : MonoBehaviour {
     private void HandleStartState() {
         _IsStateReady = false;
 
-        // [ ] set player starting energy
+        // [X] set player starting energy
         // [ ] copy player bank
         // [ ] load first enemy action
 
-        _Combat.SetEnergy(5);
+        _CombatController.SetEnergy(4);
 
         _IsStateReady = true;
     }
@@ -73,12 +75,13 @@ public class StateCombatController : MonoBehaviour {
     private void HandlePlayerPreTurnState() {
         _IsStateReady = false;
 
-        // [ ] add per-turn energy
+        // [X] add per-turn energy
         // [ ] refresh tile charges
         // [ ] trigger damage over time
         // [ ] trigger enabled debuffs
 
-        _Combat.UpdateEnergy();
+        _CombatController.UpdateEnergy();
+        _UIController.GetEnergy();
 
         _IsStateReady = true;
     }
@@ -101,8 +104,7 @@ public class StateCombatController : MonoBehaviour {
         // [X] clear backend dice zones
         // [ ] countdown/clear status effects
 
-        _Zones.Clear();
-        _Zones.PrintDiceInZones();
+        _ZonesController.Clear();
 
         _IsStateReady = true;
     }
