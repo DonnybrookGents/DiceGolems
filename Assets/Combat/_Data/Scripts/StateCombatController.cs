@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public enum CombatState {
@@ -83,12 +84,13 @@ public class StateCombatController : MonoBehaviour {
         _UIController.UpdateEnemyHealth();
 
         // Select enemy first action.
-        _EnemyAttacking = _EnemyController.GetAction();
-        if (_EnemyAttacking) {
-            _UIController.UpdateEnemyAction("Enemy is going to attack!", Color.red);
-        } else {
-            _UIController.UpdateEnemyAction("Enemy is going to heal!", Color.green);
-        }
+        _EnemyController.DecideAction();
+
+        // if (_EnemyAttacking) {
+        //     _UIController.UpdateEnemyAction("Enemy is going to heavy attack!", Color.red);
+        // } else {
+        //     _UIController.UpdateEnemyAction("Enemy is going to weak attack!", Color.yellow);
+        // }
 
         _IsStateReady = true;
     }
@@ -151,14 +153,18 @@ public class StateCombatController : MonoBehaviour {
 
         // [X] execute selected action
 
+        System.Object[] queuedActionReturn = _EnemyController.ExecuteQueuedAction();
+        _PlayerController.ApplyInboundAction(_EnemyController.GetActionType(), queuedActionReturn);
+
+
         // Execute enemy selected action.
-        int hp;
-        if (_EnemyAttacking) {
-            hp = _EnemyController.Attack();
-            _PlayerController.TakeDamage(hp);
-        } else {
-            hp = _EnemyController.Heal();
-        }
+        // int hp;
+        // if (_EnemyAttacking) {
+        //     hp = _EnemyController.Attack();
+        //     _PlayerController.TakeDamage(hp);
+        // } else {
+        //     hp = _EnemyController.Heal();
+        // }
 
         if (_PlayerController.Health < 0) {
             IsDead = true;
@@ -176,13 +182,19 @@ public class StateCombatController : MonoBehaviour {
         // [ ] countdown/clear status effects
         // [X] select enemy action (attack/defend)
 
+        ActionType queuedAction = _EnemyController.DecideAction();
+
+        //send queued action type to ui
+        //UICombatController.setActionType(queuedAction);
+
         // Setect enemy action.
-        _EnemyAttacking = _EnemyController.GetAction();
-        if (_EnemyAttacking) {
-            _UIController.UpdateEnemyAction("Enemy is going to attack!", Color.red);
-        } else {
-            _UIController.UpdateEnemyAction("Enemy is going to heal!", Color.green);
-        }
+        //_EnemyAttacking = _EnemyController.GetAction();
+
+        // if (_EnemyAttacking) {
+        //     _UIController.UpdateEnemyAction("Enemy is going to attack!", Color.red);
+        // } else {
+        //     _UIController.UpdateEnemyAction("Enemy is going to heal!", Color.green);
+        // }
 
         _IsStateReady = true;
     }
