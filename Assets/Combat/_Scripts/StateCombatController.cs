@@ -22,8 +22,8 @@ public class StateCombatController : MonoBehaviour {
     public bool IsVictorious;
     public bool IsPlayerTurnEnded;
 
-    private PlayerController _PlayerController;
-    private EnemyController _EnemyController;
+    public PlayerController _PlayerController;
+    public EnemyBeast _EnemyController;
     private CombatController _CombatController;
     private ZoneCombatController _ZonesController;
     private UICombatController _UIController;
@@ -39,16 +39,20 @@ public class StateCombatController : MonoBehaviour {
         { CombatState.EnemyPostTurn, CombatState.PlayerPreTurn }
     };
 
+    private void Awake() {
+        _PlayerController = new PlayerController();
+        _EnemyController = new EnemyBeast();
+    }
     private void Start() {
         State = CombatState.Start;
-        _PlayerController = GetComponent<PlayerController>();
-        _EnemyController = GetComponent<EnemyController>();
         _CombatController = GetComponent<CombatController>();
         _ZonesController = GetComponent<ZoneCombatController>();
         _UIController = GetComponent<UICombatController>();
 
         _IsStateReady = true;
     }
+
+
 
     private CombatState NextCombatState() {
         if (IsVictorious) {
@@ -60,6 +64,31 @@ public class StateCombatController : MonoBehaviour {
         }
 
         return _StateMap[State];
+    }
+
+    private void HandleStatusEffectCheck() {
+        List<string> playerRemoval = new List<string>();
+        List<string> enemyRemoval = new List<string>();
+        foreach (StatusEffect statusEffect in _PlayerController.StatusEffects.Values) {
+            statusEffect.Execute(_PlayerController, State);
+            statusEffect.CountDown(State);
+            if (statusEffect.Count <= 0) {
+                playerRemoval.Add(statusEffect.GetName());
+            }
+        }
+        foreach (string key in playerRemoval) {
+            _PlayerController.StatusEffects.Remove(key);
+        }
+        foreach (StatusEffect statusEffect in _EnemyController.StatusEffects.Values) {
+            statusEffect.Execute(_EnemyController, State);
+            statusEffect.CountDown(State);
+            if (statusEffect.Count <= 0) {
+                enemyRemoval.Add(statusEffect.GetName());
+            }
+        }
+        foreach (string key in enemyRemoval) {
+            _EnemyController.StatusEffects.Remove(key);
+        }
     }
 
     private void HandleStartState() {
@@ -101,9 +130,14 @@ public class StateCombatController : MonoBehaviour {
         // [ ] trigger damage over time
         // [ ] trigger enabled debuffs
 
+        //loop through status effects
+        //if(typeof(status) == preTurnStatus){ do it }
+
         // Update the energy.
         _CombatController.UpdateEnergy();
         _UIController.GetEnergy();
+
+        HandleStatusEffectCheck();
 
         _IsStateReady = true;
     }
@@ -132,6 +166,8 @@ public class StateCombatController : MonoBehaviour {
         // [ ] countdown/clear status effects
 
         // Clear the dice zones.
+        HandleStatusEffectCheck();
+
         _ZonesController.Clear();
 
         _IsStateReady = true;
@@ -139,6 +175,8 @@ public class StateCombatController : MonoBehaviour {
 
     private void HandleEnemyPreTurnState() {
         _IsStateReady = false;
+
+        HandleStatusEffectCheck();
 
         // [ ] trigger damage over time
         // [ ] trigger enabled debuffs
@@ -150,9 +188,7 @@ public class StateCombatController : MonoBehaviour {
         _IsStateReady = false;
 
         // [X] execute selected action
-
-        System.Object[] queuedActionReturn = _EnemyController.ExecuteQueuedAction();
-        _PlayerController.ApplyInboundAction(_EnemyController.GetActionType(), queuedActionReturn);
+        _EnemyController.ExecuteQueuedAction(_PlayerController, State);
 
 
         // Execute enemy selected action.
@@ -177,10 +213,12 @@ public class StateCombatController : MonoBehaviour {
     private void HandleEnemyPostTurnState() {
         _IsStateReady = false;
 
+        HandleStatusEffectCheck();
+
         // [ ] countdown/clear status effects
         // [X] select enemy action (attack/defend)
 
-        ActionType queuedAction = _EnemyController.DecideAction();
+        _EnemyController.DecideAction();
 
         //send queued action type to ui
         //UICombatController.setActionType(queuedAction);

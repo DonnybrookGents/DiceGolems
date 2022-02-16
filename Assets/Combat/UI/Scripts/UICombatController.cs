@@ -27,11 +27,11 @@ public class UICombatController : MonoBehaviour {
     private UIState _SelectedState = UIState.Deselected;
 
     public void Start() {
-        _PlayerController = GetComponent<PlayerController>();
-        _EnemyController = GetComponent<EnemyController>();
+        _StateController = GetComponent<StateCombatController>();
+        _PlayerController = _StateController._PlayerController;
+        _EnemyController = _StateController._EnemyController;
         _CombatController = GetComponent<CombatController>();
         _ZonesController = GetComponent<ZoneCombatController>();
-        _StateController = GetComponent<StateCombatController>();
     }
 
     public void UpdatePlayerHealth() {
