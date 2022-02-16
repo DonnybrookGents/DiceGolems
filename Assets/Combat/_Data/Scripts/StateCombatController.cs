@@ -36,9 +36,7 @@ public class StateCombatController : MonoBehaviour {
         { CombatState.PlayerPostTurn, CombatState.EnemyPreTurn },
         { CombatState.EnemyPreTurn, CombatState.EnemyMidTurn },
         { CombatState.EnemyMidTurn, CombatState.EnemyPostTurn },
-        { CombatState.EnemyPostTurn, CombatState.PlayerPreTurn },
-        { CombatState.Win, CombatState.Win },
-        { CombatState.Lose, CombatState.Lose }
+        { CombatState.EnemyPostTurn, CombatState.PlayerPreTurn }
     };
 
     private void Start() {
@@ -209,8 +207,6 @@ public class StateCombatController : MonoBehaviour {
         // [ ] exit scene
 
         _UIController.UpdateWinLose("Victory", Color.green);
-
-        _IsStateReady = true;
     }
 
     private void HandleLoseState() {
@@ -221,8 +217,6 @@ public class StateCombatController : MonoBehaviour {
         // [ ] decrease lives
 
         _UIController.UpdateWinLose("Defeat", Color.red);
-
-        _IsStateReady = true;
     }
 
     private void Update() {
@@ -275,13 +269,11 @@ public class StateCombatController : MonoBehaviour {
 
             case CombatState.Win:
                 HandleWinState();
-                State = NextCombatState();
 
                 break;
 
             case CombatState.Lose:
                 HandleLoseState();
-                State = NextCombatState();
 
                 break;
         }
