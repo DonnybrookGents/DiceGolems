@@ -1,7 +1,7 @@
 
 public class ActionHeavyAttack : ActionTypeAttack, ActionInterface {
 
-    public static string Name = "Heavy Attack";
+    public static readonly string NAME = "Heavy Attack";
 
     public System.Tuple<int, int> DamageRange = System.Tuple.Create(10, 15);
 

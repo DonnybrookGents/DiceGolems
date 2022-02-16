@@ -157,12 +157,14 @@ public class UICombatController : MonoBehaviour {
         }
 
         if (tileZone == DiceZone.AttackTile) {
-            _EnemyController.TakeDamage(dieSum);
-            UpdateEnemyHealth();
+            ActionPlayerAttack attack = (ActionPlayerAttack)_PlayerController.Actions[ActionPlayerAttack.NAME];
+            attack.DamageValue = dieSum;
+            _PlayerController.Actions[ActionPlayerAttack.NAME].Execute(_EnemyController, _PlayerController, CombatState.PlayerMidTurn);
         } else if (tileZone == DiceZone.DefenseTile) {
             _PlayerController.Heal(dieSum);
-            UpdatePlayerHealth();
         }
+        UpdateEnemyHealth();
+        UpdatePlayerHealth();
     }
 
     public void EndTurn() {

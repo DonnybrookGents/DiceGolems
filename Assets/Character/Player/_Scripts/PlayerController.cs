@@ -9,6 +9,9 @@ public class PlayerController : Character {
     public static readonly CombatState DEFENSE = CombatState.EnemyMidTurn;
 
     public List<Die> Bank;
+    public Dictionary<string, ActionInterface> Actions = new Dictionary<string, ActionInterface>(){
+        {ActionPlayerAttack.NAME, new ActionPlayerAttack()}
+    };
 
     public PlayerController() {
         MaxHealth = 100;

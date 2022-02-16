@@ -23,7 +23,7 @@ public class StateCombatController : MonoBehaviour {
     public bool IsPlayerTurnEnded;
 
     public PlayerController _PlayerController;
-    public EnemyBeast _EnemyController;
+    public EnemyPaul _EnemyController;
     private CombatController _CombatController;
     private ZoneCombatController _ZonesController;
     private UICombatController _UIController;
@@ -41,7 +41,7 @@ public class StateCombatController : MonoBehaviour {
 
     private void Awake() {
         _PlayerController = new PlayerController();
-        _EnemyController = new EnemyBeast();
+        _EnemyController = new EnemyPaul();
     }
     private void Start() {
         State = CombatState.Start;
