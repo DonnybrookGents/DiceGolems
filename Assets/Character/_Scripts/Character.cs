@@ -3,33 +3,31 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public enum ActionType {
-    Attack,
-    Defend,
-    Heal,
-    None
-}
-public class EnemyController : MonoBehaviour {
-
-    //outbound
+public class Character : MonoBehaviour {
     public MethodInfo QueuedEnemyMethod;
     public Object[] QueuedEnemyMethodParameters;
 
     public Dictionary<MethodInfo, ActionType> methodActionTypeMap;
+
+    private Dictionary<ActionType, MethodInfo> ReactionMap = new Dictionary<ActionType, MethodInfo>(){
+        {ActionType.Attack, typeof(Character).GetMethod("TakeDamage")}
+    };
+
     public int Health;
     public int MaxHealth;
 
-    //methods corresponding to action types
+    public void ApplyInboundAction(ActionType action, System.Object[] genericParams) {
+        ReactionMap[action].Invoke(this, genericParams);
+    }
 
-
-    public void Start() {
+    protected virtual void Start() {
         methodActionTypeMap = new Dictionary<MethodInfo, ActionType>(){
-            {typeof(EnemyController).GetMethod("HeavyAttack"), ActionType.Attack},
-            {typeof(EnemyController).GetMethod("WeakAttack"), ActionType.Attack}
+            {typeof(Character).GetMethod("HeavyAttack"), ActionType.Attack},
+            {typeof(Character).GetMethod("WeakAttack"), ActionType.Attack}
         };
     }
-    public int Heal() {
-        int hp = Random.Range(1, 7);
+
+    public int Heal(int hp) {
         Health += hp;
 
         return hp;
@@ -38,7 +36,6 @@ public class EnemyController : MonoBehaviour {
     public void TakeDamage(int hp) {
         Health -= hp;
     }
-
     public int HeavyAttack() {
         int value = Random.Range(10, 15);
         Debug.Log("Calculated Damage: " + value);
@@ -54,10 +51,10 @@ public class EnemyController : MonoBehaviour {
         MethodInfo chosenMethod;
 
         if (Random.Range(0, 2) == 0) {
-            chosenMethod = typeof(EnemyController).GetMethod("HeavyAttack");
+            chosenMethod = typeof(Character).GetMethod("HeavyAttack");
             QueuedEnemyMethodParameters = null;
         } else {
-            chosenMethod = typeof(EnemyController).GetMethod("WeakAttack");
+            chosenMethod = typeof(Character).GetMethod("WeakAttack");
             QueuedEnemyMethodParameters = null;
         }
 
@@ -90,5 +87,4 @@ public class EnemyController : MonoBehaviour {
         return methodActionTypeMap[QueuedEnemyMethod];
     }
 
-    //methods to apply things to self
 }
