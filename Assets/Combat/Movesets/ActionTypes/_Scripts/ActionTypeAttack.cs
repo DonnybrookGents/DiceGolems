@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ActionTypeAttack : ActionType {
+    public int ApplyDamage(Character defenseCharacter, Character attackCharacter, int damage, CombatState combatState) {
+        foreach (ActionFilter filter in attackCharacter.ActionsFilters.Values) {
+            if (filter.Filter == FilterType.Attack) {
+                damage = filter.Execute(damage);
+            }
+        }
 
-    public int ApplyDamage(Character defenseCharacter, Character attackCharacter, int damage, CombatState combatState){
-        foreach(StatusEffect statusEffect in attackCharacter.StatusEffects.Values){
-            damage = statusEffect.Execute(damage, combatState);
+        foreach (ActionFilter filter in defenseCharacter.ActionsFilters.Values) {
+            if (filter.Filter == FilterType.Defend) {
+                damage = filter.Execute(damage);
+            }
         }
-        foreach(StatusEffect statusEffect in defenseCharacter.StatusEffects.Values){
-            damage = statusEffect.Execute(damage, combatState);
-        }
+
         return damage;
     }
     public virtual int Damage(int minDamage, int maxDamage) {

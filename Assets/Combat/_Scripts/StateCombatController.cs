@@ -28,7 +28,6 @@ public class StateCombatController : MonoBehaviour {
     private ZoneCombatController _ZonesController;
     private UICombatController _UIController;
     private bool _IsStateReady;
-    private bool _EnemyAttacking;
     private Dictionary<CombatState, CombatState> _StateMap = new Dictionary<CombatState, CombatState> {
         { CombatState.Start, CombatState.PlayerPreTurn },
         { CombatState.PlayerPreTurn, CombatState.PlayerMidTurn },
@@ -52,8 +51,6 @@ public class StateCombatController : MonoBehaviour {
         _IsStateReady = true;
     }
 
-
-
     private CombatState NextCombatState() {
         if (IsVictorious) {
             return CombatState.Win;
@@ -64,31 +61,6 @@ public class StateCombatController : MonoBehaviour {
         }
 
         return _StateMap[State];
-    }
-
-    private void HandleStatusEffectCheck() {
-        List<string> playerRemoval = new List<string>();
-        List<string> enemyRemoval = new List<string>();
-        foreach (StatusEffect statusEffect in _PlayerController.StatusEffects.Values) {
-            statusEffect.Execute(_PlayerController, State);
-            statusEffect.CountDown(State);
-            if (statusEffect.Count <= 0) {
-                playerRemoval.Add(statusEffect.GetName());
-            }
-        }
-        foreach (string key in playerRemoval) {
-            _PlayerController.StatusEffects.Remove(key);
-        }
-        foreach (StatusEffect statusEffect in _EnemyController.StatusEffects.Values) {
-            statusEffect.Execute(_EnemyController, State);
-            statusEffect.CountDown(State);
-            if (statusEffect.Count <= 0) {
-                enemyRemoval.Add(statusEffect.GetName());
-            }
-        }
-        foreach (string key in enemyRemoval) {
-            _EnemyController.StatusEffects.Remove(key);
-        }
     }
 
     private void HandleStartState() {
@@ -137,7 +109,8 @@ public class StateCombatController : MonoBehaviour {
         _CombatController.UpdateEnergy();
         _UIController.GetEnergy();
 
-        HandleStatusEffectCheck();
+        _PlayerController.HandleStatusEffect(State);
+        _EnemyController.HandleStatusEffect(State);
 
         _IsStateReady = true;
     }
@@ -166,7 +139,8 @@ public class StateCombatController : MonoBehaviour {
         // [ ] countdown/clear status effects
 
         // Clear the dice zones.
-        HandleStatusEffectCheck();
+        _PlayerController.HandleStatusEffect(State);
+        _EnemyController.HandleStatusEffect(State);
 
         _ZonesController.Clear();
 
@@ -176,7 +150,8 @@ public class StateCombatController : MonoBehaviour {
     private void HandleEnemyPreTurnState() {
         _IsStateReady = false;
 
-        HandleStatusEffectCheck();
+        _PlayerController.HandleStatusEffect(State);
+        _EnemyController.HandleStatusEffect(State);
 
         // [ ] trigger damage over time
         // [ ] trigger enabled debuffs
@@ -213,7 +188,8 @@ public class StateCombatController : MonoBehaviour {
     private void HandleEnemyPostTurnState() {
         _IsStateReady = false;
 
-        HandleStatusEffectCheck();
+        _PlayerController.HandleStatusEffect(State);
+        _EnemyController.HandleStatusEffect(State);
 
         // [ ] countdown/clear status effects
         // [X] select enemy action (attack/defend)

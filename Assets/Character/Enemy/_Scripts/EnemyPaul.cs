@@ -13,15 +13,13 @@ public class EnemyPaul : EnemyController {
         {ActionConfusion.NAME, new ActionConfusion(3)}
     };
 
-
-
     public override ActionInterface DecideAction() {
-
         List<string> attacks = new List<string>(){
             ActionLightAttack.NAME,
             ActionLightAttack.NAME,
             ActionConfusion.NAME
         };
+
         string action = attacks[Random.Range(0, attacks.Count)];
         Debug.Log("Paul is going to use" + action);
         QueuedAction = _Actions[action];

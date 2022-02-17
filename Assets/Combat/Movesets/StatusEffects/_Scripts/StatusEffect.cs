@@ -4,22 +4,21 @@ using UnityEngine;
 public abstract class StatusEffect {
     public List<CombatState> ExecutionStates;
     public List<CombatState> CountdownStates;
-    public int Count;
+    public int Cooldown;
     public int Level;
-
     public int Priority;
 
-    protected StatusEffect(List<CombatState> executionStates, List<CombatState> countdownStates, int count, int level, int priority) {
+    protected StatusEffect(List<CombatState> executionStates, List<CombatState> countdownStates, int cooldown, int level, int priority) {
         ExecutionStates = executionStates;
         CountdownStates = countdownStates;
-        Count = count;
+        Cooldown = cooldown;
         Level = level;
         Priority = priority;
     }
 
-    public virtual int AdjustCount(int countAdjustment) {
-        Count += countAdjustment;
-        return Count;
+    public virtual int AdjustCooldown(int countAdjustment) {
+        Cooldown += countAdjustment;
+        return Cooldown;
     }
 
     public virtual int AdjustLevel(int levelAdjustment) {
@@ -36,12 +35,12 @@ public abstract class StatusEffect {
     }
 
     public abstract void Execute(Character character, CombatState combatState);
-    public abstract int Execute(int damage, CombatState combatState);
+    public abstract int Execute(int damage, CombatState combatState); // delete this
 
     public virtual void CountDown(CombatState combatState) {
         if (CountdownStates.Contains(combatState)) {
-            Count--;
-            Debug.Log("Counting Down Status Effect: " + Count);
+            Cooldown--;
+            Debug.Log("Counting Down Status Effect: " + Cooldown);
         }
     }
 

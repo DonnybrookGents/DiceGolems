@@ -6,15 +6,6 @@ public class EnemyBeast : EnemyController {
     public EnemyBeast() {
         MaxHealth = 50;
         Health = 50;
-
-        StatusEffects.Add(
-            StatusEffectConfusion.NAME,
-            new StatusEffectConfusion(
-                new List<CombatState>() { EnemyController.OFFENSE },
-                new List<CombatState>() { EnemyController.POSTTURN },
-                2
-            )
-        );
     }
 
     private Dictionary<string, ActionInterface> _Actions = new Dictionary<string, ActionInterface>(){
