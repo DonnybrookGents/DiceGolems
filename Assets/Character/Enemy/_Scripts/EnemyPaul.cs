@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyPaul : EnemyController {
+    public string Name = "Paul";
 
     public EnemyPaul() {
         MaxHealth = 40;
@@ -23,7 +24,6 @@ public class EnemyPaul : EnemyController {
         };
 
         string action = attacks[Random.Range(0, attacks.Count)];
-        Debug.Log("Paul is going to use action: " + action);
         QueuedAction = _Actions[action];
         return QueuedAction;
     }

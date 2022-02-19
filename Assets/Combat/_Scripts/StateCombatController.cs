@@ -78,14 +78,10 @@ public class StateCombatController : MonoBehaviour {
         _UIController.UpdatePlayerHealth();
         _UIController.UpdateEnemyHealth();
 
-        // Select enemy first action.
-        _EnemyController.DecideAction();
-
-        // if (_EnemyAttacking) {
-        //     _UIController.UpdateEnemyAction("Enemy is going to heavy attack!", Color.red);
-        // } else {
-        //     _UIController.UpdateEnemyAction("Enemy is going to weak attack!", Color.yellow);
-        // }
+        // Select enemy name and first action.
+        ActionInterface action = _EnemyController.DecideAction();
+        _UIController.SetEnemyName(_EnemyController.Name);
+        _UIController.UpdateEnemyAction(action.GetName());
 
         _IsStateReady = true;
     }
@@ -94,7 +90,6 @@ public class StateCombatController : MonoBehaviour {
         _IsStateReady = false;
 
         // [ ] refresh tile charges
-
 
         // Update the energy.
         _CombatController.UpdateEnergy();
@@ -160,16 +155,8 @@ public class StateCombatController : MonoBehaviour {
         // [ ] countdown/clear status effects
         // [X] select enemy action (attack/defend)
 
-        _EnemyController.DecideAction();
-
-        //send queued action type to ui
-        //UICombatController.setActionType(queuedAction);
-
-        // if (_EnemyAttacking) {
-        //     _UIController.UpdateEnemyAction("Enemy is going to attack!", Color.red);
-        // } else {
-        //     _UIController.UpdateEnemyAction("Enemy is going to heal!", Color.green);
-        // }
+        ActionInterface action = _EnemyController.DecideAction();
+        _UIController.UpdateEnemyAction(action.GetName());
 
         _IsStateReady = true;
     }

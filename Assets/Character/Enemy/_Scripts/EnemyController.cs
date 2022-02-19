@@ -10,7 +10,6 @@ public abstract class EnemyController : Character {
     public static readonly CombatState OFFENSE = CombatState.EnemyMidTurn;
     public static readonly CombatState DEFENSE = CombatState.PlayerMidTurn;
 
-    public string Name;
     public abstract ActionInterface DecideAction();
 
     public void ExecuteQueuedAction(Character defenseCharacter, CombatState combatState) {

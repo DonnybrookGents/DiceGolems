@@ -5,7 +5,6 @@ public class StatusEffectPoison : StatusEffect {
     public StatusEffectPoison(int count, int level, int priority = 20) : base(count, level, priority) { }
 
     public override void Execute(Character character) {
-        Debug.Log("Applying Poison of strength: " + Level);
         character.Health -= Level;
     }
     public override string GetName() {

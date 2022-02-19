@@ -11,6 +11,7 @@ enum UIState {
 public class UICombatController : MonoBehaviour {
     public Canvas HUD;
     public Text PlayerHealth;
+    public Text EnemyName;
     public Text EnemyHealth;
     public Text EnemyAction;
     public Text WinLose;
@@ -34,6 +35,10 @@ public class UICombatController : MonoBehaviour {
         _ZonesController = GetComponent<ZoneCombatController>();
     }
 
+    public void SetEnemyName(string text) {
+        EnemyName.text = text;
+    }
+
     public void UpdatePlayerHealth() {
         PlayerHealth.text = _PlayerController.Health + "/" + _PlayerController.MaxHealth;
     }
@@ -42,9 +47,8 @@ public class UICombatController : MonoBehaviour {
         EnemyHealth.text = _EnemyController.Health + "/" + _EnemyController.MaxHealth;
     }
 
-    public void UpdateEnemyAction(string text, Color color) {
-        EnemyAction.text = text;
-        EnemyAction.color = color;
+    public void UpdateEnemyAction(string action) {
+        EnemyAction.text = EnemyName.text + " is going to use " + action.ToUpper();
     }
 
     public void UpdateWinLose(string text, Color color) {

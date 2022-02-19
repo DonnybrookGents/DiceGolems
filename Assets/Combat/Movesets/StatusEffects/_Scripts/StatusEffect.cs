@@ -26,7 +26,6 @@ public abstract class StatusEffect {
 
     public virtual void CountDown() {
         Cooldown--;
-        Debug.Log("Counting Down Status Effect: " + Cooldown);
     }
 
     public abstract string GetName();

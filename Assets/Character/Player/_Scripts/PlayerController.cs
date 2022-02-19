@@ -16,7 +16,7 @@ public class PlayerController : Character {
     public PlayerController() {
         MaxHealth = 100;
         Health = 100;
-        Debug.Log("player start");
+
         Bank = new List<Die> {
             new Die(),
             new Die(new int[] { 1, 1, 1, 6, 6, 6 })
