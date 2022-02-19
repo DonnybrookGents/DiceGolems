@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class Character {
+public class Character : MonoBehaviour {
     public int Health;
     public int MaxHealth;
 

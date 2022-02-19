@@ -4,11 +4,13 @@ using System.Reflection;
 using UnityEngine;
 
 public abstract class EnemyController : Character {
+    public string Name;
 
     public static readonly CombatState PRETURN = CombatState.EnemyPreTurn;
     public static readonly CombatState POSTTURN = CombatState.EnemyPostTurn;
     public static readonly CombatState OFFENSE = CombatState.EnemyMidTurn;
     public static readonly CombatState DEFENSE = CombatState.PlayerMidTurn;
+    public ActionInterface QueuedAction;
 
     public abstract ActionInterface DecideAction();
 
@@ -16,5 +18,4 @@ public abstract class EnemyController : Character {
         QueuedAction.Execute(defenseCharacter, this, combatState);
     }
 
-    public ActionInterface QueuedAction;
 }

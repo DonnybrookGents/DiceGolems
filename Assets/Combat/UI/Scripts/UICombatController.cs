@@ -9,6 +9,8 @@ enum UIState {
 }
 
 public class UICombatController : MonoBehaviour {
+    public GameObject Player;
+    public GameObject Enemy;
     public Canvas HUD;
     public Text PlayerHealth;
     public Text EnemyName;
@@ -29,8 +31,8 @@ public class UICombatController : MonoBehaviour {
 
     public void Start() {
         _StateController = GetComponent<StateCombatController>();
-        _PlayerController = _StateController._PlayerController;
-        _EnemyController = _StateController._EnemyController;
+        _PlayerController = Player.GetComponent<PlayerController>();
+        _EnemyController = Enemy.GetComponent<EnemyController>();
         _CombatController = GetComponent<CombatController>();
         _ZonesController = GetComponent<ZoneCombatController>();
     }

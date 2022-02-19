@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/CombatScene.unity
+    path: Assets/Scenes/Overworld.unity
+    guid: a407650d59f7dd647ae7fb7bb29d2354
+  - enabled: 1
+    path: Assets/Scenes/CombatPaulScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/CombatBeastScene.unity
+    guid: c461183403ace684b88bbe3c08458abc
   m_configObjects: {}

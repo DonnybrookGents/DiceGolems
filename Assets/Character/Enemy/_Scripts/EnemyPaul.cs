@@ -2,13 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyPaul : EnemyController {
-    public string Name = "Paul";
-
-    public EnemyPaul() {
-        MaxHealth = 40;
-        Health = 40;
-    }
-
     private Dictionary<string, ActionInterface> _Actions = new Dictionary<string, ActionInterface>(){
         {ActionLightAttack.NAME, new ActionLightAttack()},
         {ActionConfusion.NAME, new ActionConfusion(3)},
@@ -27,5 +20,4 @@ public class EnemyPaul : EnemyController {
         QueuedAction = _Actions[action];
         return QueuedAction;
     }
-
 }

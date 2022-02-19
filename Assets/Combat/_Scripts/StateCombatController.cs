@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum CombatState {
     Start,
@@ -21,9 +21,11 @@ public class StateCombatController : MonoBehaviour {
     public bool IsDead;
     public bool IsVictorious;
     public bool IsPlayerTurnEnded;
+    public GameObject Player;
+    public GameObject Enemy;
 
-    public PlayerController _PlayerController;
-    public EnemyPaul _EnemyController;
+    private PlayerController _PlayerController;
+    private EnemyController _EnemyController;
     private CombatController _CombatController;
     private ZoneCombatController _ZonesController;
     private UICombatController _UIController;
@@ -38,12 +40,11 @@ public class StateCombatController : MonoBehaviour {
         { CombatState.EnemyPostTurn, CombatState.PlayerPreTurn }
     };
 
-    private void Awake() {
-        _PlayerController = new PlayerController();
-        _EnemyController = new EnemyPaul();
-    }
     private void Start() {
         State = CombatState.Start;
+
+        _PlayerController = Player.GetComponent<PlayerController>();
+        _EnemyController = Enemy.GetComponent<EnemyController>();
         _CombatController = GetComponent<CombatController>();
         _ZonesController = GetComponent<ZoneCombatController>();
         _UIController = GetComponent<UICombatController>();
@@ -171,6 +172,7 @@ public class StateCombatController : MonoBehaviour {
         // [ ] exit scene
 
         _UIController.UpdateWinLose("Victory", Color.green);
+        StartCoroutine(BackToOverworld());
     }
 
     private void HandleLoseState() {
@@ -181,6 +183,13 @@ public class StateCombatController : MonoBehaviour {
         // [ ] decrease lives
 
         _UIController.UpdateWinLose("Defeat", Color.red);
+        StartCoroutine(BackToOverworld());
+    }
+
+    private IEnumerator BackToOverworld() {
+        yield return new WaitForSeconds(2);
+
+        SceneManager.LoadScene("Overworld");
     }
 
     private void Update() {

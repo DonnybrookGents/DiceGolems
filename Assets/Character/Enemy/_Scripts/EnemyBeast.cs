@@ -2,13 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBeast : EnemyController {
-    public string Name = "Beast";
-
-    public EnemyBeast() {
-        MaxHealth = 50;
-        Health = 50;
-    }
-
     private Dictionary<string, ActionInterface> _Actions = new Dictionary<string, ActionInterface>(){
         {ActionHeavyAttack.NAME, new ActionHeavyAttack()},
         {ActionLightAttack.NAME, new ActionLightAttack()}
@@ -26,5 +19,4 @@ public class EnemyBeast : EnemyController {
 
         return QueuedAction;
     }
-
 }
