@@ -24,6 +24,7 @@ public class StateCombatController : MonoBehaviour {
     public GameObject Player;
     public GameObject Enemy;
 
+    private SceneController _SceneController;
     private PlayerController _PlayerController;
     private EnemyController _EnemyController;
     private CombatController _CombatController;
@@ -43,6 +44,7 @@ public class StateCombatController : MonoBehaviour {
     private void Start() {
         State = CombatState.Start;
 
+        _SceneController = GetComponent<SceneController>();
         _PlayerController = Player.GetComponent<PlayerController>();
         _EnemyController = Enemy.GetComponent<EnemyController>();
         _CombatController = GetComponent<CombatController>();
@@ -154,7 +156,6 @@ public class StateCombatController : MonoBehaviour {
         _IsStateReady = false;
 
         // [ ] countdown/clear status effects
-        // [X] select enemy action (attack/defend)
 
         ActionInterface action = _EnemyController.DecideAction();
         _UIController.UpdateEnemyAction(action.GetName());
@@ -165,31 +166,22 @@ public class StateCombatController : MonoBehaviour {
     private void HandleWinState() {
         _IsStateReady = false;
 
-        // [ ] end combat
         // [ ] clear temporary negative effects
         // [ ] give reward
         // [ ] level up
-        // [ ] exit scene
 
         _UIController.UpdateWinLose("Victory", Color.green);
-        StartCoroutine(BackToOverworld());
+        StartCoroutine(_SceneController.BackToOverworld());
     }
 
     private void HandleLoseState() {
         _IsStateReady = false;
 
-        // [ ] end combat
         // [ ] clear temporary negative effects
         // [ ] decrease lives
 
         _UIController.UpdateWinLose("Defeat", Color.red);
-        StartCoroutine(BackToOverworld());
-    }
-
-    private IEnumerator BackToOverworld() {
-        yield return new WaitForSeconds(2);
-
-        SceneManager.LoadScene("Overworld");
+        StartCoroutine(_SceneController.BackToOverworld());
     }
 
     private void Update() {

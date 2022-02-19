@@ -520,8 +520,9 @@ GameObject:
   - component: {fileID: 185330446}
   - component: {fileID: 185330445}
   - component: {fileID: 185330447}
-  - component: {fileID: 185330448}
+  - component: {fileID: 185330450}
   - component: {fileID: 185330449}
+  - component: {fileID: 185330448}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -610,6 +611,18 @@ MonoBehaviour:
   EnergyLevel: {fileID: 1457929693}
   VatInfo: {fileID: 577213612}
   DicePool: {fileID: 2080346207}
+--- !u!114 &185330450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185330444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64767840671eebc44bdddb79c9883f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &239112760
 GameObject:
   m_ObjectHideFlags: 0
