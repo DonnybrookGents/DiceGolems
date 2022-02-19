@@ -66,10 +66,6 @@ public class StateCombatController : MonoBehaviour {
     private void HandleStartState() {
         _IsStateReady = false;
 
-        // [X] set player starting energy
-        // [X] copy player bank
-        // [X] load first enemy action
-
         // Copy the bank.
         _CombatController.CopyBank(_PlayerController.Bank);
         _UIController.GetBankInfo();
@@ -97,20 +93,14 @@ public class StateCombatController : MonoBehaviour {
     private void HandlePlayerPreTurnState() {
         _IsStateReady = false;
 
-        // [X] add per-turn energy
         // [ ] refresh tile charges
-        // [ ] trigger damage over time
-        // [ ] trigger enabled debuffs
 
-        //loop through status effects
-        //if(typeof(status) == preTurnStatus){ do it }
 
         // Update the energy.
         _CombatController.UpdateEnergy();
         _UIController.GetEnergy();
 
-        _PlayerController.HandleStatusEffect(State);
-        _EnemyController.HandleStatusEffect(State);
+        _PlayerController.HandleStatusEffect();
 
         _IsStateReady = true;
     }
@@ -118,7 +108,6 @@ public class StateCombatController : MonoBehaviour {
     private IEnumerator HandlePlayerMidTurnState() {
         _IsStateReady = false;
 
-        // [X] driven by UI
         // [ ] lock input controlls
 
         // Wait for UI input.
@@ -135,12 +124,7 @@ public class StateCombatController : MonoBehaviour {
     private void HandlePlayerPostTurnState() {
         _IsStateReady = false;
 
-        // [X] clear backend dice zones
-        // [ ] countdown/clear status effects
-
         // Clear the dice zones.
-        _PlayerController.HandleStatusEffect(State);
-        _EnemyController.HandleStatusEffect(State);
 
         _ZonesController.Clear();
 
@@ -150,11 +134,7 @@ public class StateCombatController : MonoBehaviour {
     private void HandleEnemyPreTurnState() {
         _IsStateReady = false;
 
-        _PlayerController.HandleStatusEffect(State);
-        _EnemyController.HandleStatusEffect(State);
-
-        // [ ] trigger damage over time
-        // [ ] trigger enabled debuffs
+        _EnemyController.HandleStatusEffect();
 
         _IsStateReady = true;
     }
@@ -162,18 +142,7 @@ public class StateCombatController : MonoBehaviour {
     private void HandleEnemyMidTurnState() {
         _IsStateReady = false;
 
-        // [X] execute selected action
         _EnemyController.ExecuteQueuedAction(_PlayerController, State);
-
-
-        // Execute enemy selected action.
-        // int hp;
-        // if (_EnemyAttacking) {
-        //     hp = _EnemyController.Attack();
-        //     _PlayerController.TakeDamage(hp);
-        // } else {
-        //     hp = _EnemyController.Heal();
-        // }
 
         if (_PlayerController.Health < 0) {
             IsDead = true;
@@ -188,9 +157,6 @@ public class StateCombatController : MonoBehaviour {
     private void HandleEnemyPostTurnState() {
         _IsStateReady = false;
 
-        _PlayerController.HandleStatusEffect(State);
-        _EnemyController.HandleStatusEffect(State);
-
         // [ ] countdown/clear status effects
         // [X] select enemy action (attack/defend)
 
@@ -198,9 +164,6 @@ public class StateCombatController : MonoBehaviour {
 
         //send queued action type to ui
         //UICombatController.setActionType(queuedAction);
-
-        // Setect enemy action.
-        //_EnemyAttacking = _EnemyController.GetAction();
 
         // if (_EnemyAttacking) {
         //     _UIController.UpdateEnemyAction("Enemy is going to attack!", Color.red);

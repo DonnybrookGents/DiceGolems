@@ -1,14 +1,11 @@
 using System.Collections.Generic;
-
-public abstract class StatusEffectPoison : StatusEffect {
+using UnityEngine;
+public class StatusEffectPoison : StatusEffect {
     public static readonly string NAME = "Poison";
-    StatusEffectPoison(List<CombatState> executionStates, List<CombatState> countdownStates, 
-        int count, int level) : base(executionStates, countdownStates, count, level, 10) {}
+    public StatusEffectPoison(int count, int level, int priority = 20) : base(count, level, priority) { }
 
-    public override void Execute(Character character, CombatState combatState){
-        if(!ExecutionStates.Contains(combatState)){
-            return;
-        }
+    public override void Execute(Character character) {
+        Debug.Log("Applying Poison of strength: " + Level);
         character.Health -= Level;
     }
     public override string GetName() {

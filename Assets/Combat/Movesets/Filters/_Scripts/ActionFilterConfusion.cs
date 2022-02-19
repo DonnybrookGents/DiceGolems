@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionFilterConfusion : ActionFilter {
+public class ActionFilterConfusion : FilterTypeAttack {
     public static readonly string NAME = "Confusion";
 
-    public ActionFilterConfusion(int cooldown, int priority = 10) : base(FilterType.Attack, cooldown, priority) { }
+    public ActionFilterConfusion(int cooldown, int priority = 10) : base(cooldown, priority) { }
 
     public override int Execute(int damage) {
         Debug.Log("Rolling for confusion...");

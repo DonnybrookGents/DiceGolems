@@ -22,12 +22,12 @@ public class Character {
         Health -= workingDamage;
     }
 
-    public void HandleStatusEffect(CombatState state) {
+    public void HandleStatusEffect() {
         Dictionary<string, StatusEffect> newStatusEffects = new Dictionary<string, StatusEffect>();
 
         foreach (StatusEffect statusEffect in StatusEffects.Values) {
-            statusEffect.Execute(this, state);
-            statusEffect.CountDown(state);
+            statusEffect.Execute(this);
+            statusEffect.CountDown();
 
             if (statusEffect.Cooldown > 0) {
                 newStatusEffects.Add(statusEffect.GetName(), statusEffect);

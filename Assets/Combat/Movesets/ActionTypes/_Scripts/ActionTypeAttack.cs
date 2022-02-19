@@ -5,13 +5,13 @@ using UnityEngine;
 public abstract class ActionTypeAttack : ActionType {
     public int ApplyDamage(Character defenseCharacter, Character attackCharacter, int damage, CombatState combatState) {
         foreach (ActionFilter filter in attackCharacter.ActionsFilters.Values) {
-            if (filter.Filter == FilterType.Attack) {
+            if (filter is FilterTypeAttack) {
                 damage = filter.Execute(damage);
             }
         }
 
         foreach (ActionFilter filter in defenseCharacter.ActionsFilters.Values) {
-            if (filter.Filter == FilterType.Defend) {
+            if (filter is FilterTypeDefense) {
                 damage = filter.Execute(damage);
             }
         }
