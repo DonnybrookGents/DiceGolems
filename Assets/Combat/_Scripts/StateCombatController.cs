@@ -25,9 +25,8 @@ public class StateCombatController : MonoBehaviour {
     public GameObject Enemy;
 
     private SceneController _SceneController;
-    private PlayerController _PlayerController;
+    private PlayerCombatController _PlayerCombatController;
     private EnemyController _EnemyController;
-    private CombatController _CombatController;
     private ZoneCombatController _ZonesController;
     private UICombatController _UIController;
     private bool _IsStateReady;
@@ -45,9 +44,8 @@ public class StateCombatController : MonoBehaviour {
         State = CombatState.Start;
 
         _SceneController = GetComponent<SceneController>();
-        _PlayerController = Player.GetComponent<PlayerController>();
+        _PlayerCombatController = Player.GetComponent<PlayerCombatController>();
         _EnemyController = Enemy.GetComponent<EnemyController>();
-        _CombatController = GetComponent<CombatController>();
         _ZonesController = GetComponent<ZoneCombatController>();
         _UIController = GetComponent<UICombatController>();
 
@@ -70,11 +68,9 @@ public class StateCombatController : MonoBehaviour {
         _IsStateReady = false;
 
         // Copy the bank.
-        _CombatController.CopyBank(_PlayerController.Bank);
+        _PlayerCombatController.CloneData();
         _UIController.GetBankInfo();
 
-        // Set the energy level.
-        _CombatController.SetEnergy(4);
         _UIController.GetEnergy();
 
         // Set play and energy level.
@@ -84,7 +80,7 @@ public class StateCombatController : MonoBehaviour {
         // Select enemy name and first action.
         ActionInterface action = _EnemyController.DecideAction();
         _UIController.SetEnemyName(_EnemyController.Name);
-        _UIController.UpdateEnemyAction(action.GetName());
+        //_UIController.UpdateEnemyAction(action.GetName());
 
         _IsStateReady = true;
     }
@@ -95,10 +91,13 @@ public class StateCombatController : MonoBehaviour {
         // [ ] refresh tile charges
 
         // Update the energy.
-        _CombatController.UpdateEnergy();
+        _PlayerCombatController.UpdateEnergy();
         _UIController.GetEnergy();
 
-        _PlayerController.HandleStatusEffect();
+        _PlayerCombatController.HandleStatusEffect();
+
+        _UIController.UpdateEnemyHealth();
+        _UIController.UpdatePlayerHealth();
 
         _IsStateReady = true;
     }
@@ -140,9 +139,9 @@ public class StateCombatController : MonoBehaviour {
     private void HandleEnemyMidTurnState() {
         _IsStateReady = false;
 
-        _EnemyController.ExecuteQueuedAction(_PlayerController, State);
+        _EnemyController.ExecuteQueuedAction(_PlayerCombatController, State);
 
-        if (_PlayerController.Health < 0) {
+        if (_PlayerCombatController.Health < 0) {
             IsDead = true;
         }
 
@@ -158,7 +157,7 @@ public class StateCombatController : MonoBehaviour {
         // [ ] countdown/clear status effects
 
         ActionInterface action = _EnemyController.DecideAction();
-        _UIController.UpdateEnemyAction(action.GetName());
+       // _UIController.UpdateEnemyAction(action.GetName());
 
         _IsStateReady = true;
     }

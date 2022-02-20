@@ -14,7 +14,6 @@ public class ZoneCombatController : MonoBehaviour {
 
     void Awake() {
         Zones = new Dictionary<DiceZone, Dictionary<string, Die>>();
-
         Zones.Add(DiceZone.Pool, new Dictionary<string, Die>());
         Zones.Add(DiceZone.AttackTile, new Dictionary<string, Die>());
         Zones.Add(DiceZone.DefenseTile, new Dictionary<string, Die>());

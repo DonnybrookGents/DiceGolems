@@ -1,33 +1,17 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class StatusEffect {
-    public int Cooldown;
-    public int Level;
+    public string Name;
+    public string Description;
     public int Priority;
+    public int Cooldown;
+    public int Efficacy;
 
-    protected StatusEffect(int cooldown, int level, int priority) {
-        Cooldown = cooldown;
-        Level = level;
-        Priority = priority;
+    public StatusEffectOverride executionOverride;
+
+    public virtual void Execute(Character defenseCharacter, Character attackCharacter){
+        executionOverride.Execute(defenseCharacter, attackCharacter);
     }
-
-    public virtual int AdjustCooldown(int countAdjustment) {
-        Cooldown += countAdjustment;
-        return Cooldown;
-    }
-
-    public virtual int AdjustLevel(int levelAdjustment) {
-        Level += levelAdjustment;
-        return Level;
-    }
-
-    public abstract void Execute(Character character);
-
-    public virtual void CountDown() {
-        Cooldown--;
-    }
-
-    public abstract string GetName();
-
 }

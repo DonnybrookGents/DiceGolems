@@ -22,18 +22,16 @@ public class UICombatController : MonoBehaviour {
     public Transform DicePool;
     public Die SelectedDie;
 
-    private PlayerController _PlayerController;
+    private PlayerCombatController _PlayerCombatController;
     private EnemyController _EnemyController;
-    private CombatController _CombatController;
     private ZoneCombatController _ZonesController;
     private StateCombatController _StateController;
     private UIState _SelectedState = UIState.Deselected;
 
     public void Start() {
         _StateController = GetComponent<StateCombatController>();
-        _PlayerController = Player.GetComponent<PlayerController>();
+        _PlayerCombatController = Player.GetComponent<PlayerCombatController>();
         _EnemyController = Enemy.GetComponent<EnemyController>();
-        _CombatController = GetComponent<CombatController>();
         _ZonesController = GetComponent<ZoneCombatController>();
     }
 
@@ -42,7 +40,7 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void UpdatePlayerHealth() {
-        PlayerHealth.text = _PlayerController.Health + "/" + _PlayerController.MaxHealth;
+        PlayerHealth.text = _PlayerCombatController.Health + "/" + _PlayerCombatController.MaxHealth;
     }
 
     public void UpdateEnemyHealth() {
@@ -59,9 +57,9 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void GetEnergy() {
-        EnergyLevel.text = _CombatController.Energy.ToString();
+        EnergyLevel.text = _PlayerCombatController.Energy.ToString();
 
-        if (_CombatController.Energy == 0) {
+        if (_PlayerCombatController.Energy == 0) {
             EnergyLevel.color = Color.red;
         } else {
             EnergyLevel.color = Color.white;
@@ -71,25 +69,25 @@ public class UICombatController : MonoBehaviour {
     public void GetBankInfo() {
         string vatInfo = "";
 
-        foreach (Die die in _CombatController.Bank) {
-            foreach (int face in die.Faces) {
-                vatInfo += face.ToString() + " ";
-            }
+        // foreach (Die die in _PlayerCombatController.Player.Bank) {
+        //     foreach (int face in die.Faces) {
+        //         vatInfo += face.ToString() + " ";
+        //     }
 
-            vatInfo += "\n";
-        }
+        //     vatInfo += "\n";
+        // }
 
         VatInfo.text = vatInfo;
     }
 
     public void RollDice() {
-        if (_CombatController.Energy > 0) {
+        if (_PlayerCombatController.Energy > 0) {
             UICombatDiceSlot poolSlot = GetPoolDiceSlot("");
 
             if (poolSlot == null) {
                 return;
             }
-            Die rolledDie = _CombatController.GenerateDice();
+            Die rolledDie = _PlayerCombatController.GenerateDice();
 
             poolSlot.Set(rolledDie);
             _ZonesController.AddDie(DiceZone.Pool, rolledDie);
@@ -163,11 +161,11 @@ public class UICombatController : MonoBehaviour {
         }
 
         if (tileZone == DiceZone.AttackTile) {
-            ActionPlayerAttack attack = (ActionPlayerAttack)_PlayerController.Actions[ActionPlayerAttack.NAME];
-            attack.DamageValue = dieSum;
-            _PlayerController.Actions[ActionPlayerAttack.NAME].Execute(_EnemyController, _PlayerController, CombatState.PlayerMidTurn);
+            //ActionPlayerAttack attack = (ActionPlayerAttack)_PlayerCombatController.Actions[ActionPlayerAttack.NAME];
+            //attack.DamageValue = dieSum;
+            //_PlayerCombatController.Actions[ActionPlayerAttack.NAME].Execute(_EnemyController, _PlayerCombatController, CombatState.PlayerMidTurn);
         } else if (tileZone == DiceZone.DefenseTile) {
-            _PlayerController.Heal(dieSum);
+            _PlayerCombatController.Heal(dieSum);
         }
         UpdateEnemyHealth();
         UpdatePlayerHealth();

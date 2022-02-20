@@ -6,16 +6,21 @@ using UnityEngine;
 public abstract class EnemyController : Character {
     public string Name;
 
-    public static readonly CombatState PRETURN = CombatState.EnemyPreTurn;
-    public static readonly CombatState POSTTURN = CombatState.EnemyPostTurn;
-    public static readonly CombatState OFFENSE = CombatState.EnemyMidTurn;
-    public static readonly CombatState DEFENSE = CombatState.PlayerMidTurn;
     public ActionInterface QueuedAction;
 
     public abstract ActionInterface DecideAction();
 
     public void ExecuteQueuedAction(Character defenseCharacter, CombatState combatState) {
-        QueuedAction.Execute(defenseCharacter, this, combatState);
+       // QueuedAction.Execute(defenseCharacter, this, combatState);
+    }
+
+    public override int TakeDamage(int initalDamage) {
+        Health -= initalDamage;
+        return initalDamage;
+    }
+    public override int Heal(int hp) {
+        Health += hp;
+        return hp;
     }
 
 }
