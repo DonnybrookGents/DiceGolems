@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: GivePoison
   m_EditorClassIdentifier: 
   Description: 
-  Name: 0
-  DebuffName: 0
-  statusEffect: {fileID: 0}
+  Name: 2
+  statusEffect: {fileID: 11400000, guid: 62c002c85649b864bbd76fc26e5a9e0c, type: 2}
   StatusEffectType: 0
-  Efficacy: 0
-  Cooldown: 0
+  Efficacy: 3
+  Cooldown: 3

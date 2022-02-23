@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 448462136643e6b4096b3a1cf0d46e39, type: 3}
   m_Name: Bleed
   m_EditorClassIdentifier: 
-  Priority: 0
-  Name: 0
+  Priority: 20
+  Name: 1

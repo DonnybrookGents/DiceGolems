@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Paul
   m_EditorClassIdentifier: 
   Name: Paul
-  MaxHealth: 10
+  MaxHealth: 40
   Actions:
-  - Action: {fileID: 11400000, guid: 3635d5e0d73b148409f1c907024e7690, type: 2}
+  - Action: {fileID: 11400000, guid: cb3eda8413c63374cad6d23aad31a3d8, type: 2}
     Weight: 1
+  - Action: {fileID: 11400000, guid: a797f69d4d5f58848a59f3e8883a5697, type: 2}
+    Weight: 1
+  - Action: {fileID: 11400000, guid: 3635d5e0d73b148409f1c907024e7690, type: 2}
+    Weight: 3

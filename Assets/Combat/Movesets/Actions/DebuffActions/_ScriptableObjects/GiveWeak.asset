@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GiveWeak
   m_EditorClassIdentifier: 
   Description: 
-  Name: 0
-  DebuffName: 0
-  statusEffect: {fileID: 0}
-  Efficacy: 0
-  Cooldown: 0
+  Name: 3
+  statusEffect: {fileID: 11400000, guid: 40d3b9e6e78bbba4184e82f44829d699, type: 2}
+  StatusEffectType: 1
+  Efficacy: 2
+  Cooldown: 3

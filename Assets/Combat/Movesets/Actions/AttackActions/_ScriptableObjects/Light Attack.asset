@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Light Attack
   m_EditorClassIdentifier: 
   Description: 
-  InclusiveMinDamage: 0
-  ExclusiveMaxDamage: 0
-  AttackName: 0
+  Name: 0
+  InclusiveMinDamage: 4
+  ExclusiveMaxDamage: 7

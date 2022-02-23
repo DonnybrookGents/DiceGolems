@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Player
   MaxHealth: 100
-  Health: 106
+  Health: 62
   MaxEnergy: 6
   StartingEnergy: 6
   EnergyRegeneration: 2
