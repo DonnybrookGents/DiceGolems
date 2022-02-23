@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Confusion
   m_EditorClassIdentifier: 
   Priority: 1000
+  Name: 0
+  Type: 2

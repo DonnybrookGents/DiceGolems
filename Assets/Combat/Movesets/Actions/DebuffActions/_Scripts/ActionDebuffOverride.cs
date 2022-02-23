@@ -23,7 +23,7 @@ public class ActionDebuffOverride : ActionOverride {
 
         //loop through and apply all attacker filters
         foreach(ActionFilter filter in offensiveCharacter.ActionFilters){
-            if(filter.Type == FilterType.DebuffAttack){
+            if(filter.Type == FilterType.DebuffActor){
                 System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
                 ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
                 negativeEffect = (StatusEffect)o.Execute(negativeEffect, filter);
@@ -31,7 +31,7 @@ public class ActionDebuffOverride : ActionOverride {
         }
         //loop through and apply all defender filters
         foreach(ActionFilter filter in defensiveCharacter.ActionFilters){
-            if(filter.Type == FilterType.DebuffDefense){
+            if(filter.Type == FilterType.DebuffRecipient){
                 System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
                 ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
                 negativeEffect = (StatusEffect)o.Execute(negativeEffect, filter);

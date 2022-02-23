@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionAttackOverride : ActionOverride {
-
-    public ActionAttackOverride() {
-
-    }
-    public void Execute(Character defensiveCharacter, Character offensiveCharacter, ActionContainer action) {
-        ActionAttackContainer attack = (ActionAttackContainer) action;
+public class BasicAttackOverride : TileOverride {
+    public void Execute(Character defensiveCharacter, Character offensiveCharacter, List<Die> dice, Tile tile){
         //generate damage
-        int damage = Random.Range(attack.InclusiveMinDamage, attack.ExclusiveMaxDamage);
+        int damage = DieUtility.SumDice(dice);
         //loop through and apply all attacker filters
         foreach(ActionFilter filter in offensiveCharacter.ActionFilters){
             if(filter.Type == FilterType.AttackActor){
@@ -30,6 +25,5 @@ public class ActionAttackOverride : ActionOverride {
         //Execute the action
 
         defensiveCharacter.TakeDamage(damage);
-
     }
 }

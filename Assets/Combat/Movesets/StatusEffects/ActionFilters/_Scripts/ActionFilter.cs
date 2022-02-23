@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum FilterType { Attack, Defense, DebuffAttack, DebuffDefense };
+public enum FilterType { AttackActor, AttackRecipient, DebuffActor, DebuffRecipient, BuffActor, BuffRecipient };
 public class ActionFilter : StatusEffect {
 
     public ActionFilter(ActionFilterName name, FilterType type, int priority, int efficacy, int cooldown) {
