@@ -156,10 +156,10 @@ public class StateCombatController : MonoBehaviour {
     private void HandleEnemyPostTurnState() {
         _IsStateReady = false;
 
-        // [ ] countdown/clear status effects
+        //[ ] countdown/clear status effects
 
         ActionContainer action = _Enemy.QueueAction();
-        //_UIController.UpdateEnemyAction(action.GetName());
+        _UIController.UpdateEnemyAction(action.Name.ToString());
 
         _IsStateReady = true;
     }
