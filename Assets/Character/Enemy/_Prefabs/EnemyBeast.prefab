@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8350970452646720255}
-  - component: {fileID: -5135747479609943260}
+  - component: {fileID: 7668818199384322521}
   m_Layer: 0
   m_Name: EnemyBeast
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5135747479609943260
+--- !u!114 &7668818199384322521
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,9 +40,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8350970452646720253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39d855b98b331204fb5e1367736ecc24, type: 3}
+  m_Script: {fileID: 11500000, guid: db80612ee5da00d4fac53ad410ef2228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 60
-  MaxHealth: 60
-  Name: Beast
+  Name: Paul
+  Health: 0
+  MaxHealth: 0
+  EnemyData: {fileID: 11400000, guid: 444aff94ce8d27042846f889c3a19c52, type: 2}
+  QueuedAction: {fileID: 0}
+  Actions: []

@@ -4367,24 +4367,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8350970452646720253, guid: e0679cf9868c91045ad68d0795c02010, type: 3}
   m_PrefabInstance: {fileID: 8350970454234188344}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1638086854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1638086853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db80612ee5da00d4fac53ad410ef2228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Paul
-  Health: 0
-  MaxHealth: 0
-  EnemyData: {fileID: 11400000, guid: eb4928475ff62a949b119fb0a30fb799, type: 2}
-  QueuedAction: {fileID: 0}
-  Actions: []
 --- !u!1001 &1653272757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5462,6 +5444,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8350970452646720254, guid: e0679cf9868c91045ad68d0795c02010, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0679cf9868c91045ad68d0795c02010, type: 3}
