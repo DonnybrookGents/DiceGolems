@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebb7c34ae3717e4f96ba6139e248d2f, type: 3}
   m_Name: Weak
   m_EditorClassIdentifier: 
-  Priority: 0
-  Name: 0
+  Priority: 100
+  Name: 1
   Type: 0

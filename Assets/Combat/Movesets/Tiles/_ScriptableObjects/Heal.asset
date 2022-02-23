@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78b8b8618eeee64eac87fe1cbe53edf, type: 3}
   m_Name: Heal
   m_EditorClassIdentifier: 
-  TileName: 0
+  TileName: 1
   TileLevel: 0
+  TileParameters: []
