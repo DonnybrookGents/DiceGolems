@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de46a86fe826c414987f125a6c71355e, type: 3}
+  m_Script: {fileID: 11500000, guid: 448462136643e6b4096b3a1cf0d46e39, type: 3}
   m_Name: Poison
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
-  Priority: 0
-  overrideExecution: {fileID: 0}
+  Priority: 10
+  Name: 0

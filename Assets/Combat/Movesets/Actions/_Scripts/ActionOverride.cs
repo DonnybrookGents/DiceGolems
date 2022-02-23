@@ -1,5 +1,3 @@
-using UnityEngine;
-
-public abstract class ActionOverride : MonoBehaviour, ActionInterface {
-    public abstract void Execute(Character defenseCharacter, Character attackCharacter);
+public interface ActionOverride {
+    public void Execute(Character defensiveCharacter, Character offensiveCharacter, ActionContainer action);
 }

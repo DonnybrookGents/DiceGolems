@@ -4,29 +4,60 @@ using System.Reflection;
 using UnityEngine;
 
 public abstract class Character : MonoBehaviour {
+
+    [HideInInspector] public string Name;
     [HideInInspector] public int Health;
     [HideInInspector] public int MaxHealth;
 
-    public Dictionary<string, StatusEffect> StatusEffects = new Dictionary<string, StatusEffect>();
-    public Dictionary<string, ActionFilter> ActionsFilters = new Dictionary<string, ActionFilter>();
+    [HideInInspector] public List<PeriodicEffect> PeriodicEffects = new List<PeriodicEffect>();
+    [HideInInspector] public List<ActionFilter> ActionFilters = new List<ActionFilter>();
 
     public abstract int Heal(int hp);
 
     public abstract int TakeDamage(int initalDamage);
 
-
-    public void HandleStatusEffect() {
-        Dictionary<string, StatusEffect> newStatusEffects = new Dictionary<string, StatusEffect>();
-
-        foreach (StatusEffect statusEffect in StatusEffects.Values) {
-            //statusEffect.Execute(this);
-            //statusEffect.CountDown();
-
-            // if (statusEffect.Cooldown > 0) {
-            //     newStatusEffects.Add(statusEffect.GetName(), statusEffect);
-            // }
+    public virtual void AddPeriodicEffect(PeriodicEffect effect){
+        foreach(PeriodicEffect pe in PeriodicEffects){
+            if(pe.Name == effect.Name){
+                pe.Cooldown += effect.Cooldown;
+                return;
+            }
         }
+        PeriodicEffects.Add(effect);
+    }
 
-        StatusEffects = newStatusEffects;
+    public virtual void AddActionFilter(ActionFilter filter){
+        foreach(ActionFilter af in ActionFilters){
+            if(af.Name == filter.Name){
+                af.Cooldown += filter.Cooldown;
+                return;
+            }
+        }
+        ActionFilters.Add(filter);
+    }
+
+
+    public void HandlePeriodicEffects() {
+        foreach (PeriodicEffect effect in PeriodicEffects) {
+
+            System.Type t = PeriodicEffectUtility.periodicOverrideDict[effect.Name];
+            PeriodicEffectOverride o = (PeriodicEffectOverride)System.Activator.CreateInstance(t);
+            o.Execute(this, effect);
+            o.Cooldown(this, effect);
+
+            if (effect.Cooldown <= 0) {
+                PeriodicEffects.Remove(effect);
+            }
+        }
+        foreach (ActionFilter filter in ActionFilters) {
+
+            System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
+            ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
+            o.Cooldown(this, filter);
+
+            if (filter.Cooldown <= 0) {
+                ActionFilters.Remove(filter);
+            }
+        }
     }
 }

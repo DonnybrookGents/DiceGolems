@@ -1,8 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public abstract class ActionFilterContainer : StatusEffectContainer {
-    protected ActionFilterContainer(int priority) {
-        Priority = priority;
-    }
-
-    public abstract int Execute(int value);
+[CreateAssetMenu(fileName = "ActionFilter", menuName = "ScriptableObjects/StatusEffects/ActionFilter")]
+public class ActionFilterContainer : StatusEffectContainer {
+    public ActionFilterName Name;
+    public FilterType Type;
 }

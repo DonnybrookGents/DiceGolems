@@ -23,7 +23,7 @@ public class UICombatController : MonoBehaviour {
     public Die SelectedDie;
 
     private PlayerCombatController _PlayerCombatController;
-    private EnemyController _EnemyController;
+    private Enemy _Enemy;
     private ZoneCombatController _ZonesController;
     private StateCombatController _StateController;
     private UIState _SelectedState = UIState.Deselected;
@@ -31,7 +31,7 @@ public class UICombatController : MonoBehaviour {
     public void Start() {
         _StateController = GetComponent<StateCombatController>();
         _PlayerCombatController = Player.GetComponent<PlayerCombatController>();
-        _EnemyController = Enemy.GetComponent<EnemyController>();
+        _Enemy = Enemy.GetComponent<Enemy>();
         _ZonesController = GetComponent<ZoneCombatController>();
     }
 
@@ -44,7 +44,7 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void UpdateEnemyHealth() {
-        EnemyHealth.text = _EnemyController.Health + "/" + _EnemyController.MaxHealth;
+        EnemyHealth.text = _Enemy.Health + "/" + _Enemy.MaxHealth;
     }
 
     public void UpdateEnemyAction(string action) {

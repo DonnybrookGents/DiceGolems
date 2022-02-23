@@ -2,16 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class StatusEffect {
-    public string Name;
-    public string Description;
+public enum StatusEffectType {PeriodicEffect, ActionFilter};
+public class StatusEffect {
     public int Priority;
-    public int Cooldown;
     public int Efficacy;
-
-    public StatusEffectOverride executionOverride;
-
-    public virtual void Execute(Character defenseCharacter, Character attackCharacter){
-        executionOverride.Execute(defenseCharacter, attackCharacter);
-    }
+    public int Cooldown;
 }

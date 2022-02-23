@@ -32,9 +32,9 @@ public class PlayerCombatController : Character {
         return die;
     }
     //replace with tile List or Dictionary
-    public Dictionary<string, ActionInterface> Actions = new Dictionary<string, ActionInterface>(){
-        //{ActionPlayerAttack.NAME, new ActionPlayerAttack()}
-    };
+    // public Dictionary<string, ActionInterface> Actions = new Dictionary<string, ActionInterface>(){
+    //     //{ActionPlayerAttack.NAME, new ActionPlayerAttack()}
+    // };
 
     public void SetEnergy(int energy) {
         Energy = energy;

@@ -26,7 +26,7 @@ public class StateCombatController : MonoBehaviour {
 
     private SceneController _SceneController;
     private PlayerCombatController _PlayerCombatController;
-    private EnemyController _EnemyController;
+    private Enemy _Enemy;
     private ZoneCombatController _ZonesController;
     private UICombatController _UIController;
     private bool _IsStateReady;
@@ -45,7 +45,7 @@ public class StateCombatController : MonoBehaviour {
 
         _SceneController = GetComponent<SceneController>();
         _PlayerCombatController = Player.GetComponent<PlayerCombatController>();
-        _EnemyController = Enemy.GetComponent<EnemyController>();
+        _Enemy = Enemy.GetComponent<Enemy>();
         _ZonesController = GetComponent<ZoneCombatController>();
         _UIController = GetComponent<UICombatController>();
 
@@ -69,6 +69,7 @@ public class StateCombatController : MonoBehaviour {
 
         // Copy the bank.
         _PlayerCombatController.CloneData();
+        _Enemy.CloneData();
         _UIController.GetBankInfo();
 
         _UIController.GetEnergy();
@@ -78,9 +79,10 @@ public class StateCombatController : MonoBehaviour {
         _UIController.UpdateEnemyHealth();
 
         // Select enemy name and first action.
-        ActionInterface action = _EnemyController.DecideAction();
-        _UIController.SetEnemyName(_EnemyController.Name);
-        //_UIController.UpdateEnemyAction(action.GetName());
+        //set enemy action, pass to ui
+        ActionContainer action = _Enemy.QueueAction();
+        _UIController.SetEnemyName(_Enemy.Name);
+        _UIController.UpdateEnemyAction(action.Name.ToString());
 
         _IsStateReady = true;
     }
@@ -94,7 +96,7 @@ public class StateCombatController : MonoBehaviour {
         _PlayerCombatController.UpdateEnergy();
         _UIController.GetEnergy();
 
-        _PlayerCombatController.HandleStatusEffect();
+        _PlayerCombatController.HandlePeriodicEffects();
 
         _UIController.UpdateEnemyHealth();
         _UIController.UpdatePlayerHealth();
@@ -111,7 +113,7 @@ public class StateCombatController : MonoBehaviour {
         yield return new WaitUntil(() => IsPlayerTurnEnded);
         IsPlayerTurnEnded = false;
 
-        if (_EnemyController.Health < 0) {
+        if (_Enemy.Health < 0) {
             IsVictorious = true;
         }
 
@@ -131,7 +133,7 @@ public class StateCombatController : MonoBehaviour {
     private void HandleEnemyPreTurnState() {
         _IsStateReady = false;
 
-        _EnemyController.HandleStatusEffect();
+        _Enemy.HandlePeriodicEffects();
 
         _IsStateReady = true;
     }
@@ -139,7 +141,7 @@ public class StateCombatController : MonoBehaviour {
     private void HandleEnemyMidTurnState() {
         _IsStateReady = false;
 
-        _EnemyController.ExecuteQueuedAction(_PlayerCombatController, State);
+        _Enemy.ExecuteQueuedAction(_PlayerCombatController);
 
         if (_PlayerCombatController.Health < 0) {
             IsDead = true;
@@ -156,8 +158,8 @@ public class StateCombatController : MonoBehaviour {
 
         // [ ] countdown/clear status effects
 
-        ActionInterface action = _EnemyController.DecideAction();
-       // _UIController.UpdateEnemyAction(action.GetName());
+        ActionContainer action = _Enemy.QueueAction();
+        //_UIController.UpdateEnemyAction(action.GetName());
 
         _IsStateReady = true;
     }

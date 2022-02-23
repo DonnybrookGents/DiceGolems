@@ -1,14 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-
-public abstract class StatusEffectContainer : ScriptableObject{
-
-    public string Name;
-    public string Description;
+public class StatusEffectContainer : ScriptableObject {
     public int Priority;
-    public StatusEffectOverride overrideExecution;
-    public virtual string GetName(){
-        return Name;
-    }
-    public abstract void Execute(Character defenseCharacter, Character attackCharacter);
 }

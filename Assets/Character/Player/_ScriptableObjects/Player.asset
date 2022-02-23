@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd6f3847387a63459dca1c096316822, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  Name: 
-  MaxHealth: 0
-  Health: 0
-  MaxEnergy: 0
-  StartingEnergy: 0
-  EnergyRegeneration: 0
+  Name: Player
+  MaxHealth: 100
+  Health: 106
+  MaxEnergy: 6
+  StartingEnergy: 6
+  EnergyRegeneration: 2
+  Bank:
+  - {fileID: 11400000, guid: ffd71593a8247db439570b91ff80b3bc, type: 2}
+  - {fileID: 11400000, guid: 05ceb749a92c22c488befd2d019c8ea4, type: 2}

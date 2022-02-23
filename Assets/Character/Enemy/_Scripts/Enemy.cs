@@ -1,0 +1,60 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Enemy : Character {
+
+    public EnemyContainer EnemyData;
+    [HideInInspector] public ActionContainer QueuedAction;
+    [HideInInspector] public List<WeightedAction> Actions;
+
+    public void CloneData() {
+        Name = EnemyData.Name;
+        Health = EnemyData.MaxHealth;
+        MaxHealth = EnemyData.MaxHealth;
+        //PeriodicEffects = new List<PeriodicEffect>(EnemyData.StartingPeriodicEffects);
+        //ActionsFilters = new List<ActionFilter>(EnemyData.StartingActionFilters);
+        Actions = new List<WeightedAction>(EnemyData.Actions);
+    }
+
+    public ActionContainer QueueAction() {
+        int weightSum = 0;
+        foreach (WeightedAction action in Actions) {
+            weightSum += action.Weight;
+        }
+
+        int rand = Random.Range(1, weightSum + 1);
+
+        weightSum = 0;
+        foreach (WeightedAction action in Actions) {
+            weightSum += action.Weight;
+            if (weightSum >= rand) {
+                QueuedAction = action.Action;
+                break;
+            }
+        }
+
+        Debug.Log("Chosen Action: " + QueuedAction.Name);
+
+        return QueuedAction;
+    }
+
+    public void ExecuteQueuedAction(Character target) {
+
+        System.Type t = ActionUtility.actionOverrideDict[QueuedAction.Name];
+        ActionOverride o = (ActionOverride)System.Activator.CreateInstance(t);
+
+        o.Execute(target, this, QueuedAction);
+    }
+
+    public override int Heal(int hp) {
+        Health += hp;
+        return hp;
+    }
+
+    public override int TakeDamage(int initalDamage) {
+        Health -= initalDamage;
+        return initalDamage;
+    }
+
+}
