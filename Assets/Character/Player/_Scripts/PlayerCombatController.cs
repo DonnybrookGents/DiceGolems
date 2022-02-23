@@ -58,4 +58,10 @@ public class PlayerCombatController : Character {
         PlayerData.Health -= initalDamage;
         return initalDamage;
     }
+
+    public void Respawn() {
+        PlayerData.Health = PlayerData.MaxHealth;
+
+        CloneData();
+    }
 }

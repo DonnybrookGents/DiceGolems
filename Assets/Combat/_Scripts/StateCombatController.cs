@@ -182,6 +182,9 @@ public class StateCombatController : MonoBehaviour {
         // [ ] decrease lives
 
         _UIController.UpdateWinLose("Defeat", Color.red);
+
+        _PlayerCombatController.Respawn();
+
         StartCoroutine(_SceneController.BackToOverworld());
     }
 

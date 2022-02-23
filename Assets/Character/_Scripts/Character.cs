@@ -16,9 +16,9 @@ public abstract class Character : MonoBehaviour {
 
     public abstract int TakeDamage(int initalDamage);
 
-    public virtual void AddPeriodicEffect(PeriodicEffect effect){
-        foreach(PeriodicEffect pe in PeriodicEffects){
-            if(pe.Name == effect.Name){
+    public virtual void AddPeriodicEffect(PeriodicEffect effect) {
+        foreach (PeriodicEffect pe in PeriodicEffects) {
+            if (pe.Name == effect.Name) {
                 pe.Cooldown += effect.Cooldown;
                 return;
             }
@@ -26,9 +26,9 @@ public abstract class Character : MonoBehaviour {
         PeriodicEffects.Add(effect);
     }
 
-    public virtual void AddActionFilter(ActionFilter filter){
-        foreach(ActionFilter af in ActionFilters){
-            if(af.Name == filter.Name){
+    public virtual void AddActionFilter(ActionFilter filter) {
+        foreach (ActionFilter af in ActionFilters) {
+            if (af.Name == filter.Name) {
                 af.Cooldown += filter.Cooldown;
                 return;
             }
@@ -38,6 +38,8 @@ public abstract class Character : MonoBehaviour {
 
 
     public void HandlePeriodicEffects() {
+        List<PeriodicEffect> newPeriodicEffects = new List<PeriodicEffect>();
+
         foreach (PeriodicEffect effect in PeriodicEffects) {
 
             System.Type t = PeriodicEffectUtility.periodicOverrideDict[effect.Name];
@@ -45,19 +47,26 @@ public abstract class Character : MonoBehaviour {
             o.Execute(this, effect);
             o.Cooldown(this, effect);
 
-            if (effect.Cooldown <= 0) {
-                PeriodicEffects.Remove(effect);
+            if (effect.Cooldown > 0) {
+                newPeriodicEffects.Add(effect);
             }
         }
+
+        PeriodicEffects = newPeriodicEffects;
+
+        List<ActionFilter> newFilters = new List<ActionFilter>();
+
         foreach (ActionFilter filter in ActionFilters) {
 
             System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
             ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
             o.Cooldown(this, filter);
 
-            if (filter.Cooldown <= 0) {
-                ActionFilters.Remove(filter);
+            if (filter.Cooldown > 0) {
+                ActionFilters.Add(filter);
             }
         }
+
+        ActionFilters = newFilters;
     }
 }
