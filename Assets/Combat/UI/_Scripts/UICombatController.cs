@@ -81,6 +81,7 @@ public class UICombatController : MonoBehaviour {
 
             _ZonesController.AddZone(tile.UUID);
             newTile.Find("Send").GetComponent<Button>().onClick.AddListener(() => ActivateTile(newTile.Find("DicePlaceholder")));
+            newTile.Find("Rune").GetComponent<Image>().sprite = tile.Image;
 
             offset += newTile.sizeDelta.x + padding;
         }
