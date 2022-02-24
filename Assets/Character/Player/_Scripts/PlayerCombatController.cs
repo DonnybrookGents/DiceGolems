@@ -51,6 +51,12 @@ public class PlayerCombatController : Character {
     public override int Heal(int hp) {
         Health += hp;
         PlayerData.Health += hp;
+
+        if (Health > MaxHealth) {
+            Health = MaxHealth;
+            PlayerData.Health = PlayerData.MaxHealth;
+        }
+
         return hp;
     }
 

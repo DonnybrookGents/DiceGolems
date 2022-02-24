@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Die {
     public int[] Faces;
-    public Sprite[] Images;
+    public Sprite[] Images; // Change this to its own SO.
     public int Value;
     public Sprite ImageValue;
     public string UUID;

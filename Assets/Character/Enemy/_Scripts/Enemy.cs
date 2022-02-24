@@ -47,6 +47,11 @@ public class Enemy : Character {
 
     public override int Heal(int hp) {
         Health += hp;
+
+        if (Health > MaxHealth) {
+            Health = MaxHealth;
+        }
+
         return hp;
     }
 

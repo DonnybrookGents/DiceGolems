@@ -80,7 +80,6 @@ public class StateCombatController : MonoBehaviour {
         // Select enemy name and first action.
         //set enemy action, pass to ui
         ActionContainer action = _Enemy.QueueAction();
-        _UIController.SetEnemyName(_Enemy.Name);
         _UIController.UpdateEnemyAction(action.Name.ToString());
 
         _IsStateReady = true;

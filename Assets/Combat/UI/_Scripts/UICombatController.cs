@@ -12,9 +12,8 @@ public class UICombatController : MonoBehaviour {
     public GameObject Player;
     public GameObject Enemy;
     public Canvas HUD;
-    public Text PlayerHealth;
-    public Text EnemyName;
-    public Text EnemyHealth;
+    public Slider PlayerHealth;
+    public Slider EnemyHealth;
     public Text EnemyAction;
     public Text WinLose;
     public Text EnergyLevel;
@@ -37,20 +36,16 @@ public class UICombatController : MonoBehaviour {
         _ZonesController = GetComponent<ZoneCombatController>();
     }
 
-    public void SetEnemyName(string text) {
-        EnemyName.text = text;
-    }
-
     public void UpdatePlayerHealth() {
-        PlayerHealth.text = _PlayerCombatController.Health + "/" + _PlayerCombatController.MaxHealth;
+        PlayerHealth.value = (float)_PlayerCombatController.Health / (float)_PlayerCombatController.MaxHealth;
     }
 
     public void UpdateEnemyHealth() {
-        EnemyHealth.text = _Enemy.Health + "/" + _Enemy.MaxHealth;
+        EnemyHealth.value = (float)_Enemy.Health / (float)_Enemy.MaxHealth;
     }
 
     public void UpdateEnemyAction(string action) {
-        EnemyAction.text = EnemyName.text + " is going to use " + action.ToUpper();
+        EnemyAction.text = _Enemy.Name + " is going to use " + action.ToUpper();
     }
 
     public void UpdateWinLose(string text, Color color) {
