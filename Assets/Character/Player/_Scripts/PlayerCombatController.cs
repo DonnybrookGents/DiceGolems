@@ -26,7 +26,10 @@ public class PlayerCombatController : Character {
             return null;
         }
 
-        Die die = new Die();
+        // Die die = new Die();
+        Die refferenceDie = Bank[Random.Range(0, Bank.Count)];
+        Die die = new Die(refferenceDie);
+
         die.Roll();
 
         Energy--;

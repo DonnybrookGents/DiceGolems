@@ -2,21 +2,31 @@ using UnityEngine;
 
 public class Die {
     public int[] Faces;
+    public Sprite[] Images;
     public int Value;
+    public Sprite ImageValue;
     public string UUID;
 
-    public Die(int[] faces) {
+    public Die(int[] faces, Sprite[] images) {
         Faces = faces;
+        Images = images;
         UUID = System.Guid.NewGuid().ToString();
     }
 
-    public Die() : this(new int[] { 1, 2, 3, 4, 5, 6 }) { }
+    public Die() : this(new int[] { 1, 2, 3, 4, 5, 6 }, new Sprite[6]) { }
+
+    public Die(Die die) {
+        Faces = die.Faces;
+        Images = die.Images;
+        UUID = System.Guid.NewGuid().ToString();
+    }
 
     public int Roll() {
-        int index = Faces.Length;
-        int value = Faces[Random.Range(0, index)];
+        int index = Random.Range(0, Faces.Length);
 
-        Value = value;
-        return value;
+        Value = Faces[index];
+        ImageValue = Images[index];
+
+        return Value;
     }
 }

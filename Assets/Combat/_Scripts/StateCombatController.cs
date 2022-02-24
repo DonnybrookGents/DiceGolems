@@ -70,7 +70,6 @@ public class StateCombatController : MonoBehaviour {
         // Load info.
         _PlayerCombatController.CloneData();
         _Enemy.CloneData();
-        _UIController.GetBankInfo();
         _UIController.LoadTiles();
         _UIController.GetEnergy();
 

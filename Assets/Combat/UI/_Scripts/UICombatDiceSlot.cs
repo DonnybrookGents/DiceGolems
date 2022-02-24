@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class UICombatDiceSlot : MonoBehaviour {
     [HideInInspector] public string dieUUID;
-    [HideInInspector] public Text DisplayText;
+    private Image DisplayImage;
 
     private void Start() {
-        DisplayText = GetComponentInChildren<Text>();
+        DisplayImage = gameObject.transform.Find("Die").GetComponent<Image>();
     }
 
     public void Set(Die die) {
@@ -15,16 +15,15 @@ public class UICombatDiceSlot : MonoBehaviour {
         }
 
         dieUUID = die.UUID;
-        DisplayText.text = die.Value.ToString();
+
+        DisplayImage.enabled = true;
+        DisplayImage.sprite = die.ImageValue;
     }
 
     public void Clear() {
         dieUUID = "";
-        DisplayText.text = "";
-        Highlight(Color.white);
-    }
 
-    public void Highlight(Color color) {
-        GetComponent<Image>().color = color;
+        DisplayImage.sprite = null;
+        DisplayImage.enabled = false;
     }
 }

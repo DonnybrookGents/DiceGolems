@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Player
   MaxHealth: 100
-  Health: 100
-  MaxEnergy: 6
-  StartingEnergy: 6
-  EnergyRegeneration: 2
+  Health: 95
+  MaxEnergy: 7
+  StartingEnergy: 7
+  EnergyRegeneration: 3
   Tiles:
   - {fileID: 11400000, guid: 1ce94d0d971d4eb48b5e2348d4d17d7b, type: 2}
   - {fileID: 11400000, guid: 66866b95c4af2cd4e86aa349b66d935a, type: 2}

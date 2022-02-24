@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: D6
   m_EditorClassIdentifier: 
   Faces: 010000000200000003000000040000000500000006000000
+  Images:
+  - {fileID: 21300000, guid: f968c6442a83d8f42855c0b6b6b15d64, type: 3}
+  - {fileID: 21300000, guid: cc5e614976bdc0a4c9ec203327d41975, type: 3}
+  - {fileID: 21300000, guid: 0ccf5b2ebd820284d8cfd0eaa993e5a2, type: 3}
+  - {fileID: 21300000, guid: bfeb7bcda3ce3274ca3d677ff93d5b9b, type: 3}
+  - {fileID: 21300000, guid: 82a06f8ab8eb27d4083b0634f9d6eaef, type: 3}
+  - {fileID: 21300000, guid: 7adf3b45266e3ba44a89e167eeb2dfb8, type: 3}
