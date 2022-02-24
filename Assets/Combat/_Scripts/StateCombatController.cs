@@ -67,11 +67,11 @@ public class StateCombatController : MonoBehaviour {
     private void HandleStartState() {
         _IsStateReady = false;
 
-        // Copy the bank.
+        // Load info.
         _PlayerCombatController.CloneData();
         _Enemy.CloneData();
         _UIController.GetBankInfo();
-
+        _UIController.LoadTiles();
         _UIController.GetEnergy();
 
         // Set play and energy level.

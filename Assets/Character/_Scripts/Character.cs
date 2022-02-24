@@ -57,13 +57,12 @@ public abstract class Character : MonoBehaviour {
         List<ActionFilter> newFilters = new List<ActionFilter>();
 
         foreach (ActionFilter filter in ActionFilters) {
-
             System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
             ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
             o.Cooldown(this, filter);
 
             if (filter.Cooldown > 0) {
-                ActionFilters.Add(filter);
+                newFilters.Add(filter);
             }
         }
 

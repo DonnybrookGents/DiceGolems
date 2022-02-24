@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: BasicAttack
   m_EditorClassIdentifier: 
   TileName: 0
+  DiceSlots: 2
   TileLevel: 0
+  TileParameters: []

@@ -21,6 +21,9 @@ public class UICombatController : MonoBehaviour {
     public Text VatInfo;
     public Transform DicePool;
     public Die SelectedDie;
+    public RectTransform TileContainer;
+    public RectTransform TileTemplate;
+    public RectTransform DiceTemplate;
 
     private PlayerCombatController _PlayerCombatController;
     private Enemy _Enemy;
@@ -57,9 +60,9 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void GetEnergy() {
-        EnergyLevel.text = _PlayerCombatController.Energy.ToString();
+        EnergyLevel.text = _PlayerCombatController.GetEnergy().ToString();
 
-        if (_PlayerCombatController.Energy == 0) {
+        if (_PlayerCombatController.GetEnergy() == 0) {
             EnergyLevel.color = Color.red;
         } else {
             EnergyLevel.color = Color.white;
@@ -80,8 +83,42 @@ public class UICombatController : MonoBehaviour {
         VatInfo.text = vatInfo;
     }
 
+    public void LoadTiles() {
+        float offset = 0;
+        float padding = 20;
+
+        foreach (Tile tile in _PlayerCombatController.Tiles.Values) {
+            RectTransform newTile = Instantiate<RectTransform>(TileTemplate, TileContainer, false);
+            newTile.localPosition = new Vector2(-offset, 0);
+
+            newTile.GetComponent<UICombatTile>().TileUUID = tile.UUID;
+            newTile.Find("Header").GetComponent<Text>().text = tile.TileName.ToString();
+            LoadTileDiceSlots(newTile, tile.DiceSlots);
+
+            _ZonesController.AddZone(tile.UUID);
+            newTile.Find("Send").GetComponent<Button>().onClick.AddListener(() => ActivateTile(newTile.Find("Dice")));
+
+            offset += newTile.sizeDelta.x + padding;
+        }
+
+        _ZonesController.AddZone(DicePool.GetComponent<UICombatTile>().TileUUID);
+    }
+
+    public void LoadTileDiceSlots(RectTransform tile, int slots) {
+        RectTransform tileDiceContainer = tile.Find("Dice") as RectTransform;
+        float offset = tileDiceContainer.sizeDelta.x / (slots + 1);
+
+        for (int i = 0; i < slots; i++) {
+            RectTransform newDice = Instantiate<RectTransform>(DiceTemplate);
+            newDice.SetParent(tile.Find("Dice"), false);
+            newDice.localPosition = new Vector2(-offset * (i + 1), 0);
+
+            newDice.GetComponent<Button>().onClick.AddListener(() => MoveDice(newDice.GetComponent<UICombatDiceSlot>()));
+        }
+    }
+
     public void RollDice() {
-        if (_PlayerCombatController.Energy > 0) {
+        if (_PlayerCombatController.GetEnergy() > 0) {
             UICombatDiceSlot poolSlot = GetPoolDiceSlot("");
 
             if (poolSlot == null) {
@@ -90,7 +127,7 @@ public class UICombatController : MonoBehaviour {
             Die rolledDie = _PlayerCombatController.GenerateDice();
 
             poolSlot.Set(rolledDie);
-            _ZonesController.AddDie(DiceZone.Pool, rolledDie);
+            _ZonesController.AddDie(DicePool.GetComponent<UICombatTile>().TileUUID, rolledDie);
         }
 
         GetEnergy();
@@ -123,7 +160,7 @@ public class UICombatController : MonoBehaviour {
             return;
         }
 
-        DiceZone toZone = toSlot.GetComponentInParent<UICombatTile>().Zone;
+        string toZone = toSlot.GetComponentInParent<UICombatTile>().TileUUID;
 
         Die tempSlot = _ZonesController.GetDie(toSlot.dieUUID);
 
@@ -135,7 +172,7 @@ public class UICombatController : MonoBehaviour {
             _ZonesController.SwapDice(tempSlot.UUID, SelectedDie.UUID);
         }
 
-        DiceZone fromZone = fromSlot.GetComponentInParent<UICombatTile>().Zone;
+        string fromZone = fromSlot.GetComponentInParent<UICombatTile>().TileUUID;
         fromSlot.Clear();
 
         toSlot.Set(SelectedDie);
@@ -148,23 +185,29 @@ public class UICombatController : MonoBehaviour {
         _SelectedState = UIState.Deselected;
     }
 
-    public void ActivateTile(GameObject slotParent) {
-        DiceZone tileZone = slotParent.GetComponentInParent<UICombatTile>().Zone;
+    public void ActivateTile(Transform slotParent) {
+        string tileZone = slotParent.GetComponentInParent<UICombatTile>().TileUUID;
         int dieSum = 0;
 
+        List<Die> dice = new List<Die>();
         foreach (UICombatDiceSlot slot in slotParent.GetComponentsInChildren<UICombatDiceSlot>()) {
-            Die die = _ZonesController.GetDie(slot.dieUUID);
-            dieSum += die != null ? die.Value : 0;
+            if (!System.String.IsNullOrEmpty(slot.dieUUID)) {
+                Die die = _ZonesController.GetDie(slot.dieUUID);
+                dieSum += die != null ? die.Value : 0;
 
-            _ZonesController.RemoveDie(slot.dieUUID);
-            slot.Clear();
+                dice.Add(die);
+
+                _ZonesController.RemoveDie(slot.dieUUID);
+                slot.Clear();
+            }
         }
 
-        if (tileZone == DiceZone.AttackTile) {
-            _Enemy.TakeDamage(dieSum);
-        } else if (tileZone == DiceZone.DefenseTile) {
-            _PlayerCombatController.Heal(dieSum);
-        }
+        Tile tile = _PlayerCombatController.Tiles[tileZone];
+
+        System.Type t = TileUtility.TileOverrideDict[tile.TileName];
+        TileOverride o = System.Activator.CreateInstance(t) as TileOverride;
+        o.Execute(_Enemy, _PlayerCombatController, dice, tile);
+
         UpdateEnemyHealth();
         UpdatePlayerHealth();
     }

@@ -5,10 +5,11 @@ public class PlayerCombatController : Character {
 
 
     public PlayerContainer PlayerData;
-    [HideInInspector] public int MaxEnergy;
-    [HideInInspector] public int EnergyRegeneration;
-    [HideInInspector] public int Energy;
-    [HideInInspector] public List<Die> Bank;
+    public Dictionary<string, Tile> Tiles;
+    private int MaxEnergy;
+    private int EnergyRegeneration;
+    private int Energy;
+    private List<Die> Bank;
 
     public void CloneData() {
         MaxHealth = PlayerData.MaxHealth;
@@ -16,6 +17,7 @@ public class PlayerCombatController : Character {
         EnergyRegeneration = PlayerData.EnergyRegeneration;
         MaxEnergy = PlayerData.MaxEnergy;
         Energy = PlayerData.StartingEnergy - PlayerData.EnergyRegeneration;
+        Tiles = PlayerData.CopyTiles();
         Bank = PlayerData.CopyBank();
     }
 
@@ -31,13 +33,9 @@ public class PlayerCombatController : Character {
 
         return die;
     }
-    //replace with tile List or Dictionary
-    // public Dictionary<string, ActionInterface> Actions = new Dictionary<string, ActionInterface>(){
-    //     //{ActionPlayerAttack.NAME, new ActionPlayerAttack()}
-    // };
 
-    public void SetEnergy(int energy) {
-        Energy = energy;
+    public int GetEnergy() {
+        return Energy;
     }
 
     public void UpdateEnergy() {

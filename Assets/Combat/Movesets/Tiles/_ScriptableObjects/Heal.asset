@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   TileName: 1
+  DiceSlots: 3
   TileLevel: 0
   TileParameters: []

@@ -10,16 +10,27 @@ public class PlayerContainer : ScriptableObject {
     public int MaxEnergy;
     public int StartingEnergy;
     public int EnergyRegeneration;
-
+    public List<TileContainer> Tiles;
     public List<DieContainer> Bank;
 
-    public List<Die> CopyBank(){
-        List<Die> newBank = new List<Die>();
-        foreach(DieContainer dc in Bank){
-            newBank.Add(dc.Copy());
+    public Dictionary<string, Tile> CopyTiles() {
+        Dictionary<string, Tile> newTiles = new Dictionary<string, Tile>();
+
+        foreach (TileContainer tileContainer in Tiles) {
+            Tile tile = tileContainer.Copy();
+            newTiles.Add(tile.UUID, tile);
         }
-        return newBank;
+
+        return newTiles;
     }
 
-    //List<Tile> 
+    public List<Die> CopyBank() {
+        List<Die> newBank = new List<Die>();
+
+        foreach (DieContainer dc in Bank) {
+            newBank.Add(dc.Copy());
+        }
+
+        return newBank;
+    }
 }

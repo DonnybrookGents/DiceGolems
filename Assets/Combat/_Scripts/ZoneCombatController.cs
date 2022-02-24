@@ -2,30 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DiceZone {
-    Pool,
-    AttackTile,
-    DefenseTile,
-    None
-}
+// public enum DiceZone {
+//     Pool,
+//     AttackTile,
+//     DefenseTile,
+//     None
+// }
 
 public class ZoneCombatController : MonoBehaviour {
-    private Dictionary<DiceZone, Dictionary<string, Die>> Zones;
+    private Dictionary<string, Dictionary<string, Die>> Zones;
 
     void Awake() {
-        Zones = new Dictionary<DiceZone, Dictionary<string, Die>>();
-        Zones.Add(DiceZone.Pool, new Dictionary<string, Die>());
-        Zones.Add(DiceZone.AttackTile, new Dictionary<string, Die>());
-        Zones.Add(DiceZone.DefenseTile, new Dictionary<string, Die>());
+        Zones = new Dictionary<string, Dictionary<string, Die>>();
     }
 
-    public DiceZone GetZone(string dieUUID) {
-        foreach (DiceZone zone in Zones.Keys) {
+    public void AddZone(string zoneUUID) {
+        Zones.Add(zoneUUID, new Dictionary<string, Die>());
+    }
+
+    public string GetZone(string dieUUID) {
+        foreach (string zone in Zones.Keys) {
             if (Zones[zone].ContainsKey(dieUUID)) {
                 return zone;
             }
         }
-        return DiceZone.None;
+
+        return null;
     }
 
     public Die GetDie(string dieUUID) {
@@ -34,22 +36,23 @@ public class ZoneCombatController : MonoBehaviour {
                 return zone[dieUUID];
             }
         }
+
         return null;
     }
 
-    public void AddDie(DiceZone zone, Die die) {
+    public void AddDie(string zone, Die die) {
         Zones[zone].Add(die.UUID, die);
     }
 
     public void RemoveDie(string uuid) {
-        DiceZone zone = GetZone(uuid);
+        string zone = GetZone(uuid);
         if (!Zones.ContainsKey(zone)) {
             return;
         }
         Zones[zone].Remove(uuid);
     }
 
-    public void MoveDie(DiceZone zone, string uuid) {
+    public void MoveDie(string zone, string uuid) {
         if (!Zones.ContainsKey(zone) || GetDie(uuid) == null) {
             return;
         }
@@ -62,30 +65,30 @@ public class ZoneCombatController : MonoBehaviour {
         if (GetDie(uuid1) == null && GetDie(uuid2) == null) {
             return;
         }
-        DiceZone tempZone = GetZone(uuid2);
+        string tempZone = GetZone(uuid2);
         MoveDie(GetZone(uuid1), uuid2);
         MoveDie(tempZone, uuid1);
     }
 
     public void Clear() {
-        foreach (DiceZone zone in Zones.Keys) {
+        foreach (string zone in Zones.Keys) {
             Clear(zone);
         }
     }
 
-    public void Clear(DiceZone zone) {
+    public void Clear(string zone) {
         Zones[zone].Clear();
     }
 
     public void PrintDiceInZones() {
-        foreach (DiceZone zone in Zones.Keys) {
+        foreach (string zone in Zones.Keys) {
             Debug.Log(zone + ":");
             PrintDiceInZones(zone);
             Debug.Log("\n");
         }
     }
 
-    public void PrintDiceInZones(DiceZone zone) {
+    public void PrintDiceInZones(string zone) {
         foreach (string uuid in Zones[zone].Keys) {
             Debug.Log(uuid);
         }

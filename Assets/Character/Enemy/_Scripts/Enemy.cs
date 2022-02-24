@@ -34,8 +34,6 @@ public class Enemy : Character {
             }
         }
 
-        Debug.Log("Chosen Action: " + QueuedAction.Name);
-
         return QueuedAction;
     }
 
