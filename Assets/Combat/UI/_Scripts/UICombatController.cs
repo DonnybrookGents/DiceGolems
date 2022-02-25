@@ -125,23 +125,23 @@ public class UICombatController : MonoBehaviour {
     }
 
     private void SelectDice(UICombatDiceSlot diceSlot) {
-        if (_SelectedState == UIState.Selected || diceSlot.dieUUID == "") {
+        if (_SelectedState == UIState.Selected || diceSlot.DieUUID == "") {
             return;
         }
 
-        SelectedDie = _ZonesController.GetDie(diceSlot.dieUUID);
+        SelectedDie = _ZonesController.GetDie(diceSlot.DieUUID);
 
         _SelectedState = UIState.Selected;
     }
 
     private void SetSlot(UICombatDiceSlot toSlot) {
-        if (_SelectedState != UIState.Selected) {
+        if (_SelectedState != UIState.Selected || SelectedDie.UUID == toSlot.DieUUID) {
             return;
         }
 
         string toZone = toSlot.GetComponentInParent<UICombatTile>().TileUUID;
 
-        Die tempSlot = _ZonesController.GetDie(toSlot.dieUUID);
+        Die tempSlot = _ZonesController.GetDie(toSlot.DieUUID);
         UICombatDiceSlot fromSlot = GetAllDiceSlot(SelectedDie.UUID);
 
         if (tempSlot == null) {
@@ -153,11 +153,12 @@ public class UICombatController : MonoBehaviour {
         string fromZone = fromSlot.GetComponentInParent<UICombatTile>().TileUUID;
         fromSlot.Clear();
 
-        toSlot.Set(SelectedDie);
-
         if (tempSlot != null) {
             fromSlot.Set(tempSlot);
+            toSlot.Clear();
         }
+
+        toSlot.Set(SelectedDie);
 
         SelectedDie = null;
         _SelectedState = UIState.Deselected;
@@ -169,13 +170,13 @@ public class UICombatController : MonoBehaviour {
 
         List<Die> dice = new List<Die>();
         foreach (UICombatDiceSlot slot in slotParent.GetComponentsInChildren<UICombatDiceSlot>()) {
-            if (!System.String.IsNullOrEmpty(slot.dieUUID)) {
-                Die die = _ZonesController.GetDie(slot.dieUUID);
+            if (!System.String.IsNullOrEmpty(slot.DieUUID)) {
+                Die die = _ZonesController.GetDie(slot.DieUUID);
                 dieSum += die != null ? die.Value : 0;
 
                 dice.Add(die);
 
-                _ZonesController.RemoveDie(slot.dieUUID);
+                _ZonesController.RemoveDie(slot.DieUUID);
                 slot.Clear();
             }
         }
@@ -200,7 +201,7 @@ public class UICombatController : MonoBehaviour {
 
     private UICombatDiceSlot GetPoolDiceSlot(string uuid) {
         foreach (UICombatDiceSlot diceSlot in DicePool.GetComponentsInChildren<UICombatDiceSlot>()) {
-            if (uuid == diceSlot.dieUUID) {
+            if (uuid == diceSlot.DieUUID) {
                 return diceSlot;
             }
         }
@@ -210,7 +211,7 @@ public class UICombatController : MonoBehaviour {
 
     private UICombatDiceSlot GetAllDiceSlot(string uuid) {
         foreach (UICombatDiceSlot diceSlot in HUD.GetComponentsInChildren<UICombatDiceSlot>()) {
-            if (uuid == diceSlot.dieUUID) {
+            if (uuid == diceSlot.DieUUID) {
                 return diceSlot;
             }
         }
