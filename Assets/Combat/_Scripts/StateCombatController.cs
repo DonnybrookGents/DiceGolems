@@ -104,16 +104,20 @@ public class StateCombatController : MonoBehaviour {
 
     private IEnumerator HandlePlayerMidTurnState() {
         _IsStateReady = false;
+        _UIController.UnlockUI();
 
         // [ ] lock input controlls
 
         // Wait for UI input.
         yield return new WaitUntil(() => IsPlayerTurnEnded);
+        _UIController.LockUI();
         IsPlayerTurnEnded = false;
 
         if (_Enemy.Health < 0) {
             IsVictorious = true;
         }
+
+        yield return new WaitForSeconds(4);
 
         _IsStateReady = true;
     }
@@ -141,7 +145,7 @@ public class StateCombatController : MonoBehaviour {
 
         _Enemy.ExecuteQueuedAction(_PlayerCombatController);
 
-        if (_PlayerCombatController.Health < 0) {
+        if (_PlayerCombatController.IsDead() || _Enemy.IsDead()) {
             IsDead = true;
         }
 
@@ -185,6 +189,7 @@ public class StateCombatController : MonoBehaviour {
 
         StartCoroutine(_SceneController.BackToOverworld());
     }
+
 
     private void Update() {
         if (!_IsStateReady) {

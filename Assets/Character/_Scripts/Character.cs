@@ -36,7 +36,12 @@ public abstract class Character : MonoBehaviour {
         ActionFilters.Add(filter);
     }
 
-
+    public bool IsDead(){
+        if(Health <= 0 ){
+            return true;
+        }
+        return false;
+    }
     public void HandlePeriodicEffects() {
         List<PeriodicEffect> newPeriodicEffects = new List<PeriodicEffect>();
 

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 enum UIState {
     Selected,
     Deselected,
@@ -23,6 +22,7 @@ public class UICombatController : MonoBehaviour {
     public RectTransform TileTemplate;
     public RectTransform DiceTemplate;
 
+    private bool UILocked = true;
     private PlayerCombatController _PlayerCombatController;
     private Enemy _Enemy;
     private ZoneCombatController _ZonesController;
@@ -34,6 +34,7 @@ public class UICombatController : MonoBehaviour {
         _PlayerCombatController = Player.GetComponent<PlayerCombatController>();
         _Enemy = Enemy.GetComponent<Enemy>();
         _ZonesController = GetComponent<ZoneCombatController>();
+        LockUI();
     }
 
     public void UpdatePlayerHealth() {
@@ -51,6 +52,14 @@ public class UICombatController : MonoBehaviour {
     public void UpdateWinLose(string text, Color color) {
         WinLose.text = text;
         WinLose.color = color;
+    }
+
+    public void LockUI(){
+        UILocked = true; 
+    }
+
+    public void UnlockUI(){
+        UILocked = false;
     }
 
     public void GetEnergy() {
@@ -98,6 +107,9 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void RollDice() {
+        if(UILocked){
+            return;
+        }
         if (_PlayerCombatController.GetEnergy() > 0) {
             UICombatDiceSlot poolSlot = GetPoolDiceSlot("");
 
@@ -114,6 +126,9 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void MoveDice(UICombatDiceSlot slot) {
+        if(UILocked){
+            return;
+        }
         switch (_SelectedState) {
             case UIState.Selected:
                 SetSlot(slot);
@@ -164,6 +179,9 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void ActivateTile(Transform slotParent) {
+        if(UILocked){
+            return;
+        }
         string tileZone = slotParent.GetComponentInParent<UICombatTile>().TileUUID;
         int dieSum = 0;
 
@@ -188,9 +206,18 @@ public class UICombatController : MonoBehaviour {
 
         UpdateEnemyHealth();
         UpdatePlayerHealth();
+
+        if(_Enemy.IsDead() || _PlayerCombatController.IsDead()){
+            EndTurn();
+        }
+
     }
 
     public void EndTurn() {
+        if(UILocked){
+            return;
+        }
+
         foreach (UICombatDiceSlot diceSlot in HUD.GetComponentsInChildren<UICombatDiceSlot>()) {
             diceSlot.Clear();
         }
