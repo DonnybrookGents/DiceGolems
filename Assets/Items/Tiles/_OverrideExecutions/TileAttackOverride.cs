@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TileAttackOverride : TileOverride {
-    public void Execute(Character defensiveCharacter, Character offensiveCharacter, List<Die> dice, Tile tile) {
+    public void Execute(CombatCharacter defensiveCharacter, CombatCharacter offensiveCharacter, List<Die> dice, Tile tile) {
         //generate damage
         int damage = DieUtility.SumDice(dice);
 

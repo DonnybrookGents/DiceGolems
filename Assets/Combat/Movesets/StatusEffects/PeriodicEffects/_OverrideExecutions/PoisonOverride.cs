@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PoisonOverride : PeriodicEffectOverride
 {
-    public override void Execute(Character character, PeriodicEffect effect) {
+    public override void Execute(CombatCharacter character, PeriodicEffect effect) {
         character.TakeDamage(effect.Efficacy);
     }
 }

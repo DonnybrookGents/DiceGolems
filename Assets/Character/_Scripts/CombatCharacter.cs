@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public abstract class Character : MonoBehaviour {
+public abstract class CombatCharacter : MonoBehaviour {
 
     [HideInInspector] public string Name;
     [HideInInspector] public int Health;
@@ -36,8 +36,8 @@ public abstract class Character : MonoBehaviour {
         ActionFilters.Add(filter);
     }
 
-    public bool IsDead(){
-        if(Health <= 0 ){
+    public bool IsDead() {
+        if (Health <= 0) {
             return true;
         }
         return false;

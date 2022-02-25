@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TileHealOverride : TileOverride {
-    public void Execute(Character recipientCharacter, Character actorCharacter, List<Die> dice, Tile tile) {
+    public void Execute(CombatCharacter recipientCharacter, CombatCharacter actorCharacter, List<Die> dice, Tile tile) {
         int healing = DieUtility.SumDice(dice); // Generate damage
 
         // Loop through and apply all attacker filters

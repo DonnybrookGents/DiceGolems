@@ -8,7 +8,7 @@ public class SceneController : MonoBehaviour {
         SceneManager.LoadScene(sceneName);
     }
 
-    public IEnumerator BackToOverworld() {
+    public IEnumerator LoadOverWorld() {
         yield return new WaitForSeconds(2);
 
         SceneManager.LoadScene("Overworld");

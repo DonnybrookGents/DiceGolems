@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Character {
+public class Enemy : CombatCharacter {
 
     public static readonly string TAG = "Enemy";
 
@@ -39,7 +39,7 @@ public class Enemy : Character {
         return QueuedAction;
     }
 
-    public void ExecuteQueuedAction(Character target) {
+    public void ExecuteQueuedAction(CombatCharacter target) {
 
         System.Type t = ActionUtility.actionOverrideDict[QueuedAction.Name];
         ActionOverride o = (ActionOverride)System.Activator.CreateInstance(t);

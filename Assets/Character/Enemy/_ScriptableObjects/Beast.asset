@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Beast
   m_EditorClassIdentifier: 
   Name: Beast
-  MaxHealth: 60
+  MaxHealth: 5
   Actions:
   - Action: {fileID: 11400000, guid: 3635d5e0d73b148409f1c907024e7690, type: 2}
     Weight: 2

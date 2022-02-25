@@ -1,5 +1,5 @@
+using UnityEngine;
 
-
-public class UserController {
-
+public class UserController : MonoBehaviour {
+    //user settings go here
 }

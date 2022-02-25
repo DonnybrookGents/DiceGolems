@@ -214,6 +214,8 @@ public class UICombatController : MonoBehaviour {
 
     public void GrantReward(ItemContainer reward) {
 
+        Debug.Log("GrantReward");
+
         if (reward.GetType() == typeof(DieContainer)) {
             DieContainer dc = reward as DieContainer;
             Die rewardDie = dc.Copy();
@@ -221,16 +223,15 @@ public class UICombatController : MonoBehaviour {
         } else if (reward.GetType() == typeof(TileContainer)) {
             TileContainer tc = reward as TileContainer;
             Tile rewardTile = tc.Copy();
-            _PlayerCombatController.AddTileRune(rewardTile);
+            _PlayerCombatController.AddTile(rewardTile);
         }
-        Debug.Log("GrantReward");
         LockUI();
         _StateController.IsStateControllerDriven = true;
     }
 
     public void LoadRewardPopup() {
         RectTransform rewardPopup = Instantiate<RectTransform>(PopupTemplate, HUD.transform, false);
-
+        Debug.Log("Load Reward");
         rewardPopup.GetComponentInChildren<Button>().onClick.AddListener(() => GrantReward(rewardPopup.GetComponentInChildren<UIReward>().Reward));
     }
 

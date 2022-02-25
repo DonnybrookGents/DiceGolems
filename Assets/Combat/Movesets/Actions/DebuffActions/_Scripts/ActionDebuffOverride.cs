@@ -8,7 +8,7 @@ public class ActionDebuffOverride : ActionOverride {
 
     }
 
-    public void Execute(Character defensiveCharacter, Character offensiveCharacter, ActionContainer action) {
+    public void Execute(CombatCharacter defensiveCharacter, CombatCharacter offensiveCharacter, ActionContainer action) {
         ActionDebuffContainer debuff = (ActionDebuffContainer)action;
 
         //generate damage

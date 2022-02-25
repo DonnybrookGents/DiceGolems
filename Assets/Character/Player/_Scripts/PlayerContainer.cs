@@ -15,6 +15,14 @@ public class PlayerContainer : ScriptableObject {
     public List<DieContainer> StartingBank;
     public List<Die> Bank;
 
+    // private void OnEnable() {
+    //     hideFlags = HideFlags.DontUnloadUnusedAsset;
+    // }
+
+    private void OnDisable() {
+        Debug.Log("OnDisable");
+    }
+
     public void CreateStartingTiles() {
 
         Debug.Log("Create tiles");
@@ -37,8 +45,9 @@ public class PlayerContainer : ScriptableObject {
     public Dictionary<string, Tile> CopyTiles() {
         Dictionary<string, Tile> newTiles = new Dictionary<string, Tile>();
 
-        foreach (Tile tile in Tiles) {
-            newTiles.Add(tile.UUID, tile);
+        foreach (TileContainer tile in StartingTiles) {
+            Tile t = tile.Copy();
+            newTiles.Add(t.UUID, t);
         }
 
         return newTiles;
@@ -47,8 +56,9 @@ public class PlayerContainer : ScriptableObject {
     public List<Die> CopyBank() {
         List<Die> newBank = new List<Die>();
 
-        foreach (Die die in Bank) {
-            newBank.Add(die);
+        foreach (DieContainer die in StartingBank) {
+            Die d = die.Copy();
+            newBank.Add(d);
         }
 
         return newBank;

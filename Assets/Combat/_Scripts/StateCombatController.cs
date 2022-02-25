@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public enum CombatState {
     Start,
@@ -46,21 +45,9 @@ public class StateCombatController : MonoBehaviour {
         _SceneController = GetComponent<SceneController>();
         _PlayerCombatController = Player.GetComponent<PlayerCombatController>();
 
-        if (_PlayerCombatController.PlayerData.Bank.Count == 0) {
-            Debug.Log("Starting Bank Load");
-            _PlayerCombatController.PlayerData.CreateStartingBank();
-        } else {
-            foreach (Die d in _PlayerCombatController.PlayerData.Bank) {
-                Debug.Log(d.UUID);
-            }
-        }
-        if (_PlayerCombatController.PlayerData.Tiles.Count == 0) {
-            Debug.Log("Starting Tiles Load");
-            _PlayerCombatController.PlayerData.CreateStartingTiles();
-        } else {
-            foreach (Tile t in _PlayerCombatController.PlayerData.Tiles) {
-                Debug.Log(t.UUID);
-            }
+        GameObject.FindGameObjectWithTag(DDOL.TAG).GetComponent<OverworldController>().overWorldPlayer.GenerateCombatPlayer(_PlayerCombatController);
+        foreach (Die d in _PlayerCombatController.Bank) {
+            Debug.Log(d.UUID);
         }
         _Enemy = Enemy.GetComponent<Enemy>();
         _ZonesController = GetComponent<ZoneCombatController>();
@@ -85,7 +72,7 @@ public class StateCombatController : MonoBehaviour {
         _IsStateReady = false;
 
         // Load info.
-        _PlayerCombatController.CloneData();
+        //_PlayerCombatController.CloneData();
         _Enemy.CloneData();
         _UIController.LoadTiles();
         _UIController.GetEnergy();
@@ -197,7 +184,7 @@ public class StateCombatController : MonoBehaviour {
         // [ ] give reward
         // [ ] level up
 
-        StartCoroutine(_SceneController.BackToOverworld());
+        StartCoroutine(_SceneController.LoadOverWorld());
     }
 
     private void HandleLoseState() {
@@ -208,9 +195,9 @@ public class StateCombatController : MonoBehaviour {
 
         _UIController.UpdateWinLose("Defeat", Color.red);
 
-        _PlayerCombatController.Respawn();
+        //_PlayerCombatController.Respawn();
 
-        StartCoroutine(_SceneController.BackToOverworld());
+        StartCoroutine(_SceneController.LoadOverWorld());
     }
 
 

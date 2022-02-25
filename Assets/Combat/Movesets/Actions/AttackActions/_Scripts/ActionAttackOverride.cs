@@ -7,7 +7,7 @@ public class ActionAttackOverride : ActionOverride {
     public ActionAttackOverride() {
 
     }
-    public void Execute(Character defensiveCharacter, Character offensiveCharacter, ActionContainer action) {
+    public void Execute(CombatCharacter defensiveCharacter, CombatCharacter offensiveCharacter, ActionContainer action) {
         ActionAttackContainer attack = (ActionAttackContainer)action;
         //generate damage
         int damage = Random.Range(attack.InclusiveMinDamage, attack.ExclusiveMaxDamage);

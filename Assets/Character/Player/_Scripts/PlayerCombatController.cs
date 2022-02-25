@@ -1,27 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCombatController : Character {
+public class PlayerCombatController : CombatCharacter {
 
     public static readonly string TAG = "Player";
-    public PlayerContainer PlayerData;
+    public PlayerOverworldController PlayerData;
     public Dictionary<string, Tile> Tiles;
-    private int MaxEnergy;
-    private int EnergyRegeneration;
-    private int Energy;
-    private List<Die> Bank;
-
-    public void CloneData() {
-        Debug.Log("Clone Data");
-        MaxHealth = PlayerData.MaxHealth;
-        Health = PlayerData.Health;
-        EnergyRegeneration = PlayerData.EnergyRegeneration;
-        MaxEnergy = PlayerData.MaxEnergy;
-        Energy = PlayerData.StartingEnergy - PlayerData.EnergyRegeneration;
-        PrintParentTiles();
-        Tiles = PlayerData.CopyTiles();
-        Bank = PlayerData.CopyBank();
-    }
+    public int MaxEnergy;
+    public int EnergyRegeneration;
+    public int Energy;
+    public List<Die> Bank;
 
     public Die GenerateDice() {
         if (Energy <= 0) {
@@ -39,38 +27,6 @@ public class PlayerCombatController : Character {
         return die;
     }
 
-    public void PrintBank() {
-        foreach (Die d in Bank) {
-            Debug.Log(d.UUID);
-        }
-    }
-
-    public void PrintTiles() {
-        foreach (Tile t in Tiles.Values) {
-            Debug.Log(t.TileName);
-        }
-    }
-    public void PrintParentTiles() {
-        Debug.Log("Parent Print");
-        foreach (Tile t in PlayerData.Tiles) {
-            Debug.Log(t.TileName);
-        }
-    }
-    public void AddDie(Die die) {
-        PrintBank();
-        PlayerData.Bank.Add(die);
-        Bank.Add(die);
-        Debug.Log("Adding Die");
-        PrintBank();
-    }
-
-    public void AddTileRune(Tile tileRune) {
-        PrintParentTiles();
-        Debug.Log("Add Tile");
-        PlayerData.Tiles.Add(tileRune);
-        Tiles.Add(tileRune.UUID, tileRune);
-        PrintParentTiles();
-    }
 
     public int GetEnergy() {
         return Energy;
@@ -101,9 +57,20 @@ public class PlayerCombatController : Character {
         return initalDamage;
     }
 
-    public void Respawn() {
-        PlayerData.Health = PlayerData.MaxHealth;
+    public void AddCombatTile(Tile t) {
+        Tiles.Add(t.UUID, t);
+    }
 
-        CloneData();
+    public void AddCombatDie(Die d) {
+        Bank.Add(d);
+    }
+
+    public void AddDie(Die d) {
+        PlayerData.AddDie(d);
+        AddCombatDie(d);
+    }
+    public void AddTile(Tile t) {
+        PlayerData.AddTile(t);
+        AddCombatTile(t);
     }
 }
