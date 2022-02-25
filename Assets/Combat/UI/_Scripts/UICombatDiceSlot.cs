@@ -2,28 +2,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UICombatDiceSlot : MonoBehaviour {
-    [HideInInspector] public string dieUUID;
+    public RectTransform DieTemplate;
+    [HideInInspector] public string DieUUID;
     private Image DisplayImage;
-
-    private void Start() {
-        DisplayImage = gameObject.transform.Find("Die").GetComponent<Image>();
-    }
 
     public void Set(Die die) {
         if (die == null) {
             return;
         }
 
-        dieUUID = die.UUID;
+        DieUUID = die.UUID;
 
-        DisplayImage.enabled = true;
-        DisplayImage.sprite = die.ImageValue;
+        RectTransform newDie = Instantiate<RectTransform>(DieTemplate);
+        newDie.SetParent(transform, false);
+        newDie.GetComponent<Image>().sprite = die.ImageValue;
+        newDie.name = DieTemplate.name;
     }
 
     public void Clear() {
-        dieUUID = "";
+        DieUUID = "";
 
-        DisplayImage.sprite = null;
-        DisplayImage.enabled = false;
+        Transform die = gameObject.transform.Find("Die");
+        Destroy(die.gameObject);
     }
 }

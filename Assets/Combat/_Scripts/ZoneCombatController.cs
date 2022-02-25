@@ -53,18 +53,22 @@ public class ZoneCombatController : MonoBehaviour {
     }
 
     public void MoveDie(string zone, string uuid) {
+
         if (!Zones.ContainsKey(zone) || GetDie(uuid) == null) {
             return;
         }
+
         Die tempDie = GetDie(uuid);
         RemoveDie(uuid);
         Zones[zone].Add(tempDie.UUID, tempDie);
     }
 
     public void SwapDice(string uuid1, string uuid2) {
-        if (GetDie(uuid1) == null && GetDie(uuid2) == null) {
+
+        if (GetDie(uuid1) == null || GetDie(uuid2) == null) {
             return;
         }
+
         string tempZone = GetZone(uuid2);
         MoveDie(GetZone(uuid1), uuid2);
         MoveDie(tempZone, uuid1);
