@@ -20,8 +20,6 @@ public class StateCombatController : MonoBehaviour {
     public bool IsDead;
     public bool IsVictorious;
     public bool IsStateControllerDriven;
-    public GameObject Player;
-    public GameObject Enemy;
 
     private SceneController _SceneController;
     private PlayerCombatController _PlayerCombatController;
@@ -43,13 +41,13 @@ public class StateCombatController : MonoBehaviour {
         State = CombatState.Start;
 
         _SceneController = GetComponent<SceneController>();
-        _PlayerCombatController = Player.GetComponent<PlayerCombatController>();
+        _PlayerCombatController = GameObject.FindWithTag(PlayerCombatController.TAG).GetComponent<PlayerCombatController>();
 
         GameObject.FindGameObjectWithTag(DDOL.TAG).GetComponent<OverworldController>().overWorldPlayer.GenerateCombatPlayer(_PlayerCombatController);
         foreach (Die d in _PlayerCombatController.Bank) {
             Debug.Log(d.UUID);
         }
-        _Enemy = Enemy.GetComponent<Enemy>();
+        _Enemy = GameObject.FindWithTag(Enemy.TAG).GetComponent<Enemy>();
         _ZonesController = GetComponent<ZoneCombatController>();
         _UIController = GetComponent<UICombatController>();
 

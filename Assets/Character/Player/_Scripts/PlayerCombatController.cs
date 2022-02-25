@@ -26,8 +26,6 @@ public class PlayerCombatController : CombatCharacter {
 
         return die;
     }
-
-
     public int GetEnergy() {
         return Energy;
     }
