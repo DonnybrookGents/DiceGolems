@@ -47,20 +47,11 @@ public class StateCombatController : MonoBehaviour {
         _PlayerCombatController = Player.GetComponent<PlayerCombatController>();
 
         if (_PlayerCombatController.PlayerData.Bank.Count == 0) {
-            Debug.Log("Starting Bank Load");
             _PlayerCombatController.PlayerData.CreateStartingBank();
-        } else {
-            foreach (Die d in _PlayerCombatController.PlayerData.Bank) {
-                Debug.Log(d.UUID);
-            }
         }
+
         if (_PlayerCombatController.PlayerData.Tiles.Count == 0) {
-            Debug.Log("Starting Tiles Load");
             _PlayerCombatController.PlayerData.CreateStartingTiles();
-        } else {
-            foreach (Tile t in _PlayerCombatController.PlayerData.Tiles) {
-                Debug.Log(t.UUID);
-            }
         }
         _Enemy = Enemy.GetComponent<Enemy>();
         _ZonesController = GetComponent<ZoneCombatController>();

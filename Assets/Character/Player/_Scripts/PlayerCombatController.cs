@@ -12,13 +12,11 @@ public class PlayerCombatController : Character {
     private List<Die> Bank;
 
     public void CloneData() {
-        Debug.Log("Clone Data");
         MaxHealth = PlayerData.MaxHealth;
         Health = PlayerData.Health;
         EnergyRegeneration = PlayerData.EnergyRegeneration;
         MaxEnergy = PlayerData.MaxEnergy;
         Energy = PlayerData.StartingEnergy - PlayerData.EnergyRegeneration;
-        PrintParentTiles();
         Tiles = PlayerData.CopyTiles();
         Bank = PlayerData.CopyBank();
     }
@@ -57,19 +55,13 @@ public class PlayerCombatController : Character {
         }
     }
     public void AddDie(Die die) {
-        PrintBank();
         PlayerData.Bank.Add(die);
         Bank.Add(die);
-        Debug.Log("Adding Die");
-        PrintBank();
     }
 
     public void AddTileRune(Tile tileRune) {
-        PrintParentTiles();
-        Debug.Log("Add Tile");
         PlayerData.Tiles.Add(tileRune);
         Tiles.Add(tileRune.UUID, tileRune);
-        PrintParentTiles();
     }
 
     public int GetEnergy() {

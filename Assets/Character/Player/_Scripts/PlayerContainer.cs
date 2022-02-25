@@ -17,7 +17,6 @@ public class PlayerContainer : ScriptableObject {
 
     public void CreateStartingTiles() {
 
-        Debug.Log("Create tiles");
         Tiles = new List<Tile>();
         foreach (TileContainer tileContainer in StartingTiles) {
             Tile tile = tileContainer.Copy();
@@ -26,7 +25,6 @@ public class PlayerContainer : ScriptableObject {
     }
 
     public void CreateStartingBank() {
-        Debug.Log("Create bank");
         Bank = new List<Die>();
         foreach (DieContainer dc in StartingBank) {
             Die die = dc.Copy();

@@ -223,7 +223,7 @@ public class UICombatController : MonoBehaviour {
             Tile rewardTile = tc.Copy();
             _PlayerCombatController.AddTileRune(rewardTile);
         }
-        Debug.Log("GrantReward");
+
         LockUI();
         _StateController.IsStateControllerDriven = true;
     }
