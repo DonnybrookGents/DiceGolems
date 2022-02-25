@@ -14,14 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Player
   MaxHealth: 100
-  Health: 84
+  Health: 75
   MaxEnergy: 7
   StartingEnergy: 7
   EnergyRegeneration: 7
   StartingTiles:
   - {fileID: 11400000, guid: 1ce94d0d971d4eb48b5e2348d4d17d7b, type: 2}
   - {fileID: 11400000, guid: 66866b95c4af2cd4e86aa349b66d935a, type: 2}
-  Tiles: []
+  Tiles:
+  - TileName: 0
+    Image: {fileID: 21300000, guid: f262123feb93deb45b49edb53a8e1738, type: 3}
+    UUID: 37b3e41e-dd15-4531-8db7-a82deb7408d2
+    Dice: []
+    DiceSlots: 1
+    TileLevel: 0
+    TileParameters: []
+  - TileName: 1
+    Image: {fileID: 21300000, guid: 32f0013f2b304af408b182c67fe77279, type: 3}
+    UUID: b225454c-5b6d-4905-a0f8-9d1a1a722a18
+    Dice: []
+    DiceSlots: 1
+    TileLevel: 0
+    TileParameters: []
   StartingBank:
   - {fileID: 11400000, guid: ffd71593a8247db439570b91ff80b3bc, type: 2}
-  Bank: []
+  Bank:
+  - Faces: 010000000200000003000000040000000500000006000000
+    Images:
+    - {fileID: 21300000, guid: f968c6442a83d8f42855c0b6b6b15d64, type: 3}
+    - {fileID: 21300000, guid: cc5e614976bdc0a4c9ec203327d41975, type: 3}
+    - {fileID: 21300000, guid: 0ccf5b2ebd820284d8cfd0eaa993e5a2, type: 3}
+    - {fileID: 21300000, guid: bfeb7bcda3ce3274ca3d677ff93d5b9b, type: 3}
+    - {fileID: 21300000, guid: 82a06f8ab8eb27d4083b0634f9d6eaef, type: 3}
+    - {fileID: 21300000, guid: 7adf3b45266e3ba44a89e167eeb2dfb8, type: 3}
+    Value: 0
+    ImageValue: {fileID: 0}
+    UUID: 36162606-64d5-43cd-96d7-6c8b174c9ff4

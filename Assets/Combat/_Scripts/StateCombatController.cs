@@ -21,8 +21,6 @@ public class StateCombatController : MonoBehaviour {
     public bool IsDead;
     public bool IsVictorious;
     public bool IsStateControllerDriven;
-    public GameObject Player;
-    public GameObject Enemy;
 
     private SceneController _SceneController;
     private PlayerCombatController _PlayerCombatController;
@@ -44,7 +42,7 @@ public class StateCombatController : MonoBehaviour {
         State = CombatState.Start;
 
         _SceneController = GetComponent<SceneController>();
-        _PlayerCombatController = Player.GetComponent<PlayerCombatController>();
+        _PlayerCombatController = GameObject.FindWithTag(PlayerCombatController.TAG).GetComponent<PlayerCombatController>();
 
         if (_PlayerCombatController.PlayerData.Bank.Count == 0) {
             _PlayerCombatController.PlayerData.CreateStartingBank();
@@ -53,7 +51,7 @@ public class StateCombatController : MonoBehaviour {
         if (_PlayerCombatController.PlayerData.Tiles.Count == 0) {
             _PlayerCombatController.PlayerData.CreateStartingTiles();
         }
-        _Enemy = Enemy.GetComponent<Enemy>();
+        _Enemy = GameObject.FindWithTag(Enemy.TAG).GetComponent<Enemy>();
         _ZonesController = GetComponent<ZoneCombatController>();
         _UIController = GetComponent<UICombatController>();
 
