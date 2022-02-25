@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Tile", menuName = "ScriptableObjects/Tile")]
-public class TileContainer : ScriptableObject {
+public class TileContainer : ItemContainer {
     public TileName TileName;
     public Sprite Image;
     public int DiceSlots;

@@ -20,7 +20,7 @@ public class StateCombatController : MonoBehaviour {
     public CombatState State;
     public bool IsDead;
     public bool IsVictorious;
-    public bool IsPlayerTurnEnded;
+    public bool IsStateControllerDriven;
     public GameObject Player;
     public GameObject Enemy;
 
@@ -45,6 +45,23 @@ public class StateCombatController : MonoBehaviour {
 
         _SceneController = GetComponent<SceneController>();
         _PlayerCombatController = Player.GetComponent<PlayerCombatController>();
+
+        if (_PlayerCombatController.PlayerData.Bank.Count == 0) {
+            Debug.Log("Starting Bank Load");
+            _PlayerCombatController.PlayerData.CreateStartingBank();
+        } else {
+            foreach (Die d in _PlayerCombatController.PlayerData.Bank) {
+                Debug.Log(d.UUID);
+            }
+        }
+        if (_PlayerCombatController.PlayerData.Tiles.Count == 0) {
+            Debug.Log("Starting Tiles Load");
+            _PlayerCombatController.PlayerData.CreateStartingTiles();
+        } else {
+            foreach (Tile t in _PlayerCombatController.PlayerData.Tiles) {
+                Debug.Log(t.UUID);
+            }
+        }
         _Enemy = Enemy.GetComponent<Enemy>();
         _ZonesController = GetComponent<ZoneCombatController>();
         _UIController = GetComponent<UICombatController>();
@@ -104,20 +121,22 @@ public class StateCombatController : MonoBehaviour {
 
     private IEnumerator HandlePlayerMidTurnState() {
         _IsStateReady = false;
-        _UIController.UnlockUI();
+
 
         // [ ] lock input controlls
 
         // Wait for UI input.
-        yield return new WaitUntil(() => IsPlayerTurnEnded);
+        _UIController.UnlockUI();
+        yield return new WaitUntil(() => IsStateControllerDriven);
         _UIController.LockUI();
-        IsPlayerTurnEnded = false;
 
-        if (_Enemy.Health < 0) {
+        IsStateControllerDriven = false;
+
+        if (_Enemy.IsDead()) {
             IsVictorious = true;
         }
 
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(1);
 
         _IsStateReady = true;
     }
@@ -166,14 +185,18 @@ public class StateCombatController : MonoBehaviour {
         _IsStateReady = true;
     }
 
-    private void HandleWinState() {
+    private IEnumerator HandleWinState() {
+        _UIController.UpdateWinLose("Victory", Color.green);
         _IsStateReady = false;
 
+        _UIController.UnlockUI();
+        _UIController.LoadRewardPopup();
+        yield return new WaitUntil(() => IsStateControllerDriven);
+        _UIController.LockUI();
         // [ ] clear temporary negative effects
         // [ ] give reward
         // [ ] level up
 
-        _UIController.UpdateWinLose("Victory", Color.green);
         StartCoroutine(_SceneController.BackToOverworld());
     }
 
@@ -240,7 +263,7 @@ public class StateCombatController : MonoBehaviour {
                 break;
 
             case CombatState.Win:
-                HandleWinState();
+                StartCoroutine(HandleWinState());
 
                 break;
 

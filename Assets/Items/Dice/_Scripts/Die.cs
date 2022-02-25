@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public class Die {
     public int[] Faces;
     public Sprite[] Images; // Change this to its own SO.

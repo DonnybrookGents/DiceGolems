@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerCombatController : Character {
 
-
+    public static readonly string TAG = "Player";
     public PlayerContainer PlayerData;
     public Dictionary<string, Tile> Tiles;
     private int MaxEnergy;
@@ -12,11 +12,13 @@ public class PlayerCombatController : Character {
     private List<Die> Bank;
 
     public void CloneData() {
+        Debug.Log("Clone Data");
         MaxHealth = PlayerData.MaxHealth;
         Health = PlayerData.Health;
         EnergyRegeneration = PlayerData.EnergyRegeneration;
         MaxEnergy = PlayerData.MaxEnergy;
         Energy = PlayerData.StartingEnergy - PlayerData.EnergyRegeneration;
+        PrintParentTiles();
         Tiles = PlayerData.CopyTiles();
         Bank = PlayerData.CopyBank();
     }
@@ -35,6 +37,39 @@ public class PlayerCombatController : Character {
         Energy--;
 
         return die;
+    }
+
+    public void PrintBank() {
+        foreach (Die d in Bank) {
+            Debug.Log(d.UUID);
+        }
+    }
+
+    public void PrintTiles() {
+        foreach (Tile t in Tiles.Values) {
+            Debug.Log(t.TileName);
+        }
+    }
+    public void PrintParentTiles() {
+        Debug.Log("Parent Print");
+        foreach (Tile t in PlayerData.Tiles) {
+            Debug.Log(t.TileName);
+        }
+    }
+    public void AddDie(Die die) {
+        PrintBank();
+        PlayerData.Bank.Add(die);
+        Bank.Add(die);
+        Debug.Log("Adding Die");
+        PrintBank();
+    }
+
+    public void AddTileRune(Tile tileRune) {
+        PrintParentTiles();
+        Debug.Log("Add Tile");
+        PlayerData.Tiles.Add(tileRune);
+        Tiles.Add(tileRune.UUID, tileRune);
+        PrintParentTiles();
     }
 
     public int GetEnergy() {

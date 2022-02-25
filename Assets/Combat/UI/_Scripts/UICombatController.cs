@@ -8,8 +8,6 @@ enum UIState {
 }
 
 public class UICombatController : MonoBehaviour {
-    public GameObject Player;
-    public GameObject Enemy;
     public Canvas HUD;
     public Slider PlayerHealth;
     public Slider EnemyHealth;
@@ -21,6 +19,7 @@ public class UICombatController : MonoBehaviour {
     public RectTransform TileContainer;
     public RectTransform TileTemplate;
     public RectTransform DiceTemplate;
+    public RectTransform PopupTemplate;
 
     private bool UILocked = true;
     private PlayerCombatController _PlayerCombatController;
@@ -31,8 +30,8 @@ public class UICombatController : MonoBehaviour {
 
     public void Start() {
         _StateController = GetComponent<StateCombatController>();
-        _PlayerCombatController = Player.GetComponent<PlayerCombatController>();
-        _Enemy = Enemy.GetComponent<Enemy>();
+        _PlayerCombatController = GameObject.FindWithTag(PlayerCombatController.TAG).GetComponent<PlayerCombatController>();
+        _Enemy = GameObject.FindWithTag(Enemy.TAG).GetComponent<Enemy>();
         _ZonesController = GetComponent<ZoneCombatController>();
         LockUI();
     }
@@ -54,11 +53,11 @@ public class UICombatController : MonoBehaviour {
         WinLose.color = color;
     }
 
-    public void LockUI(){
-        UILocked = true; 
+    public void LockUI() {
+        UILocked = true;
     }
 
-    public void UnlockUI(){
+    public void UnlockUI() {
         UILocked = false;
     }
 
@@ -107,7 +106,7 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void RollDice() {
-        if(UILocked){
+        if (UILocked) {
             return;
         }
         if (_PlayerCombatController.GetEnergy() > 0) {
@@ -126,7 +125,7 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void MoveDice(UICombatDiceSlot slot) {
-        if(UILocked){
+        if (UILocked) {
             return;
         }
         switch (_SelectedState) {
@@ -180,7 +179,7 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void ActivateTile(Transform slotParent) {
-        if(UILocked){
+        if (UILocked) {
             return;
         }
         string tileZone = slotParent.GetComponentInParent<UICombatTile>().TileUUID;
@@ -208,14 +207,35 @@ public class UICombatController : MonoBehaviour {
         UpdateEnemyHealth();
         UpdatePlayerHealth();
 
-        if(_Enemy.IsDead() || _PlayerCombatController.IsDead()){
+        if (_Enemy.IsDead() || _PlayerCombatController.IsDead()) {
             EndTurn();
         }
+    }
 
+    public void GrantReward(ItemContainer reward) {
+
+        if (reward.GetType() == typeof(DieContainer)) {
+            DieContainer dc = reward as DieContainer;
+            Die rewardDie = dc.Copy();
+            _PlayerCombatController.AddDie(rewardDie);
+        } else if (reward.GetType() == typeof(TileContainer)) {
+            TileContainer tc = reward as TileContainer;
+            Tile rewardTile = tc.Copy();
+            _PlayerCombatController.AddTileRune(rewardTile);
+        }
+        Debug.Log("GrantReward");
+        LockUI();
+        _StateController.IsStateControllerDriven = true;
+    }
+
+    public void LoadRewardPopup() {
+        RectTransform rewardPopup = Instantiate<RectTransform>(PopupTemplate, HUD.transform, false);
+
+        rewardPopup.GetComponentInChildren<Button>().onClick.AddListener(() => GrantReward(rewardPopup.GetComponentInChildren<UIReward>().Reward));
     }
 
     public void EndTurn() {
-        if(UILocked){
+        if (UILocked) {
             return;
         }
 
@@ -223,7 +243,7 @@ public class UICombatController : MonoBehaviour {
             diceSlot.Clear();
         }
 
-        _StateController.IsPlayerTurnEnded = true;
+        _StateController.IsStateControllerDriven = true;
     }
 
     private UICombatDiceSlot GetPoolDiceSlot(string uuid) {

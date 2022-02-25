@@ -298,7 +298,7 @@ MonoBehaviour:
   State: 0
   IsDead: 0
   IsVictorious: 0
-  IsPlayerTurnEnded: 0
+  IsStateControllerDriven: 0
   Player: {fileID: 337846805}
   Enemy: {fileID: 776839621}
 --- !u!114 &185330449
@@ -313,8 +313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5efc351bf49ee4fade2c9d87274f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 337846805}
-  Enemy: {fileID: 776839621}
   HUD: {fileID: 239112763}
   PlayerHealth: {fileID: 979565718}
   EnemyHealth: {fileID: 620790655}
@@ -322,9 +320,22 @@ MonoBehaviour:
   WinLose: {fileID: 969697551}
   EnergyLevel: {fileID: 1457929693}
   DicePool: {fileID: 2080346207}
+  SelectedDie:
+    Faces: 010000000200000003000000040000000500000006000000
+    Images:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    Value: 0
+    ImageValue: {fileID: 0}
+    UUID: e000e0dd-c5a8-4476-9c5b-ebbc18e160ab
   TileContainer: {fileID: 1128632632}
   TileTemplate: {fileID: 2416795381339910429, guid: 91507007b284047498277dd3a2a0b1b4, type: 3}
   DiceTemplate: {fileID: 1484131902028581599, guid: ac37cc4fe82619a4f8164de33e14aaa5, type: 3}
+  PopupTemplate: {fileID: 6877010580832960070, guid: a422353d006693a4cac4133623af8f6c, type: 3}
 --- !u!114 &185330450
 MonoBehaviour:
   m_ObjectHideFlags: 0

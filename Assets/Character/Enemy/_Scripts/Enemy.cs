@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : Character {
 
+    public static readonly string TAG = "Enemy";
+
     public EnemyContainer EnemyData;
     [HideInInspector] public ActionContainer QueuedAction;
     [HideInInspector] public List<WeightedAction> Actions;
