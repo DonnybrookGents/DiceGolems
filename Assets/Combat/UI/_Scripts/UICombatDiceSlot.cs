@@ -21,8 +21,9 @@ public class UICombatDiceSlot : MonoBehaviour {
 
     public void Clear() {
         DieUUID = "";
-
         Transform die = gameObject.transform.Find("Die");
-        Destroy(die.gameObject);
+        if (die) {
+            Destroy(die.gameObject);
+        }
     }
 }
