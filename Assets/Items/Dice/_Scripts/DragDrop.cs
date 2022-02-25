@@ -34,6 +34,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         CanvasGroup.blocksRaycasts = true;
 
         if (OnTarget) {
+            OriginalSlot = Moveable.parent;
             OnTarget = false;
         } else {
             Moveable.SetParent(OriginalSlot, false);
