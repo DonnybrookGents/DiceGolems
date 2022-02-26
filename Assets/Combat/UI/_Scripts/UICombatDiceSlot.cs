@@ -25,17 +25,12 @@ public class UICombatDiceSlot : MonoBehaviour, IDropHandler {
         die.localPosition = Vector2.zero;
     }
 
-    public void Set(Die die) {
+    public void Set(RectTransform die) {
         if (die == null) {
             return;
         }
 
-        DieUUID = die.UUID;
-
-        RectTransform newDie = Instantiate<RectTransform>(DieTemplate);
-        newDie.SetParent(transform, false);
-        newDie.GetComponent<Image>().sprite = die.ImageValue;
-        newDie.name = DieTemplate.name;
+        die.SetParent(transform, false);
     }
 
     public void Clear() {

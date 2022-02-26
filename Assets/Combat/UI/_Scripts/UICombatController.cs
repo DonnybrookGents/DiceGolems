@@ -110,15 +110,16 @@ public class UICombatController : MonoBehaviour {
             return;
         }
         if (_PlayerCombatController.GetEnergy() > 0) {
-            UICombatDiceSlot poolSlot = GetPoolDiceSlot("");
+            UICombatDiceSlot poolSlot = GetEmptyPoolDiceSlot();
 
             if (poolSlot == null) {
                 return;
             }
-            Die rolledDie = _PlayerCombatController.GenerateDice();
 
-            poolSlot.Set(rolledDie);
-            _ZonesController.AddDie(DicePool.GetComponent<UICombatTile>().TileUUID, rolledDie);
+            GameObject rolledDie = _PlayerCombatController.GenerateDie();
+
+            poolSlot.Set(rolledDie.GetComponent<RectTransform>());
+            //_ZonesController.AddDie(DicePool.GetComponent<UICombatTile>().TileUUID, rolledDie);
         }
 
         GetEnergy();
@@ -149,33 +150,33 @@ public class UICombatController : MonoBehaviour {
     }
 
     private void SetSlot(UICombatDiceSlot toSlot) {
-        if (_SelectedState != UIState.Selected || SelectedDie.UUID == toSlot.DieUUID) {
-            return;
-        }
+        // if (_SelectedState != UIState.Selected || SelectedDie.UUID == toSlot.DieUUID) {
+        //     return;
+        // }
 
-        string toZone = toSlot.GetComponentInParent<UICombatTile>().TileUUID;
+        // string toZone = toSlot.GetComponentInParent<UICombatTile>().TileUUID;
 
-        Die tempSlot = _ZonesController.GetDie(toSlot.DieUUID);
-        UICombatDiceSlot fromSlot = GetAllDiceSlot(SelectedDie.UUID);
+        // Die tempSlot = _ZonesController.GetDie(toSlot.DieUUID);
+        // UICombatDiceSlot fromSlot = GetAllDiceSlot(SelectedDie.UUID);
 
-        if (tempSlot == null) {
-            _ZonesController.MoveDie(toZone, SelectedDie.UUID);
-        } else {
-            _ZonesController.SwapDice(tempSlot.UUID, SelectedDie.UUID);
-        }
+        // if (tempSlot == null) {
+        //     _ZonesController.MoveDie(toZone, SelectedDie.UUID);
+        // } else {
+        //     _ZonesController.SwapDice(tempSlot.UUID, SelectedDie.UUID);
+        // }
 
-        string fromZone = fromSlot.GetComponentInParent<UICombatTile>().TileUUID;
-        fromSlot.Clear();
+        // string fromZone = fromSlot.GetComponentInParent<UICombatTile>().TileUUID;
+        // fromSlot.Clear();
 
-        if (tempSlot != null) {
-            fromSlot.Set(tempSlot);
-            toSlot.Clear();
-        }
+        // if (tempSlot != null) {
+        //     fromSlot.Set(tempSlot);
+        //     toSlot.Clear();
+        // }
 
-        toSlot.Set(SelectedDie);
+        // toSlot.Set(SelectedDie);
 
-        SelectedDie = null;
-        _SelectedState = UIState.Deselected;
+        // SelectedDie = null;
+        // _SelectedState = UIState.Deselected;
     }
 
     public void ActivateTile(Transform slotParent) {
@@ -216,15 +217,15 @@ public class UICombatController : MonoBehaviour {
 
         Debug.Log("GrantReward");
 
-        if (reward.GetType() == typeof(DieContainer)) {
-            DieContainer dc = reward as DieContainer;
-            Die rewardDie = dc.Copy();
-            _PlayerCombatController.AddDie(rewardDie);
-        } else if (reward.GetType() == typeof(TileContainer)) {
-            TileContainer tc = reward as TileContainer;
-            Tile rewardTile = tc.Copy();
-            _PlayerCombatController.AddTile(rewardTile);
-        }
+        // if (reward.GetType() == typeof(DieContainer)) {
+        //     DieContainer dc = reward as DieContainer;
+        //     //Die rewardDie = dc.Copy();
+        //     _PlayerCombatController.AddDie(rewardDie);
+        // } else if (reward.GetType() == typeof(TileContainer)) {
+        //     TileContainer tc = reward as TileContainer;
+        //     Tile rewardTile = tc.Copy();
+        //     _PlayerCombatController.AddTile(rewardTile);
+        // }
         LockUI();
         _StateController.IsStateControllerDriven = true;
     }
@@ -247,9 +248,9 @@ public class UICombatController : MonoBehaviour {
         _StateController.IsStateControllerDriven = true;
     }
 
-    private UICombatDiceSlot GetPoolDiceSlot(string uuid) {
+    private UICombatDiceSlot GetEmptyPoolDiceSlot() {
         foreach (UICombatDiceSlot diceSlot in DicePool.GetComponentsInChildren<UICombatDiceSlot>()) {
-            if (uuid == diceSlot.DieUUID) {
+            if (diceSlot.gameObject.transform.Find("Die") == null) {
                 return diceSlot;
             }
         }

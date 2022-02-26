@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5856867325841122957}
   - component: {fileID: 5826588364197509977}
   - component: {fileID: -6701697089720969247}
+  - component: {fileID: -4690217247123613463}
   m_Layer: 5
   m_Name: Die
   m_TagString: Untagged
@@ -89,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10e8852a554521488b2b1c0a0b5da91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnTarget: 0
 --- !u!225 &-6701697089720969247
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -101,3 +103,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &-4690217247123613463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887571185364558703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d6cd4861aaf924abccf9d4f6214927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DieData: {fileID: 0}
+  Faces: 
+  Images: []
+  Value: 0
+  ImageValue: {fileID: 0}
+  UUID: 

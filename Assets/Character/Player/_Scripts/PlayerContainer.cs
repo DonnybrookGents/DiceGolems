@@ -35,8 +35,8 @@ public class PlayerContainer : ScriptableObject {
     public void CreateStartingBank() {
         Bank = new List<Die>();
         foreach (DieContainer dc in StartingBank) {
-            Die die = dc.Copy();
-            Bank.Add(die);
+            // Die die = dc.Copy();
+            // Bank.Add(die);
         }
     }
 
@@ -51,12 +51,11 @@ public class PlayerContainer : ScriptableObject {
         return newTiles;
     }
 
-    public List<Die> CopyBank() {
-        List<Die> newBank = new List<Die>();
+    public List<DieContainer> CopyBank() {
+        List<DieContainer> newBank = new List<DieContainer>();
 
         foreach (DieContainer die in StartingBank) {
-            Die d = die.Copy();
-            newBank.Add(d);
+            newBank.Add(die);
         }
 
         return newBank;

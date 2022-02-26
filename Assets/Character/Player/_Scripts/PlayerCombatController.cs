@@ -9,28 +9,27 @@ public class PlayerCombatController : CombatCharacter {
     public int MaxEnergy;
     public int EnergyRegeneration;
     public int Energy;
-    public List<Die> Bank;
+    public List<GameObject> Bank;
 
-    public Die GenerateDice() {
+    public GameObject GenerateDie() {
         if (Energy <= 0) {
             return null;
         }
-
-        // Die die = new Die();
-        Die refferenceDie = Bank[Random.Range(0, Bank.Count)];
-        Die die = new Die(refferenceDie);
-
-        die.Roll();
-
+        GameObject diePrefab = Bank[Random.Range(0, Bank.Count)];
+        GameObject newDiePrefab = Instantiate(diePrefab);
+        newDiePrefab.name = diePrefab.name;
+        newDiePrefab.GetComponent<Die>().Roll();
         Energy--;
-
-        return die;
+        return newDiePrefab;
     }
+
     public int GetEnergy() {
         return Energy;
     }
 
     public void UpdateEnergy() {
+        Debug.Log("Energy");
+        Debug.Log(EnergyRegeneration);
         Energy += EnergyRegeneration;
         if (Energy > MaxEnergy) {
             Energy = MaxEnergy;
@@ -60,7 +59,7 @@ public class PlayerCombatController : CombatCharacter {
     }
 
     public void AddCombatDie(Die d) {
-        Bank.Add(d);
+        //Bank.Add(d);
     }
 
     public void AddDie(Die d) {

@@ -10,7 +10,7 @@ public class PlayerOverworldController {
     public int MaxEnergy;
     public int EnergyRegeneration;
     public int StartingEnergy;
-    public List<Die> Bank;
+    public List<DieContainer> Bank;
 
     public void CloneData() {
         Debug.Log("Clone Data");
@@ -32,9 +32,9 @@ public class PlayerOverworldController {
         combatPlayer.MaxEnergy = MaxEnergy;
         combatPlayer.Energy = StartingEnergy;
         combatPlayer.EnergyRegeneration = EnergyRegeneration;
-        combatPlayer.Bank = new List<Die>();
-        foreach (Die d in Bank) {
-            combatPlayer.Bank.Add(d);
+        combatPlayer.Bank = new List<GameObject>();
+        foreach (DieContainer d in Bank) {
+            combatPlayer.Bank.Add(d.LoadDiePrefab());
         }
         combatPlayer.Tiles = new Dictionary<string, Tile>();
         foreach (Tile t in Tiles.Values) {
@@ -61,7 +61,7 @@ public class PlayerOverworldController {
     }
 
     public void AddDie(Die d) {
-        Bank.Add(d);
+        //Bank.Add(d);
     }
 
     public void AddTile(Tile t) {

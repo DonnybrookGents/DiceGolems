@@ -44,9 +44,6 @@ public class StateCombatController : MonoBehaviour {
         _PlayerCombatController = GameObject.FindWithTag(PlayerCombatController.TAG).GetComponent<PlayerCombatController>();
 
         GameObject.FindGameObjectWithTag(DDOL.TAG).GetComponent<OverworldController>().overWorldPlayer.GenerateCombatPlayer(_PlayerCombatController);
-        foreach (Die d in _PlayerCombatController.Bank) {
-            Debug.Log(d.UUID);
-        }
         _Enemy = GameObject.FindWithTag(Enemy.TAG).GetComponent<Enemy>();
         _ZonesController = GetComponent<ZoneCombatController>();
         _UIController = GetComponent<UICombatController>();
