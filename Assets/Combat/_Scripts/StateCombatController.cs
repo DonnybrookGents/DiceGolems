@@ -178,7 +178,9 @@ public class StateCombatController : MonoBehaviour {
         // [ ] clear temporary negative effects
         // [ ] give reward
         // [ ] level up
-
+        OverworldController owController = GameObject.FindGameObjectWithTag(GameStateController.TAG).GetComponent<OverworldController>();
+        owController.Wins++;
+        //owController.Wins++;
         StartCoroutine(_SceneController.LoadOverWorld());
     }
 
