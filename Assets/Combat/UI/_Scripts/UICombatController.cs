@@ -180,27 +180,38 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void ActivateTile(Transform slotParent) {
-        if (UILocked) {
-            return;
-        }
+        // if (UILocked) {
+        //     return;
+        // }
+        // int dieSum = 0;
+
+        // List<Die> dice = new List<Die>();
+        // foreach (UICombatDiceSlot slot in slotParent.GetComponentsInChildren<UICombatDiceSlot>()) {
+        //     if (!System.String.IsNullOrEmpty(slot.DieUUID)) {
+        //         Die die = _ZonesController.GetDie(slot.DieUUID);
+        //         dieSum += die != null ? die.Value : 0;
+
+        //         dice.Add(die);
+
+        //         _ZonesController.RemoveDie(slot.DieUUID);
+        //         slot.Clear();
+        //     }
+        // }
+
+        
+
+        // System.Type t = TileUtility.TileOverrideDict[tile.TileName];
+        // TileOverride o = System.Activator.CreateInstance(t) as TileOverride;
+        // o.Execute(_Enemy, _PlayerCombatController, dice, tile);
+
         string tileZone = slotParent.GetComponentInParent<UICombatTile>().TileUUID;
-        int dieSum = 0;
-
-        List<Die> dice = new List<Die>();
-        foreach (UICombatDiceSlot slot in slotParent.GetComponentsInChildren<UICombatDiceSlot>()) {
-            if (!System.String.IsNullOrEmpty(slot.DieUUID)) {
-                Die die = _ZonesController.GetDie(slot.DieUUID);
-                dieSum += die != null ? die.Value : 0;
-
-                dice.Add(die);
-
-                _ZonesController.RemoveDie(slot.DieUUID);
-                slot.Clear();
-            }
-        }
-
         Tile tile = _PlayerCombatController.Tiles[tileZone];
 
+        List<Die> dice = new List<Die>();
+        foreach(Die die in slotParent.GetComponentsInChildren<Die>()){
+            dice.Add(die);
+            Destroy(die.gameObject);
+        }
         System.Type t = TileUtility.TileOverrideDict[tile.TileName];
         TileOverride o = System.Activator.CreateInstance(t) as TileOverride;
         o.Execute(_Enemy, _PlayerCombatController, dice, tile);
@@ -211,6 +222,7 @@ public class UICombatController : MonoBehaviour {
         if (_Enemy.IsDead() || _PlayerCombatController.IsDead()) {
             EndTurn();
         }
+
     }
 
     public void GrantReward(ItemContainer reward) {
