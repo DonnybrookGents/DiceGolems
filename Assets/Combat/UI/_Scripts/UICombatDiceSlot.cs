@@ -15,9 +15,9 @@ public class UICombatDiceSlot : MonoBehaviour, IDropHandler {
         RectTransform die = eventData.pointerDrag.GetComponent<RectTransform>();
         eventData.pointerDrag.GetComponent<DragDrop>().OnTarget = true;
 
-
         if (gameObject.transform.Find("Die")) {
-            die.localPosition = Vector2.zero;
+            eventData.pointerDrag.GetComponent<DragDrop>().OnTarget = false;
+
             return;
         }
 
