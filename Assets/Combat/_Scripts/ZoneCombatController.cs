@@ -86,15 +86,12 @@ public class ZoneCombatController : MonoBehaviour {
 
     public void PrintDiceInZones() {
         foreach (string zone in Zones.Keys) {
-            Debug.Log(zone + ":");
             PrintDiceInZones(zone);
-            Debug.Log("\n");
         }
     }
 
     public void PrintDiceInZones(string zone) {
         foreach (string uuid in Zones[zone].Keys) {
-            Debug.Log(uuid);
         }
     }
 }

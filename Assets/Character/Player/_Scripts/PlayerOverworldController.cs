@@ -13,16 +13,13 @@ public class PlayerOverworldController {
     public List<DieContainer> Bank;
 
     public void CloneData() {
-        Debug.Log("Clone Data");
         MaxHealth = PlayerData.MaxHealth;
         Health = PlayerData.Health;
         EnergyRegeneration = PlayerData.EnergyRegeneration;
         MaxEnergy = PlayerData.MaxEnergy;
         StartingEnergy = PlayerData.StartingEnergy;
         Tiles = PlayerData.CopyTiles();
-        Debug.Log("Tiles: " + Tiles.Count);
         Bank = PlayerData.CopyBank();
-        Debug.Log("Bank: " + Bank.Count);
     }
 
     public void GenerateCombatPlayer(PlayerCombatController combatPlayer) {

@@ -9,7 +9,6 @@ public class DieContainer : ItemContainer {
     public GameObject DiePrefab;
 
     public GameObject LoadDiePrefab() {
-        Debug.Log("Creating Die Prefab Copy");
         GameObject diePrefabCopy = Instantiate(DiePrefab);
         diePrefabCopy.name = DiePrefab.name;
         Die d = diePrefabCopy.GetComponent<Die>();

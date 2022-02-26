@@ -11,7 +11,6 @@ public class ActionDebuffOverride : ActionOverride {
     public void Execute(CombatCharacter defensiveCharacter, CombatCharacter offensiveCharacter, ActionContainer action) {
         ActionDebuffContainer debuff = (ActionDebuffContainer)action;
 
-        //generate damage
         StatusEffect negativeEffect = new StatusEffect();
         if (debuff.StatusEffectType == StatusEffectType.PeriodicEffect) {
             PeriodicEffectContainer effectContainer = (PeriodicEffectContainer)debuff.statusEffect;
@@ -21,23 +20,11 @@ public class ActionDebuffOverride : ActionOverride {
             negativeEffect = new ActionFilter(filterContainer.Name, filterContainer.Type, filterContainer.Priority, debuff.Efficacy, debuff.Cooldown);
         }
 
-        //loop through and apply all attacker filters
-        foreach (ActionFilter filter in offensiveCharacter.ActionFilters) {
-            if (filter.Type == FilterType.DebuffActor) {
-                System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
-                ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
-                negativeEffect = (StatusEffect)o.Execute(negativeEffect, filter);
-            }
-        }
 
-        //loop through and apply all defender filters
-        foreach (ActionFilter filter in defensiveCharacter.ActionFilters) {
-            if (filter.Type == FilterType.DebuffRecipient) {
-                System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
-                ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
-                negativeEffect = (StatusEffect)o.Execute(negativeEffect, filter);
-            }
-        }
+        negativeEffect = (StatusEffect)ActionFilterUtility.ApplyFiltersOfType(negativeEffect, offensiveCharacter.ActionFilters, FilterType.DebuffActor);
+        negativeEffect = (StatusEffect)ActionFilterUtility.ApplyFiltersOfType(negativeEffect, defensiveCharacter.ActionFilters, FilterType.DebuffRecipient);
+
+
 
         //Execute the action
         if (debuff.StatusEffectType == StatusEffectType.PeriodicEffect) {

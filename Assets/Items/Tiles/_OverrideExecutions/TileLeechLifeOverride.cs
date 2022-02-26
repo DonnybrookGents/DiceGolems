@@ -7,26 +7,15 @@ public class TileLeechLifeOverride : TileOverride {
         //generate damage
         int damage = DieUtility.SumDice(dice);
 
-        //loop through and apply all attacker filters
-        foreach (ActionFilter filter in offensiveCharacter.ActionFilters) {
-            if (filter.Type == FilterType.AttackActor) {
-                System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
-                ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
-                damage = (int)o.Execute(damage, filter);
-            }
-        }
-
-        //loop through and apply all defender filters
-        foreach (ActionFilter filter in defensiveCharacter.ActionFilters) {
-            if (filter.Type == FilterType.AttackRecipient) {
-                System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
-                ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
-                damage = (int)o.Execute(damage, filter);
-            }
-        }
+        damage = (int)ActionFilterUtility.ApplyFiltersOfType(damage, offensiveCharacter.ActionFilters, FilterType.AttackActor);
+        damage = (int)ActionFilterUtility.ApplyFiltersOfType(damage, defensiveCharacter.ActionFilters, FilterType.AttackRecipient);
 
         //Execute the action
         defensiveCharacter.TakeDamage(damage);
-        offensiveCharacter.Heal(damage/2);
+
+        int healing = damage / 3;
+        healing = (int)ActionFilterUtility.ApplyFiltersOfType(healing, defensiveCharacter.ActionFilters, FilterType.SupportActor);
+        healing = (int)ActionFilterUtility.ApplyFiltersOfType(healing, offensiveCharacter.ActionFilters, FilterType.SupportRecipient);
+        offensiveCharacter.Heal(healing);
     }
 }

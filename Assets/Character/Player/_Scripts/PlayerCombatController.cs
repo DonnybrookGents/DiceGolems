@@ -28,8 +28,6 @@ public class PlayerCombatController : CombatCharacter {
     }
 
     public void UpdateEnergy() {
-        Debug.Log("Energy");
-        Debug.Log(EnergyRegeneration);
         Energy += EnergyRegeneration;
         if (Energy > MaxEnergy) {
             Energy = MaxEnergy;

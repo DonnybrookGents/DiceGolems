@@ -6,7 +6,6 @@ public class OverworldController : MonoBehaviour {
     public PlayerContainer PlayerContainer;
 
     public void Start() {
-        Debug.Log("Overworld Controller Start");
         overWorldPlayer = new PlayerOverworldController();
         overWorldPlayer.SetPlayerContainer(PlayerContainer);
         overWorldPlayer.CloneData();

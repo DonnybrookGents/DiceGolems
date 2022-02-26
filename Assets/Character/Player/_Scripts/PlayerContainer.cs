@@ -15,13 +15,6 @@ public class PlayerContainer : ScriptableObject {
     public List<DieContainer> StartingBank;
     public List<Die> Bank;
 
-    // private void OnEnable() {
-    //     hideFlags = HideFlags.DontUnloadUnusedAsset;
-    // }
-
-    private void OnDisable() {
-        Debug.Log("OnDisable");
-    }
 
     public void CreateStartingTiles() {
 

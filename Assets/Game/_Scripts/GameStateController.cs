@@ -15,7 +15,6 @@ public class GameStateController : MonoBehaviour {
     }
 
     public void HandlePreLoadState() {
-        Debug.Log("Preload Scene");
         _IsStateReady = false;
         StartCoroutine(SceneCont.LoadOverWorld());
     }

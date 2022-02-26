@@ -4,26 +4,11 @@ using UnityEngine;
 
 public class TileHealOverride : TileOverride {
     public void Execute(CombatCharacter recipientCharacter, CombatCharacter actorCharacter, List<Die> dice, Tile tile) {
-        int healing = DieUtility.SumDice(dice); // Generate damage
+        int healing = DieUtility.SumDice(dice);
 
-        // Loop through and apply all attacker filters
-        foreach (ActionFilter filter in actorCharacter.ActionFilters) {
-            if (filter.Type == FilterType.BuffActor) {
-                System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
-                ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
-                healing = (int)o.Execute(healing, filter);
-            }
-        }
+        healing = (int)ActionFilterUtility.ApplyFiltersOfType(healing, actorCharacter.ActionFilters, FilterType.SupportActor);
+        healing = (int)ActionFilterUtility.ApplyFiltersOfType(healing, recipientCharacter.ActionFilters, FilterType.SupportRecipient);
 
-        // Loop through and apply all defender filters
-        foreach (ActionFilter filter in actorCharacter.ActionFilters) {
-            if (filter.Type == FilterType.BuffRecipient) {
-                System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
-                ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
-                healing = (int)o.Execute(healing, filter);
-            }
-        }
-
-        actorCharacter.Heal(healing); // Execute the action
+        recipientCharacter.Heal(healing); // Execute the action
     }
 }
