@@ -4,6 +4,8 @@ using UnityEngine;
 
 public enum GameState { PreLoad, Splash, MainMenu, PauseMenu, Combat, Overworld, GameOver }
 public class GameStateController : MonoBehaviour {
+
+    public static readonly string TAG = "GameController";
     public GameState State;
     public bool _IsStateReady;
 

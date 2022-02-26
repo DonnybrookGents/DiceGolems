@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebb7c34ae3717e4f96ba6139e248d2f, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
-  Priority: 0
-  Name: 0
-  Type: 0
+  Priority: 1000
+  Name: 2
+  Type: 1
