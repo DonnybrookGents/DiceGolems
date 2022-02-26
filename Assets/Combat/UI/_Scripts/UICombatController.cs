@@ -228,16 +228,17 @@ public class UICombatController : MonoBehaviour {
     public void GrantReward(ItemContainer reward) {
 
         Debug.Log("GrantReward");
+        
+        PlayerOverworldController overworldPlayer = GameObject.FindGameObjectWithTag(DDOL.TAG).GetComponent<OverworldController>().overWorldPlayer;
 
-        // if (reward.GetType() == typeof(DieContainer)) {
-        //     DieContainer dc = reward as DieContainer;
-        //     //Die rewardDie = dc.Copy();
-        //     _PlayerCombatController.AddDie(rewardDie);
-        // } else if (reward.GetType() == typeof(TileContainer)) {
-        //     TileContainer tc = reward as TileContainer;
-        //     Tile rewardTile = tc.Copy();
-        //     _PlayerCombatController.AddTile(rewardTile);
-        // }
+        if (reward.GetType() == typeof(DieContainer)) {
+            overworldPlayer.AddDie((DieContainer)reward);
+        } else if (reward.GetType() == typeof(TileContainer)) {
+            TileContainer tc = (TileContainer)reward;
+            Tile t = tc.Copy();
+            overworldPlayer.AddTile(t);
+        }
+
         LockUI();
         _StateController.IsStateControllerDriven = true;
     }

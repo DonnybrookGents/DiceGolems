@@ -57,8 +57,8 @@ public class PlayerOverworldController {
         PlayerData = null;
     }
 
-    public void AddDie(Die d) {
-        //Bank.Add(d);
+    public void AddDie(DieContainer dc) {
+        Bank.Add(dc);
     }
 
     public void AddTile(Tile t) {

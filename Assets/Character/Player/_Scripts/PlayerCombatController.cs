@@ -56,16 +56,7 @@ public class PlayerCombatController : CombatCharacter {
         Tiles.Add(t.UUID, t);
     }
 
-    public void AddCombatDie(Die d) {
-        //Bank.Add(d);
-    }
-
-    public void AddDie(Die d) {
-        PlayerData.AddDie(d);
-        AddCombatDie(d);
-    }
-    public void AddTile(Tile t) {
-        PlayerData.AddTile(t);
-        AddCombatTile(t);
+    public void AddCombatDie(GameObject die) {
+        Bank.Add(die);
     }
 }
