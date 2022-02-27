@@ -14,6 +14,6 @@ public class TileContainer : ItemContainer {
     public List<StatusEffectContainer> OptionalStatusEffects;
 
     public Tile Copy() {
-        return new Tile(TileName, Image, DiceSlots, TileLevel, TileCharges, TileParameters, OptionalStatusEffects);
+        return new Tile(TileName, FormattedName, Description, Image, DiceSlots, TileLevel, TileCharges, TileParameters, OptionalStatusEffects);
     }
 }

@@ -20,11 +20,12 @@ public class ActionDebuffOverride : ActionOverride {
             negativeEffect = new ActionFilter(filterContainer.Name, filterContainer.Type, filterContainer.Priority, debuff.Efficacy, debuff.Cooldown);
         }
 
+        negativeEffect.FormattedName = debuff.statusEffect.FormattedName;
+        negativeEffect.Description = debuff.statusEffect.Description;
+        negativeEffect.Color = debuff.statusEffect.Color;
 
         negativeEffect = (StatusEffect)ActionFilterUtility.ApplyFiltersOfType(negativeEffect, offensiveCharacter.ActionFilters, FilterType.DebuffActor);
         negativeEffect = (StatusEffect)ActionFilterUtility.ApplyFiltersOfType(negativeEffect, defensiveCharacter.ActionFilters, FilterType.DebuffRecipient);
-
-
 
         //Execute the action
         if (debuff.StatusEffectType == StatusEffectType.PeriodicEffect) {

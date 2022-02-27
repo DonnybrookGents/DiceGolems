@@ -8,37 +8,37 @@ public class TileHexOverride : TileOverride {
         //generate damage
 
 
-        
+
         int effectNumber = dice[0].Value % tile.OptionalStatusEffects.Count;
         int effectEfficacy = 1;
         int effectCooldown = 3;
         FilterType filterType = FilterType.AttackActor;
 
-        switch (effectNumber){
+        switch (effectNumber) {
             case 1:
-            effectEfficacy = 1;
-            effectCooldown = 3; 
-            break;
+                effectEfficacy = 1;
+                effectCooldown = 3;
+                break;
             case 2:
-            effectEfficacy = 1;
-            effectCooldown = 3; 
-            break;
+                effectEfficacy = 1;
+                effectCooldown = 3;
+                break;
             case 3:
-            effectEfficacy = 1;
-            effectCooldown = 3; 
-            break;
+                effectEfficacy = 1;
+                effectCooldown = 3;
+                break;
             case 4:
-            effectEfficacy = 1;
-            effectCooldown = 3; 
-            break;
+                effectEfficacy = 1;
+                effectCooldown = 3;
+                break;
             case 5:
-            effectEfficacy = 1;
-            effectCooldown = 3; 
-            break;
+                effectEfficacy = 1;
+                effectCooldown = 3;
+                break;
             case 6:
-            effectEfficacy = 1;
-            effectCooldown = 3; 
-            break;
+                effectEfficacy = 1;
+                effectCooldown = 3;
+                break;
 
 
         }
@@ -53,6 +53,9 @@ public class TileHexOverride : TileOverride {
             negativeEffect = new ActionFilter(actionFilterContainer.Name, filterType, actionFilterContainer.Priority, effectEfficacy, effectCooldown);
         }
 
+        negativeEffect.FormattedName = effectContainer.FormattedName;
+        negativeEffect.Description = effectContainer.Description;
+        negativeEffect.Color = effectContainer.Color;
 
         negativeEffect = (StatusEffect)ActionFilterUtility.ApplyFiltersOfType(negativeEffect, offensiveCharacter.ActionFilters, FilterType.DebuffActor);
         negativeEffect = (StatusEffect)ActionFilterUtility.ApplyFiltersOfType(negativeEffect, defensiveCharacter.ActionFilters, FilterType.DebuffRecipient);

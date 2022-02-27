@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Image: {fileID: 21300000, guid: f262123feb93deb45b49edb53a8e1738, type: 3}
   TileName: 6
-  Description: 
+  FormattedName: Full Counter
+  Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Pellentesque elit ullamcorper
+    dignissim cras tincidunt.
   DiceSlots: 1
   TileLevel: 0
   TileCharges: 2

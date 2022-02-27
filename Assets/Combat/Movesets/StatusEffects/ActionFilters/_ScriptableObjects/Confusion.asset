@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebb7c34ae3717e4f96ba6139e248d2f, type: 3}
   m_Name: Confusion
   m_EditorClassIdentifier: 
+  FormattedName: Confused
+  Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Vitae tempus quam pellentesque
+    nec nam. Quam viverra orci sagittis eu volutpat odio facilisis mauris.
   Priority: 1000
+  Color: {r: 0.7830189, g: 0.41416103, b: 0, a: 0}
   Name: 0
   Type: 0

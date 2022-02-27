@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Image: {fileID: 21300000, guid: f262123feb93deb45b49edb53a8e1738, type: 3}
   TileName: 0
-  Description: 
+  FormattedName: Basic Attack
+  Description: This is a Basic Attack!
   DiceSlots: 1
   TileLevel: 0
   TileCharges: -1

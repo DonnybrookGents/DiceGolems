@@ -15,12 +15,14 @@ public class UICombatController : MonoBehaviour {
     public Text WinLose;
     public Text EnergyLevel;
     public Transform DicePool;
-    public Die SelectedDie;
+    [HideInInspector] public Die SelectedDie;
     public RectTransform TileContainer;
     public RectTransform TileTemplate;
     public RectTransform DiceTemplate;
     public RectTransform PopupTemplate;
     public GameObject RewardTemplate;
+    public RectTransform PlayerStatusEffectTemplate;
+    public RectTransform EnemyStatusEffectTemplate;
 
     public List<ItemContainer> Rewards;
 
@@ -89,13 +91,106 @@ public class UICombatController : MonoBehaviour {
             newTile.Find("Send").GetComponent<Button>().onClick.AddListener(() => ActivateTile(newTile.Find("DicePlaceholder")));
             newTile.Find("Rune").GetComponent<Image>().sprite = tile.Image;
 
-            // RectTransform tooltip = newTile.Find("Tooltip") as RectTransform;
-            // tooltip.Find("Name").GetComponent<Text>().text = 
+            RectTransform tooltip = newTile.Find("Tooltip") as RectTransform;
+            tooltip.Find("Name").GetComponent<Text>().text = tile.FormattedName;
+            tooltip.Find("Description").GetComponent<Text>().text = tile.Description;
 
             offset += newTile.sizeDelta.x + padding;
         }
 
         _ZonesController.AddZone(DicePool.GetComponent<UICombatTile>().TileUUID);
+    }
+
+    public void UpdatePlayerStatusEffects(CombatCharacter character) {
+
+        float padding = 5;
+        RectTransform statusEffectsContainer = HUD.gameObject.transform.Find("Combat").Find("PlayerStatusEffects") as RectTransform;
+        float offset = -statusEffectsContainer.sizeDelta.x / 2;
+
+
+        foreach (UITooltip tooltip in statusEffectsContainer.GetComponentsInChildren<UITooltip>()) {
+            Destroy(tooltip.gameObject);
+        }
+
+        character.ActionFilters.Sort((a1, a2) => a1.Priority.CompareTo(a2.Priority));
+
+        foreach (StatusEffect statusEffect in character.ActionFilters) {
+            RectTransform icon = Instantiate<RectTransform>(PlayerStatusEffectTemplate, statusEffectsContainer);
+            icon.localPosition = new Vector2(offset, 0);
+
+            RectTransform tooltip = icon.Find("Tooltip") as RectTransform;
+            tooltip.Find("Name").GetComponent<Text>().text = statusEffect.FormattedName;
+            tooltip.Find("Description").GetComponent<Text>().text = statusEffect.Description;
+            tooltip.Find("Cooldown").Find("Value").GetComponent<Text>().text = statusEffect.Cooldown.ToString();
+            tooltip.Find("Strength").Find("Value").GetComponent<Text>().text = statusEffect.Efficacy.ToString();
+
+            statusEffect.Color.a = 1;
+            icon.GetComponent<Image>().color = statusEffect.Color;
+
+            offset += icon.sizeDelta.x + padding;
+        }
+
+        character.PeriodicEffects.Sort((a1, a2) => a1.Priority.CompareTo(a2.Priority));
+        foreach (StatusEffect statusEffect in character.PeriodicEffects) {
+            RectTransform icon = Instantiate<RectTransform>(PlayerStatusEffectTemplate, statusEffectsContainer);
+            icon.localPosition = new Vector2(offset, 0);
+
+            RectTransform tooltip = icon.Find("Tooltip") as RectTransform;
+            tooltip.Find("Name").GetComponent<Text>().text = statusEffect.FormattedName;
+            tooltip.Find("Description").GetComponent<Text>().text = statusEffect.Description;
+            tooltip.Find("Cooldown").Find("Value").GetComponent<Text>().text = statusEffect.Cooldown.ToString();
+            tooltip.Find("Strength").Find("Value").GetComponent<Text>().text = statusEffect.Efficacy.ToString();
+
+            statusEffect.Color.a = 1;
+            icon.GetComponent<Image>().color = statusEffect.Color;
+
+            offset += icon.sizeDelta.x + padding;
+        }
+
+    }
+
+    public void UpdateEnemyStatusEffects(CombatCharacter character) {
+        float padding = 5;
+        RectTransform statusEffectsContainer = HUD.gameObject.transform.Find("Combat").Find("EnemyStatusEffects") as RectTransform;
+        float offset = -statusEffectsContainer.sizeDelta.x / 2;
+
+        foreach (UITooltip tooltip in statusEffectsContainer.GetComponentsInChildren<UITooltip>()) {
+            Destroy(tooltip.gameObject);
+        }
+
+        character.ActionFilters.Sort((a1, a2) => a1.Priority.CompareTo(a2.Priority));
+        foreach (StatusEffect statusEffect in character.ActionFilters) {
+            RectTransform icon = Instantiate<RectTransform>(EnemyStatusEffectTemplate, statusEffectsContainer);
+            icon.localPosition = new Vector2(-offset, 0);
+
+            RectTransform tooltip = icon.Find("Tooltip") as RectTransform;
+            tooltip.Find("Name").GetComponent<Text>().text = statusEffect.FormattedName;
+            tooltip.Find("Description").GetComponent<Text>().text = statusEffect.Description;
+            tooltip.Find("Cooldown").Find("Value").GetComponent<Text>().text = statusEffect.Cooldown.ToString();
+            tooltip.Find("Strength").Find("Value").GetComponent<Text>().text = statusEffect.Efficacy.ToString();
+
+            statusEffect.Color.a = 1;
+            icon.GetComponent<Image>().color = statusEffect.Color;
+
+            offset += icon.sizeDelta.x + padding;
+        }
+
+        character.PeriodicEffects.Sort((a1, a2) => a1.Priority.CompareTo(a2.Priority));
+        foreach (StatusEffect statusEffect in character.PeriodicEffects) {
+            RectTransform icon = Instantiate<RectTransform>(EnemyStatusEffectTemplate, statusEffectsContainer);
+            icon.localPosition = new Vector2(-offset, 0);
+
+            RectTransform tooltip = icon.Find("Tooltip") as RectTransform;
+            tooltip.Find("Name").GetComponent<Text>().text = statusEffect.FormattedName;
+            tooltip.Find("Description").GetComponent<Text>().text = statusEffect.Description;
+            tooltip.Find("Cooldown").Find("Value").GetComponent<Text>().text = statusEffect.Cooldown.ToString();
+            tooltip.Find("Strength").Find("Value").GetComponent<Text>().text = statusEffect.Efficacy.ToString();
+
+            statusEffect.Color.a = 1;
+            icon.GetComponent<Image>().color = statusEffect.Color;
+
+            offset += icon.sizeDelta.x + padding;
+        }
     }
 
     public void LoadTileDiceSlots(RectTransform tile, int slots) {
@@ -189,7 +284,6 @@ public class UICombatController : MonoBehaviour {
 
         string tileZone = slotParent.GetComponentInParent<UICombatTile>().TileUUID;
         Tile tile = _PlayerCombatController.Tiles[tileZone];
-        Debug.Log("TileCharges: " + tile.TileCharges);
         if (tile.TileCharges == 0) {
             return;
         }
@@ -211,10 +305,12 @@ public class UICombatController : MonoBehaviour {
         UpdateEnemyHealth();
         UpdatePlayerHealth();
 
+        UpdatePlayerStatusEffects(_PlayerCombatController);
+        UpdateEnemyStatusEffects(_Enemy);
+
         if (_Enemy.IsDead() || _PlayerCombatController.IsDead()) {
             EndTurn();
         }
-
     }
 
     public void GrantReward(ItemContainer reward) {

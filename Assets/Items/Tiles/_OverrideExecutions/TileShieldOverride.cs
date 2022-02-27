@@ -8,7 +8,12 @@ public class TileShieldOverride : TileOverride {
         Debug.Log("Shield");
         tile.TileCharges--;
 
+        StatusEffectContainer effectContainer = tile.OptionalStatusEffects[0];
         ActionFilter shield = new ActionFilter(ActionFilterName.Shield, FilterType.AttackRecipient, 1000, DieUtility.SumDice(dice), 1);
+
+        shield.FormattedName = effectContainer.FormattedName;
+        shield.Description = effectContainer.Description;
+        shield.Color = effectContainer.Color;
 
         shield = (ActionFilter)ActionFilterUtility.ApplyFiltersOfType(shield, actorCharacter.ActionFilters, FilterType.BuffActor);
         shield = (ActionFilter)ActionFilterUtility.ApplyFiltersOfType(shield, actorCharacter.ActionFilters, FilterType.BuffRecipient);

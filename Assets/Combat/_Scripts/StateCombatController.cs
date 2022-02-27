@@ -98,6 +98,9 @@ public class StateCombatController : MonoBehaviour {
         _UIController.UpdateEnemyHealth();
         _UIController.UpdatePlayerHealth();
 
+        _UIController.UpdatePlayerStatusEffects(_PlayerCombatController);
+        _UIController.UpdateEnemyStatusEffects(_Enemy);
+
         _IsStateReady = true;
     }
 
@@ -138,6 +141,12 @@ public class StateCombatController : MonoBehaviour {
 
         _Enemy.HandlePeriodicEffects();
 
+        _UIController.UpdateEnemyHealth();
+        _UIController.UpdatePlayerHealth();
+
+        _UIController.UpdatePlayerStatusEffects(_PlayerCombatController);
+        _UIController.UpdateEnemyStatusEffects(_Enemy);
+
         _IsStateReady = true;
     }
 
@@ -152,6 +161,8 @@ public class StateCombatController : MonoBehaviour {
 
         _UIController.UpdateEnemyHealth();
         _UIController.UpdatePlayerHealth();
+        _UIController.UpdatePlayerStatusEffects(_PlayerCombatController);
+        _UIController.UpdateEnemyStatusEffects(_Enemy);
 
         _IsStateReady = true;
     }

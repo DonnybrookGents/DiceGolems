@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 448462136643e6b4096b3a1cf0d46e39, type: 3}
   m_Name: Poison
   m_EditorClassIdentifier: 
+  FormattedName: Poison
+  Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Vitae tempus quam pellentesque
+    nec nam. Quam viverra orci sagittis eu volutpat odio facilisis mauris.
   Priority: 10
+  Color: {r: 0.08469212, g: 0.6320754, b: 0, a: 0}
   Name: 0
