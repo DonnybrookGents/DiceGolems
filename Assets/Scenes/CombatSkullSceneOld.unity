@@ -588,6 +588,10 @@ MonoBehaviour:
   TileTemplate: {fileID: 2416795381339910429, guid: 91507007b284047498277dd3a2a0b1b4, type: 3}
   DiceTemplate: {fileID: 1484131902028581599, guid: ac37cc4fe82619a4f8164de33e14aaa5, type: 3}
   PopupTemplate: {fileID: 6877010580832960070, guid: a422353d006693a4cac4133623af8f6c, type: 3}
+  RewardTemplate: {fileID: 0}
+  Rewards:
+  - {fileID: 11400000, guid: 05ceb749a92c22c488befd2d019c8ea4, type: 2}
+  - {fileID: 11400000, guid: a96bf9c44225ef74fb0167970e1dea75, type: 2}
 --- !u!114 &185330450
 MonoBehaviour:
   m_ObjectHideFlags: 0

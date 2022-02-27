@@ -325,8 +325,8 @@ MonoBehaviour:
   PopupTemplate: {fileID: 6877010580832960070, guid: a422353d006693a4cac4133623af8f6c, type: 3}
   RewardTemplate: {fileID: 6043287691781540104, guid: cc2d99461fbc7a744ac27fdd9aad849a, type: 3}
   Rewards:
-  - {fileID: 11400000, guid: 1ce94d0d971d4eb48b5e2348d4d17d7b, type: 2}
-  - {fileID: 11400000, guid: 66866b95c4af2cd4e86aa349b66d935a, type: 2}
+  - {fileID: 11400000, guid: 7481b17cee0fe4549834dcee19f283d3, type: 2}
+  - {fileID: 11400000, guid: e9a27f411f376864b96540f0cb08e2bf, type: 2}
 --- !u!114 &185330450
 MonoBehaviour:
   m_ObjectHideFlags: 0
