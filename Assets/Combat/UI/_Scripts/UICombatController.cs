@@ -44,10 +44,12 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void UpdatePlayerHealth() {
+        PlayerHealth.gameObject.transform.parent.Find("Text").GetComponent<Text>().text = _PlayerCombatController.Health.ToString() + " / " + _PlayerCombatController.MaxHealth.ToString();
         PlayerHealth.value = (float)_PlayerCombatController.Health / (float)_PlayerCombatController.MaxHealth;
     }
 
     public void UpdateEnemyHealth() {
+        EnemyHealth.gameObject.transform.parent.Find("Text").GetComponent<Text>().text = _Enemy.Health.ToString() + " / " + _Enemy.MaxHealth.ToString();
         EnemyHealth.value = (float)_Enemy.Health / (float)_Enemy.MaxHealth;
     }
 
