@@ -15,7 +15,9 @@ MonoBehaviour:
   Name: Time Lord
   MaxHealth: 100
   Actions:
-  - Action: {fileID: 11400000, guid: 3635d5e0d73b148409f1c907024e7690, type: 2}
+  - Action: {fileID: 11400000, guid: 87428c38e026c21428a9fa9a27c03996, type: 2}
+    Weight: 0
+  - Action: {fileID: 11400000, guid: 597592caecc28374890ab938dc2ac825, type: 2}
     Weight: 2
-  - Action: {fileID: 11400000, guid: c7833b038d6dfcc46aff9ba1aa44e502, type: 2}
+  - Action: {fileID: 11400000, guid: cdb541d5e8ad0b4498e58ab040bc81b8, type: 2}
     Weight: 1

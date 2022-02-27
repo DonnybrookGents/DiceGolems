@@ -176,6 +176,7 @@ public class StateCombatController : MonoBehaviour {
         _UIController.UpdateEnemyAction(action.Name.ToString());
 
         _IsStateReady = true;
+        _Enemy.turnCounter++;
     }
 
     private IEnumerator HandleWinState() {
