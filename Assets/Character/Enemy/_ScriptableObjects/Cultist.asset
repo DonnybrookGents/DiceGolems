@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cultist
   m_EditorClassIdentifier: 
   Name: Cultist
-  MaxHealth: 5
+  MaxHealth: 50
   Actions:
   - Action: {fileID: 11400000, guid: cb3eda8413c63374cad6d23aad31a3d8, type: 2}
     Weight: 1

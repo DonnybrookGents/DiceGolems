@@ -5,12 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Tile", menuName = "ScriptableObjects/Tile")]
 public class TileContainer : ItemContainer {
     public TileName TileName;
-    public Sprite Image;
+    public string Description;
     public int DiceSlots;
     public int TileLevel;
+    public int TileCharges;
     public List<TileParameter> TileParameters;
+    public List<StatusEffectContainer> OptionalStatusEffects;
 
     public Tile Copy() {
-        return new Tile(TileName, Image, DiceSlots, TileLevel, TileParameters);
+        return new Tile(TileName, Image, DiceSlots, TileLevel, TileCharges, TileParameters, OptionalStatusEffects);
     }
 }

@@ -9,6 +9,8 @@ public class PlayerCombatController : CombatCharacter {
     public int MaxEnergy;
     public int EnergyRegeneration;
     public int Energy;
+
+    public int StartingCombatHealth;
     public List<GameObject> Bank;
 
     public GameObject GenerateDie() {

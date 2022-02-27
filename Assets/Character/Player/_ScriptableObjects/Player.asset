@@ -16,27 +16,12 @@ MonoBehaviour:
   MaxHealth: 100
   Health: 100
   MaxEnergy: 7
-  StartingEnergy: 7
-  EnergyRegeneration: 7
+  StartingEnergy: 3
+  EnergyRegeneration: 3
   StartingTiles:
   - {fileID: 11400000, guid: 1ce94d0d971d4eb48b5e2348d4d17d7b, type: 2}
   - {fileID: 11400000, guid: 66866b95c4af2cd4e86aa349b66d935a, type: 2}
-  Tiles:
-  - TileName: 0
-    Image: {fileID: 21300000, guid: f262123feb93deb45b49edb53a8e1738, type: 3}
-    UUID: 37b3e41e-dd15-4531-8db7-a82deb7408d2
-    Dice: []
-    DiceSlots: 1
-    TileLevel: 0
-    TileParameters: []
-  - TileName: 1
-    Image: {fileID: 21300000, guid: 32f0013f2b304af408b182c67fe77279, type: 3}
-    UUID: b225454c-5b6d-4905-a0f8-9d1a1a722a18
-    Dice: []
-    DiceSlots: 1
-    TileLevel: 0
-    TileParameters: []
+  Tiles: []
   StartingBank:
   - {fileID: 11400000, guid: ffd71593a8247db439570b91ff80b3bc, type: 2}
-  Bank:
-  - {fileID: 0}
+  Bank: []

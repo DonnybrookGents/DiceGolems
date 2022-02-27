@@ -20,5 +20,8 @@ public class ShieldOverride : ActionFilterOverride {
 
         return damage;
     }
+    public override void IncreaseFilter(ActionFilter original, ActionFilter newFilter) {
+        original.Efficacy += newFilter.Efficacy;
+    }
 }
 

@@ -12,14 +12,15 @@ public class ActionFilterUtility {
 
     public static Dictionary<ActionFilterName, System.Type> filterOverrideDict = new Dictionary<ActionFilterName, System.Type>(){
         {ActionFilterName.Confusion, typeof(ConfusionOverride)},
-        {ActionFilterName.Weak, typeof(WeakOverride)}
+        {ActionFilterName.Weak, typeof(WeakOverride)},
+        {ActionFilterName.Shield, typeof(ShieldOverride)}
     };
 
-    public static System.Object ApplyFiltersOfType(System.Object obj, List<ActionFilter> actionFilters, FilterType applicableFilterType){
+    public static System.Object ApplyFiltersOfType(System.Object obj, List<ActionFilter> actionFilters, FilterType applicableFilterType) {
         actionFilters.Sort((a1, a2) => a1.Priority.CompareTo(a2.Priority));
         List<ActionFilter> filters = new List<ActionFilter>();
-        foreach(ActionFilter filter in actionFilters){
-            if(filter.Type == applicableFilterType){
+        foreach (ActionFilter filter in actionFilters) {
+            if (filter.Type == applicableFilterType) {
                 System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
                 ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
                 obj = o.Execute(obj, filter);

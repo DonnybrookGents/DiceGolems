@@ -20,6 +20,9 @@ public class UICombatController : MonoBehaviour {
     public RectTransform TileTemplate;
     public RectTransform DiceTemplate;
     public RectTransform PopupTemplate;
+    public GameObject RewardTemplate;
+
+    public List<ItemContainer> Rewards;
 
     private bool UILocked = true;
     private PlayerCombatController _PlayerCombatController;
@@ -206,6 +209,10 @@ public class UICombatController : MonoBehaviour {
 
         string tileZone = slotParent.GetComponentInParent<UICombatTile>().TileUUID;
         Tile tile = _PlayerCombatController.Tiles[tileZone];
+        Debug.Log("TileCharges: " + tile.TileCharges);
+        if (tile.TileCharges == 0) {
+            return;
+        }
 
         List<Die> dice = new List<Die>();
         foreach (Die die in slotParent.GetComponentsInChildren<Die>()) {
@@ -247,8 +254,27 @@ public class UICombatController : MonoBehaviour {
 
     public void LoadRewardPopup() {
         RectTransform rewardPopup = Instantiate<RectTransform>(PopupTemplate, HUD.transform, false);
-        Debug.Log("Load Reward");
-        rewardPopup.GetComponentInChildren<Button>().onClick.AddListener(() => GrantReward(rewardPopup.GetComponentInChildren<UIReward>().Reward));
+        rewardPopup.name = PopupTemplate.name;
+        RectTransform rewardContainer = (RectTransform)rewardPopup.Find("RewardsMenu").Find("Rewards");
+        Debug.Log(rewardContainer);
+
+
+        float start = -rewardContainer.sizeDelta.x / 2;
+        float offset = rewardContainer.sizeDelta.x / (Rewards.Count + 1);
+
+
+        for (int i = 0; i < Rewards.Count; i++) {
+            Debug.Log("i: " + i);
+            Debug.Log("Count: " + Rewards.Count);
+            GameObject rewardObject = Instantiate<GameObject>(RewardTemplate, rewardContainer, false);
+            Transform t = rewardObject.GetComponent<Transform>();
+            t.localPosition = new Vector2(start + (offset * (i + 1)), 0);
+            Button b = rewardObject.GetComponentInChildren<Button>();
+            ItemContainer ic = Rewards[i];
+            b.onClick.AddListener(() => GrantReward(ic));
+            Image img = b.GetComponent<Image>();
+            img.sprite = Rewards[i].Image;
+        }
     }
 
     public void EndTurn() {
