@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78b8b8618eeee64eac87fe1cbe53edf, type: 3}
   m_Name: FullCounter
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: f262123feb93deb45b49edb53a8e1738, type: 3}
+  Image: {fileID: 21300000, guid: 013d84176868f634d947ede9485b3279, type: 3}
   TileName: 6
   FormattedName: Full Counter
   Description: This tile costs 20, then 30 to activate. The tile deals damage equal

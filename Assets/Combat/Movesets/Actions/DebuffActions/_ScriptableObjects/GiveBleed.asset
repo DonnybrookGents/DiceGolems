@@ -15,6 +15,6 @@ MonoBehaviour:
   Description: 
   Name: 5
   statusEffect: {fileID: 11400000, guid: fca4f54d30f684f45ac117f4f738eef4, type: 2}
-  StatusEffectType: 1
+  StatusEffectType: 0
   Efficacy: 0
   Cooldown: 3

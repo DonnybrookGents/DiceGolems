@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdeb36c3722bf6547bc51ce8606b66af, type: 3}
   m_Name: D6_2x3_5x3
   m_EditorClassIdentifier: 
-  Image: {fileID: 0}
+  Image: {fileID: 21300000, guid: 1a05ef7dc0bb8d140bff42157b254214, type: 3}
   Name: D6, 2&5
   Faces: 020000000200000002000000050000000500000005000000
   Images:
