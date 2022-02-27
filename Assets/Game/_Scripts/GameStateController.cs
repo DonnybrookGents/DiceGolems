@@ -17,20 +17,22 @@ public class GameStateController : MonoBehaviour {
     }
 
     public void HandlePreLoadState() {
+        Debug.Log("handlepreload");
+
         _IsStateReady = false;
         StartCoroutine(SceneCont.LoadOverWorld());
     }
 
 
-    private void Update() {
-        if (!_IsStateReady) {
-            return;
-        }
+    // private void Update() {
+    //     if (!_IsStateReady) {
+    //         return;
+    //     }
 
-        switch (State) {
-            case GameState.PreLoad:
-                HandlePreLoadState();
-                break;
-        }
-    }
+    //     switch (State) {
+    //         case GameState.PreLoad:
+    //             HandlePreLoadState();
+    //             break;
+    //     }
+    // }
 }
