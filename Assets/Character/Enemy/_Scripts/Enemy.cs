@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : CombatCharacter {
 
+    public int turnCounter = 1;
+
     public static readonly string TAG = "Enemy";
 
     public EnemyContainer EnemyData;
@@ -19,7 +21,7 @@ public class Enemy : CombatCharacter {
         Actions = new List<WeightedAction>(EnemyData.Actions);
     }
 
-    public ActionContainer QueueAction() {
+    public virtual ActionContainer QueueAction() {
         int weightSum = 0;
         foreach (WeightedAction action in Actions) {
             weightSum += action.Weight;
