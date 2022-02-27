@@ -43,6 +43,7 @@ public class Enemy : CombatCharacter {
 
     public void ExecuteQueuedAction(CombatCharacter target) {
         GetComponent<Animator>().SetTrigger("Attack");
+        Debug.Log(QueuedAction.Name);
 
         System.Type t = ActionUtility.actionOverrideDict[QueuedAction.Name];
         ActionOverride o = (ActionOverride)System.Activator.CreateInstance(t);

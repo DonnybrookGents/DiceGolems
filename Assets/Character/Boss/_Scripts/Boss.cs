@@ -11,6 +11,7 @@ public class Boss : Enemy
         if(resetCount == resetCountMeta){
             resetCount = 0;
             resetCountMeta++;
+            QueuedAction = checkpoint;
             return checkpoint;
         }
         else{

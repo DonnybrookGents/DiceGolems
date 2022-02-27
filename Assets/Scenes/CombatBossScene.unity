@@ -3666,8 +3666,33 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.31720433
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 842591129419834720, guid: 95b0fb8367385784abbf67f44c3d9499, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 95b0fb8367385784abbf67f44c3d9499, type: 3}
+--- !u!1 &1815982969 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4979673134405014664, guid: 95b0fb8367385784abbf67f44c3d9499, type: 3}
+  m_PrefabInstance: {fileID: 1815982968}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1815982970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815982969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad2e6b297af33642880ff3dafb96690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  Health: 0
+  MaxHealth: 0
+  turnCounter: 1
+  EnemyData: {fileID: 11400000, guid: 2e900588da2ec3c4f93d192f5041ca76, type: 2}
+  QueuedAction: {fileID: 0}
+  Actions: []
 --- !u!1 &1881783723
 GameObject:
   m_ObjectHideFlags: 0
