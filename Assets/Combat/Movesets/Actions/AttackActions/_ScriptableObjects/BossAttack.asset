@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BossAttack
   m_EditorClassIdentifier: 
   Description: 
-  Name: 0
-  InclusiveMinDamage: 0
-  ExclusiveMaxDamage: 0
+  Name: 6
+  InclusiveMinDamage: 15
+  ExclusiveMaxDamage: 20

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BossReset
   m_EditorClassIdentifier: 
   Description: 
-  Name: 0
+  Name: 4
   InclusiveMinDamage: 0
   ExclusiveMaxDamage: 0

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GiveBleed
   m_EditorClassIdentifier: 
   Description: 
-  Name: 0
-  statusEffect: {fileID: 0}
-  StatusEffectType: 0
+  Name: 5
+  statusEffect: {fileID: 11400000, guid: fca4f54d30f684f45ac117f4f738eef4, type: 2}
+  StatusEffectType: 1
   Efficacy: 0
-  Cooldown: 0
+  Cooldown: 3
