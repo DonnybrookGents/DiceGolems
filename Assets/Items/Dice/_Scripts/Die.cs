@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class Die : MonoBehaviour {
 
     public DieContainer DieData;
+    public string Name;
     public int[] Faces;
     public Sprite[] Images; // Change this to its own SO.
     public int Value;

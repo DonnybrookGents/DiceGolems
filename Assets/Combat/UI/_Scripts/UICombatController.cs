@@ -16,6 +16,7 @@ public class UICombatController : MonoBehaviour {
     public Text EnergyLevel;
     public Transform DicePool;
     [HideInInspector] public Die SelectedDie;
+    public RectTransform BankTooltip;
     public RectTransform TileContainer;
     public RectTransform TileTemplate;
     public RectTransform DiceTemplate;
@@ -103,6 +104,45 @@ public class UICombatController : MonoBehaviour {
         }
 
         _ZonesController.AddZone(DicePool.GetComponent<UICombatTile>().TileUUID);
+    }
+
+    public void SetBank() {
+        string diceInfo = "";
+
+        // List<string> faces = new List<string>();
+        // List<string> names = new List<string>();
+        // List<int> count = new List<int>();
+
+        Dictionary<string, string> faces = new Dictionary<string, string>();
+        Dictionary<string, int> count = new Dictionary<string, int>();
+
+
+        foreach (GameObject bankDie in _PlayerCombatController.Bank) {
+            Die die = bankDie.GetComponent<Die>();
+
+            if (!faces.ContainsKey(die.Name)) {
+                count.Add(die.Name, 1);
+
+                string facestr = "";
+                foreach (int face in die.Faces) {
+                    facestr += face + " - ";
+                }
+                faces.Add(die.Name, facestr);
+            } else {
+                count[die.Name]++;
+            }
+        }
+
+        foreach (string key in faces.Keys) {
+            string face = faces[key].Substring(0, faces[key].Length - 3);
+            float probability = ((float)count[key] / (float)_PlayerCombatController.Bank.Count) * 100f;
+
+            Debug.Log(count[key]);
+
+            diceInfo += face + "    " + System.Math.Round(probability, 0).ToString() + "%\n";
+        }
+
+        BankTooltip.Find("Description").GetComponent<Text>().text = diceInfo;
     }
 
     public void UpdatePlayerStatusEffects(CombatCharacter character) {

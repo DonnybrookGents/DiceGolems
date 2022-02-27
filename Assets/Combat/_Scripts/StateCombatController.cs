@@ -74,6 +74,7 @@ public class StateCombatController : MonoBehaviour {
         // Set play and energy level.
         _UIController.UpdatePlayerHealth();
         _UIController.UpdateEnemyHealth();
+        _UIController.SetBank();
 
         // Select enemy name and first action.
         //set enemy action, pass to ui

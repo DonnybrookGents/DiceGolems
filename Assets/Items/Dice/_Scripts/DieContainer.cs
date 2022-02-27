@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "Die Instance", menuName = "ScriptableObjects/Die")]
 public class DieContainer : ItemContainer {
+    public string Name;
     public int[] Faces;
     public Sprite[] Images;
 
@@ -13,6 +14,7 @@ public class DieContainer : ItemContainer {
         diePrefabCopy.name = DiePrefab.name;
         Die d = diePrefabCopy.GetComponent<Die>();
         Image i = diePrefabCopy.GetComponent<Image>();
+        d.Name = Name;
         d.Faces = Faces;
         d.Images = Images;
         d.DieData = this;
