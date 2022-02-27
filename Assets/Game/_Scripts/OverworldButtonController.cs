@@ -8,13 +8,13 @@ public class OverworldButtonController : MonoBehaviour {
     public Button[] Buttons;
     void Start() {
         winCount = GameObject.FindGameObjectWithTag(GameStateController.TAG).GetComponent<OverworldController>().Wins;
-        for (int i = 0; i < Buttons.Length; i++) {
-            if (i == winCount) {
-                Buttons[i].interactable = true;
-            } else {
-                Buttons[i].interactable = false;
-            }
-        }
+        // for (int i = 0; i < Buttons.Length; i++) {
+        //     if (i == winCount) {
+        //         Buttons[i].interactable = true;
+        //     } else {
+        //         Buttons[i].interactable = false;
+        //     }
+        // }
     }
 
     //add what to do after beating the boss
