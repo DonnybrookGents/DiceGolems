@@ -198,7 +198,7 @@ public class UICombatController : MonoBehaviour {
         //     }
         // }
 
-        
+
 
         // System.Type t = TileUtility.TileOverrideDict[tile.TileName];
         // TileOverride o = System.Activator.CreateInstance(t) as TileOverride;
@@ -208,10 +208,12 @@ public class UICombatController : MonoBehaviour {
         Tile tile = _PlayerCombatController.Tiles[tileZone];
 
         List<Die> dice = new List<Die>();
-        foreach(Die die in slotParent.GetComponentsInChildren<Die>()){
+        foreach (Die die in slotParent.GetComponentsInChildren<Die>()) {
             dice.Add(die);
             Destroy(die.gameObject);
         }
+
+        _PlayerCombatController.GetComponent<Animator>().SetTrigger("Attack");
         System.Type t = TileUtility.TileOverrideDict[tile.TileName];
         TileOverride o = System.Activator.CreateInstance(t) as TileOverride;
         o.Execute(_Enemy, _PlayerCombatController, dice, tile);
@@ -228,7 +230,7 @@ public class UICombatController : MonoBehaviour {
     public void GrantReward(ItemContainer reward) {
 
         Debug.Log("GrantReward");
-        
+
         PlayerOverworldController overworldPlayer = GameObject.FindGameObjectWithTag(DDOL.TAG).GetComponent<OverworldController>().overWorldPlayer;
 
         if (reward.GetType() == typeof(DieContainer)) {
