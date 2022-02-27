@@ -205,6 +205,8 @@ public class StateCombatController : MonoBehaviour {
         _UIController.UpdateWinLose("Defeat", Color.red);
 
         //_PlayerCombatController.Respawn();
+        OverworldController owController = GameObject.FindGameObjectWithTag(GameStateController.TAG).GetComponent<OverworldController>();
+        owController.Wins = 0;
 
         StartCoroutine(_SceneController.LoadOverWorld());
     }
