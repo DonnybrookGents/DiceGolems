@@ -20,7 +20,6 @@ public class StateCombatController : MonoBehaviour {
     public bool IsDead;
     public bool IsVictorious;
     public bool IsStateControllerDriven;
-
     private SceneController _SceneController;
     private PlayerCombatController _PlayerCombatController;
     private Enemy _Enemy;
