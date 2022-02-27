@@ -86,6 +86,9 @@ public class UICombatController : MonoBehaviour {
             newTile.Find("Send").GetComponent<Button>().onClick.AddListener(() => ActivateTile(newTile.Find("DicePlaceholder")));
             newTile.Find("Rune").GetComponent<Image>().sprite = tile.Image;
 
+            // RectTransform tooltip = newTile.Find("Tooltip") as RectTransform;
+            // tooltip.Find("Name").GetComponent<Text>().text = 
+
             offset += newTile.sizeDelta.x + padding;
         }
 
@@ -180,29 +183,6 @@ public class UICombatController : MonoBehaviour {
     }
 
     public void ActivateTile(Transform slotParent) {
-        // if (UILocked) {
-        //     return;
-        // }
-        // int dieSum = 0;
-
-        // List<Die> dice = new List<Die>();
-        // foreach (UICombatDiceSlot slot in slotParent.GetComponentsInChildren<UICombatDiceSlot>()) {
-        //     if (!System.String.IsNullOrEmpty(slot.DieUUID)) {
-        //         Die die = _ZonesController.GetDie(slot.DieUUID);
-        //         dieSum += die != null ? die.Value : 0;
-
-        //         dice.Add(die);
-
-        //         _ZonesController.RemoveDie(slot.DieUUID);
-        //         slot.Clear();
-        //     }
-        // }
-
-
-
-        // System.Type t = TileUtility.TileOverrideDict[tile.TileName];
-        // TileOverride o = System.Activator.CreateInstance(t) as TileOverride;
-        // o.Execute(_Enemy, _PlayerCombatController, dice, tile);
 
         string tileZone = slotParent.GetComponentInParent<UICombatTile>().TileUUID;
         Tile tile = _PlayerCombatController.Tiles[tileZone];
