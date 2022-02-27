@@ -16,14 +16,14 @@ EditorBuildSettings:
     guid: 5be8547efb9249748b3976deb80c28da
   - enabled: 1
     path: Assets/Scenes/CombatSkullScene.unity
-    guid: 72db9c417017f5e408b7e30e5a10b4b1
+    guid: a166c0e78d5037d4a950a5818db183bc
   - enabled: 1
     path: Assets/Scenes/CombatDarkScene.unity
-    guid: 3b78e50cd40d5564f875a3c5f9c93928
+    guid: bcf9b1be61ebb6a4caa735a7f064730f
   - enabled: 1
     path: Assets/Scenes/CombatCultistScene.unity
-    guid: 694a26935db24894bb5b8b04a38845fd
+    guid: ce54b2d89a487fc46895ecd8749a1d06
   - enabled: 1
     path: Assets/Scenes/CombatBossScene.unity
-    guid: f06672d9fbc187d41ba307ff69d50e66
+    guid: 0af49e25b85724e4cba567f7950ac6e8
   m_configObjects: {}
