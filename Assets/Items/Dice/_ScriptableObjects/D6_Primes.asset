@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdeb36c3722bf6547bc51ce8606b66af, type: 3}
   m_Name: D6_Primes
   m_EditorClassIdentifier: 
-  Image: {fileID: 0}
+  Image: {fileID: 21300000, guid: 3896c6bb36b33774893ff5aa583785db, type: 3}
   Name: D6 Primes
   Faces: 01000000020000000300000005000000070000000b000000
   Images:

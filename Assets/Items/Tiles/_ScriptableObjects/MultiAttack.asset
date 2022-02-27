@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78b8b8618eeee64eac87fe1cbe53edf, type: 3}
   m_Name: MultiAttack
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: f262123feb93deb45b49edb53a8e1738, type: 3}
+  Image: {fileID: 21300000, guid: f5c79edc01ae4ff40b76d2f36cab6777, type: 3}
   TileName: 9
   FormattedName: Multiattack
-  Description: 
+  Description: This attack counts moves down the die face. When you get to the lowest
+    die face, the die is consumed.
   DiceSlots: 1
   TileLevel: 0
   TileCharges: -1

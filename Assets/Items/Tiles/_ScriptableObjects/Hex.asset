@@ -18,7 +18,7 @@ MonoBehaviour:
   Description: 'Applies a status effect based on what die is put on the tile.
 
     1:
-    Bleed, 2: Poison, 3: Weak, 4: Dazed'
+    Bleed, 2: Poison, 3: Weak, 4: Dazed, Confusion: 5, '
   DiceSlots: 1
   TileLevel: 0
   TileCharges: -1
@@ -30,3 +30,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 62c002c85649b864bbd76fc26e5a9e0c, type: 2}
   - {fileID: 11400000, guid: 22304cedc9e39ee459fc737604c94203, type: 2}
   - {fileID: 11400000, guid: 4f399d6ef8e300d47a4515a89947a5ba, type: 2}
+  - {fileID: 11400000, guid: 83a83fef2def1244c98c29a7b7fbe7b2, type: 2}
