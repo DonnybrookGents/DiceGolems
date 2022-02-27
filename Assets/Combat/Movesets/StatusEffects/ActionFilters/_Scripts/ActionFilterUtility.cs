@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ActionFilterName { Confusion, Weak, Shield };
+public enum ActionFilterName { Confusion, Weak, Shield, Dazed };
 
 public enum FilterType { AttackActor, AttackRecipient, DebuffActor, DebuffRecipient, BuffActor, BuffRecipient, SupportActor, SupportRecipient };
 //attacks (damage) and support (healing) expect an int
@@ -13,7 +13,8 @@ public class ActionFilterUtility {
     public static Dictionary<ActionFilterName, System.Type> filterOverrideDict = new Dictionary<ActionFilterName, System.Type>(){
         {ActionFilterName.Confusion, typeof(ConfusionOverride)},
         {ActionFilterName.Weak, typeof(WeakOverride)},
-        {ActionFilterName.Shield, typeof(ShieldOverride)}
+        {ActionFilterName.Shield, typeof(ShieldOverride)},
+        {ActionFilterName.Dazed, typeof(DazedOverride)}
     };
 
     public static System.Object ApplyFiltersOfType(System.Object obj, List<ActionFilter> actionFilters, FilterType applicableFilterType) {

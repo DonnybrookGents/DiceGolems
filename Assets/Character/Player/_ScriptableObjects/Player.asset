@@ -16,7 +16,7 @@ MonoBehaviour:
   MaxHealth: 100
   Health: 100
   MaxEnergy: 7
-  StartingEnergy: 3
+  StartingEnergy: 0
   EnergyRegeneration: 3
   StartingTiles:
   - {fileID: 11400000, guid: 1ce94d0d971d4eb48b5e2348d4d17d7b, type: 2}
