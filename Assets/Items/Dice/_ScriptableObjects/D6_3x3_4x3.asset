@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: D6_3x3_4x3
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
+  Name: D6, 3&4
   Faces: 030000000300000003000000040000000400000004000000
   Images:
   - {fileID: 21300000, guid: 3896c6bb36b33774893ff5aa583785db, type: 3}
