@@ -26,14 +26,27 @@ public abstract class CombatCharacter : MonoBehaviour {
         PeriodicEffects.Add(effect);
     }
 
+    public void PrintActionFilters(){
+        foreach(ActionFilter filter in ActionFilters){
+            Debug.Log(filter.Name + ": " + filter.Efficacy + ", " + filter.Cooldown);
+        }
+    }
+
     public virtual void AddActionFilter(ActionFilter filter) {
+        PrintActionFilters();
+        Debug.Log("Adding Shield");
         foreach (ActionFilter af in ActionFilters) {
             if (af.Name == filter.Name) {
-                af.Cooldown += filter.Cooldown;
+                System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
+                ActionFilterOverride o = (ActionFilterOverride)System.Activator.CreateInstance(t);
+                o.IncreaseFilter(af, filter);
+                PrintActionFilters();
                 return;
             }
         }
         ActionFilters.Add(filter);
+        
+        PrintActionFilters();
     }
 
     public bool IsDead() {

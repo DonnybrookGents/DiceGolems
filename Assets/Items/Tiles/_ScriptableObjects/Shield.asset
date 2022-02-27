@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78b8b8618eeee64eac87fe1cbe53edf, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
-  TileName: 1
   Image: {fileID: 21300000, guid: 32f0013f2b304af408b182c67fe77279, type: 3}
+  TileName: 3
+  Description: 
   DiceSlots: 1
   TileLevel: 0
+  TileCharges: -1
   TileParameters: []
+  OptionalStatusEffects: []

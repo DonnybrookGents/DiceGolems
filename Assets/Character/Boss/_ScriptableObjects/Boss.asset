@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   Name: Time Lord
-  MaxHealth: 5
+  MaxHealth: 100
   Actions:
   - Action: {fileID: 11400000, guid: 3635d5e0d73b148409f1c907024e7690, type: 2}
     Weight: 2

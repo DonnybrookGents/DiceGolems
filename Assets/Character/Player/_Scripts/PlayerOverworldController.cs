@@ -25,6 +25,7 @@ public class PlayerOverworldController {
     public void GenerateCombatPlayer(PlayerCombatController combatPlayer) {
         combatPlayer.PlayerData = this;
         combatPlayer.MaxHealth = MaxHealth;
+        combatPlayer.StartingCombatHealth = Health;
         combatPlayer.Health = Health;
         combatPlayer.MaxEnergy = MaxEnergy;
         combatPlayer.Energy = StartingEnergy;
