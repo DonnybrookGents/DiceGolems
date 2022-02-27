@@ -8,6 +8,8 @@ public class UITooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private bool _IsHovering = false;
 
     public void OnPointerEnter(PointerEventData eventData) {
+        Debug.Log("test");
+
         _IsHovering = true;
         StartCoroutine(ShowTooltip(1));
     }

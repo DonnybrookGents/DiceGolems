@@ -24,4 +24,6 @@ MonoBehaviour:
   Tiles: []
   StartingBank:
   - {fileID: 11400000, guid: ffd71593a8247db439570b91ff80b3bc, type: 2}
+  - {fileID: 11400000, guid: 05ceb749a92c22c488befd2d019c8ea4, type: 2}
+  - {fileID: 11400000, guid: a96bf9c44225ef74fb0167970e1dea75, type: 2}
   Bank: []
