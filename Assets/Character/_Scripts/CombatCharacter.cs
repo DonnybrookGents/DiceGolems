@@ -34,7 +34,6 @@ public abstract class CombatCharacter : MonoBehaviour {
 
     public virtual void AddActionFilter(ActionFilter filter) {
         PrintActionFilters();
-        Debug.Log("Adding Shield");
         foreach (ActionFilter af in ActionFilters) {
             if (af.Name == filter.Name) {
                 System.Type t = ActionFilterUtility.filterOverrideDict[filter.Name];
