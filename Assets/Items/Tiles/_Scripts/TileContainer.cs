@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Tile", menuName = "ScriptableObjects/Tile")]
 public class TileContainer : ItemContainer {
     public TileName TileName;
-    public string Description;
+    public string FormattedName;
+    [TextArea(3, 5)] public string Description;
     public int DiceSlots;
     public int TileLevel;
     public int TileCharges;
