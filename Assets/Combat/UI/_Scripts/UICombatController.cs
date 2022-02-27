@@ -25,6 +25,8 @@ public class UICombatController : MonoBehaviour {
     public RectTransform PlayerStatusEffectTemplate;
     public RectTransform EnemyStatusEffectTemplate;
 
+    private int CurrentDiceCount = 0;
+
     public List<ItemContainer> Rewards;
 
     private bool UILocked = true;
@@ -252,7 +254,7 @@ public class UICombatController : MonoBehaviour {
         if (UILocked) {
             return;
         }
-        if (_PlayerCombatController.GetEnergy() > 0) {
+        if (_PlayerCombatController.GetEnergy() > 0 && CurrentDiceCount < 7) {
             UICombatDiceSlot poolSlot = GetEmptyPoolDiceSlot();
 
             if (poolSlot == null) {
@@ -262,6 +264,7 @@ public class UICombatController : MonoBehaviour {
             GameObject rolledDie = _PlayerCombatController.GenerateDie();
 
             poolSlot.Set(rolledDie.GetComponent<RectTransform>());
+            CurrentDiceCount++;
             //_ZonesController.AddDie(DicePool.GetComponent<UICombatTile>().TileUUID, rolledDie);
         }
 
@@ -334,6 +337,7 @@ public class UICombatController : MonoBehaviour {
         foreach (Die die in slotParent.GetComponentsInChildren<Die>()) {
             dice.Add(die);
             Destroy(die.gameObject);
+            CurrentDiceCount--;
         }
 
         if (dice.Count > 0) {
@@ -403,9 +407,9 @@ public class UICombatController : MonoBehaviour {
             return;
         }
 
-        foreach (UICombatDiceSlot diceSlot in HUD.GetComponentsInChildren<UICombatDiceSlot>()) {
-            diceSlot.Clear();
-        }
+        // foreach (UICombatDiceSlot diceSlot in HUD.GetComponentsInChildren<UICombatDiceSlot>()) {
+        //     diceSlot.Clear();
+        // }
 
         _StateController.IsStateControllerDriven = true;
     }
