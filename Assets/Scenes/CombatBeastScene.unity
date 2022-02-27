@@ -364,8 +364,9 @@ MonoBehaviour:
   PlayerStatusEffectTemplate: {fileID: 8332338130490192764, guid: 73283d0909c182642a72e69f8669da07, type: 3}
   EnemyStatusEffectTemplate: {fileID: 8332338130490192764, guid: a9809f83a6ec9e544b56d2f6760dfb5f, type: 3}
   Rewards:
-  - {fileID: 11400000, guid: 7481b17cee0fe4549834dcee19f283d3, type: 2}
+  - {fileID: 11400000, guid: c44277113eca0f34781ee9813ad87f4d, type: 2}
   - {fileID: 11400000, guid: e9a27f411f376864b96540f0cb08e2bf, type: 2}
+  - {fileID: 11400000, guid: ff12498ac4d5ce644b6952ca188794e2, type: 2}
 --- !u!114 &185330450
 MonoBehaviour:
   m_ObjectHideFlags: 0

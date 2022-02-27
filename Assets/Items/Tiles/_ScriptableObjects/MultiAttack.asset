@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c78b8b8618eeee64eac87fe1cbe53edf, type: 3}
-  m_Name: LeechLife
+  m_Name: MultiAttack
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: 967006b40936a574a8bf000aa5436f45, type: 3}
-  TileName: 2
-  FormattedName: Leech Life
-  Description: Deals damage equal to the dice value, and heals you for a third of
-    the damage done.
+  Image: {fileID: 21300000, guid: f262123feb93deb45b49edb53a8e1738, type: 3}
+  TileName: 9
+  FormattedName: Multiattack
+  Description: 
   DiceSlots: 1
   TileLevel: 0
   TileCharges: -1

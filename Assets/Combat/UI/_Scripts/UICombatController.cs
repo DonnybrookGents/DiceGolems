@@ -293,11 +293,29 @@ public class UICombatController : MonoBehaviour {
             return;
         }
 
+
+
         List<Die> dice = new List<Die>();
         foreach (Die die in slotParent.GetComponentsInChildren<Die>()) {
-            dice.Add(die);
-            Destroy(die.gameObject);
-            CurrentDiceCount--;
+            if (tile.TileName == TileName.Multiattack) {
+
+                dice.Add(die);
+                List<int> intList = new List<int>(die.Faces);
+                int index = intList.FindIndex(a => a == die.Value);
+
+
+                Debug.Log(index);
+                if (index == 0) {
+                    Destroy(die.gameObject);
+                    CurrentDiceCount--;
+                } else {
+                    die.SetFace(index - 1);
+                }
+            } else {
+                dice.Add(die);
+                Destroy(die.gameObject);
+                CurrentDiceCount--;
+            }
         }
 
         if (dice.Count > 0) {
@@ -307,6 +325,8 @@ public class UICombatController : MonoBehaviour {
         System.Type t = TileUtility.TileOverrideDict[tile.TileName];
         TileOverride o = System.Activator.CreateInstance(t) as TileOverride;
         o.Execute(_Enemy, _PlayerCombatController, dice, tile);
+
+
 
         UpdateEnemyHealth();
         UpdatePlayerHealth();

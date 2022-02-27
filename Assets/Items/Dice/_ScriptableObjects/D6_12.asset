@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdeb36c3722bf6547bc51ce8606b66af, type: 3}
-  m_Name: D6_1x3_6x3
+  m_Name: D6_12
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
-  Faces: 010000000100000001000000060000000600000006000000
+  Faces: 010000000100000001000000010000000c0000000c000000
   Images:
   - {fileID: 21300000, guid: 6f13e7e5d360d9b4bada93687ca06933, type: 3}
   - {fileID: 21300000, guid: 6f13e7e5d360d9b4bada93687ca06933, type: 3}
   - {fileID: 21300000, guid: 6f13e7e5d360d9b4bada93687ca06933, type: 3}
-  - {fileID: 21300000, guid: 4eaa0d7dc9fc2a24385b84f9b51db472, type: 3}
-  - {fileID: 21300000, guid: 4eaa0d7dc9fc2a24385b84f9b51db472, type: 3}
-  - {fileID: 21300000, guid: 4eaa0d7dc9fc2a24385b84f9b51db472, type: 3}
-  DiePrefab: {fileID: 5887571185364558703, guid: 6a7d5e349d96e424f85f39ff9fcdd721, type: 3}
+  - {fileID: 21300000, guid: 6f13e7e5d360d9b4bada93687ca06933, type: 3}
+  - {fileID: 21300000, guid: 5b7a92c765398e14e94c83e53d24368b, type: 3}
+  - {fileID: 21300000, guid: 5b7a92c765398e14e94c83e53d24368b, type: 3}
+  DiePrefab: {fileID: 0}

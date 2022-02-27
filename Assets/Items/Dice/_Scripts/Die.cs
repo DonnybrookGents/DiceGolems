@@ -19,6 +19,16 @@ public class Die : MonoBehaviour {
         return Value;
     }
 
+    public int SetFace(int faceIndex) {
+        
+
+        Value = Faces[faceIndex];
+        //set image
+        GetComponent<Image>().sprite = Images[faceIndex];
+
+        return Value;
+    }
+
     public void Start() {
         UUID = System.Guid.NewGuid().ToString();
     }
