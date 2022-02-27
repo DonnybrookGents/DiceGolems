@@ -220,7 +220,10 @@ public class UICombatController : MonoBehaviour {
             Destroy(die.gameObject);
         }
 
-        _PlayerCombatController.GetComponent<Animator>().SetTrigger("Attack");
+        if (dice.Count > 0) {
+            _PlayerCombatController.GetComponent<Animator>().SetTrigger("Attack");
+        }
+
         System.Type t = TileUtility.TileOverrideDict[tile.TileName];
         TileOverride o = System.Activator.CreateInstance(t) as TileOverride;
         o.Execute(_Enemy, _PlayerCombatController, dice, tile);

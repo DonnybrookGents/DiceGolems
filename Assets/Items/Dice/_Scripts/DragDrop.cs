@@ -39,6 +39,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         } else {
             Moveable.SetParent(OriginalSlot, false);
             Moveable.anchoredPosition = Vector2.zero;
+            Moveable.localScale = new Vector2(1, 1);
         }
     }
 }

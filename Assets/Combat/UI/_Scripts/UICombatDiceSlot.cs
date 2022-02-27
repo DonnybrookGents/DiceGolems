@@ -23,6 +23,7 @@ public class UICombatDiceSlot : MonoBehaviour, IDropHandler {
 
         die.SetParent(transform, false);
         die.localPosition = Vector2.zero;
+        die.localScale = new Vector2(1, 1);
     }
 
     public void Set(RectTransform die) {
